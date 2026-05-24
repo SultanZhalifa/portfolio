@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiDownload } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { data } from '../data';
 
 function useCountUp(target, inView, duration = 1400) {
@@ -160,7 +160,7 @@ export default function Hero() {
             className="btn btn-ghost"
             id="hero-download-cv-btn"
           >
-            <FiDownload size={13} /> Resume
+            <FiFileText size={13} /> Resume
           </a>
           <a href="#contact" className="btn btn-ghost" id="hero-contact-btn">
             Get in Touch
