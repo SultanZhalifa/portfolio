@@ -8,7 +8,6 @@ import Certifications from './components/Certifications';
 import Contact        from './components/Contact';
 import Footer         from './components/Footer';
 import ProgressBar    from './components/ProgressBar';
-import Cursor         from './components/Cursor';
 import SideNav        from './components/SideNav';
 import BackToTop      from './components/BackToTop';
 
@@ -16,7 +15,6 @@ export default function App() {
   return (
     <>
       <ProgressBar />
-      <Cursor />
       <SideNav />
       <BackToTop />
       <Navbar />
