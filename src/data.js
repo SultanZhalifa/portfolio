@@ -86,7 +86,7 @@ export const data = {
       description:
         "Built an object detection pipeline using YOLOv8 and YOLOv11 to track warehouse inventory in real time. Contributed to validation and accuracy testing of detection output.",
       tech: ["Python", "YOLOv8", "YOLOv11", "PostgreSQL", "JavaScript"],
-      github: "https://github.com/SultanZhalifa/smart-warehouse",
+      github: "https://github.com/SultanZhalifa/smartwarehouse-ai",
       demo: null,
       featured: true,
       context: "Group Project, Software Engineering Course",
