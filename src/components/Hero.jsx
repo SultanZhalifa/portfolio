@@ -155,7 +155,8 @@ export default function Hero() {
           </a>
           <a
             href="/Sultan_CV_General.pdf"
-            download
+            target="_blank"
+            rel="noreferrer"
             className="btn btn-ghost"
             id="hero-download-cv-btn"
           >
