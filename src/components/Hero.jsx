@@ -42,11 +42,14 @@ function StatItem({ value, suffix, label, inView, showDivider }) {
     <div className="hero-stat-item">
       {showDivider && <div className="hero-stat-divider" />}
       <div>
-        <div style={{
-          fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-          fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
-          lineHeight: 1,
-        }}>
+        <div
+          translate="no"
+          style={{
+            fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+            fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
+            lineHeight: 1,
+          }}
+        >
           {inView ? counted : 0}{suffix}
         </div>
         <div style={{
@@ -63,7 +66,7 @@ function StatItem({ value, suffix, label, inView, showDivider }) {
 
 export default function Hero() {
   const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: '-60px' });
+  const statsInView = useInView(statsRef, { once: true, margin: '0px', threshold: 0.1 });
   return (
     <section
       id="hero"
@@ -117,6 +120,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="hero-name"
+          translate="no"
           style={{
             fontFamily: 'Space Grotesk',
             fontWeight: 800,
@@ -254,7 +258,7 @@ export default function Hero() {
       >
         <div className="marquee-track">
           {marqueeItems.map((tech, i) => (
-            <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '24px', paddingRight: '24px' }}>
+            <span key={i} translate="no" style={{ display: 'inline-flex', alignItems: 'center', gap: '24px', paddingRight: '24px' }}>
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
                 color: '#2a2a2a', letterSpacing: '0.06em', whiteSpace: 'nowrap',
