@@ -6,7 +6,7 @@ export const data = {
   title: "Informatics Student",
   subtitle: "Fullstack & AI Developer",
   summary:
-    "Informatics undergraduate at President University, 5th semester, with prior industry experience as a contract production worker at Honda Prospect Motor. Comfortable operating in structured environments with daily targets, and now applying that same work ethic to technical projects across cybersecurity, computer vision, and Python development. Open to internship opportunities in IT, software engineering, and AI.",
+    "Informatics undergraduate at President University with hands-on experience across fullstack web, Android, and AI-integrated systems. Wrote 51 automated unit tests for an Android project using JUnit 4, MockK, and Turbine with GitHub Actions CI. Built and deployed a React web app with Gemini AI integration. Brings additional depth from a cybersecurity background in vulnerability assessment and penetration testing, and a manufacturing quality background from PT Honda Prospect Motor.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
@@ -18,39 +18,38 @@ export const data = {
       period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "5th semester, focusing on software engineering, applied AI, and information security.",
-        "Relevant coursework: Algorithms and Data Structures, Database Systems, Computer Networks, Operating Systems, Machine Learning.",
+        "5th semester. Coursework: Algorithms and Data Structures, Database Systems, Software Engineering, Computer Networks, Operating Systems.",
       ],
     },
   ],
 
   skills: [
     {
-      category: "Cybersecurity & Forensics",
+      category: "Languages & Web",
       items: [
-        "Network Security", "Penetration Testing", "Vulnerability Assessment",
-        "Digital Forensics", "Malware Analysis", "Incident Response", "Ethical Hacking",
+        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "SQL",
+        "React", "Next.js", "Node.js", "Express", "FastAPI", "Flask", "Tailwind CSS",
       ],
     },
     {
-      category: "Development & AI",
+      category: "Mobile & Testing",
       items: [
-        "Python", "JavaScript", "React", "FastAPI", "Machine Learning",
-        "Computer Vision", "YOLOv8 / YOLOv11", "Gradio", "AI Integration", "SDLC",
+        "Android (Kotlin)", "MVVM", "Room", "Coroutines",
+        "JUnit 4", "MockK", "Turbine", "GitHub Actions CI", "Manual Testing", "Edge Case Analysis",
       ],
     },
     {
-      category: "Tools & Infrastructure",
+      category: "AI & Data",
       items: [
-        "Linux Administration", "SQL", "Docker", "Containerization",
-        "VMware", "VirtualBox", "Cloud Computing", "Git & GitHub", "AI-Powered IDEs",
+        "Gemini AI", "YOLOv8", "YOLOv11", "Chart.js",
+        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Room ORM",
       ],
     },
     {
-      category: "Professional Skills",
+      category: "Tools & Security",
       items: [
-        "Project Management", "Problem Solving", "Analytical Thinking",
-        "Technical Research", "Team Collaboration",
+        "Git", "GitHub", "Docker", "Linux", "REST API", "Android Studio",
+        "Vulnerability Assessment", "Penetration Testing", "Digital Forensics", "Network Security",
       ],
     },
   ],
@@ -58,36 +57,48 @@ export const data = {
   projects: [
     {
       id: 1,
-      title: "Smart Warehouse",
-      subtitle: "AI Powered Object Detection & Inventory Management System",
+      title: "fintrack-ai",
+      subtitle: "AI-Powered Personal Finance Tracker",
       description:
-        "Built an inventory system using computer vision to detect stock items and surface live data through a connected web dashboard. Delivered as a team of five for the Software Engineering course at President University.",
-      tech: ["JavaScript", "Python", "Computer Vision", "YOLOv8", "React", "FastAPI", "Docker"],
-      github: "https://github.com/SultanZhalifa/smart-warehouse",
-      demo: null,
+        "Built a React web app with Chart.js for spending visualization and Gemini AI for natural language financial insights. Deployed on Vercel.",
+      tech: ["React", "Chart.js", "Gemini AI", "JavaScript", "Tailwind CSS"],
+      github: "https://github.com/SultanZhalifa/fintrack-ai",
+      demo: "https://fintrack-ai.vercel.app",
       featured: true,
-      context: "Group 5, Software Engineering Course",
+      context: "Personal Project",
     },
     {
       id: 2,
-      title: "TaskFlow",
-      subtitle: "Modern Task Manager Web Application",
+      title: "MiniBookLibrary",
+      subtitle: "Android App with 51 Automated Unit Tests and CI",
       description:
-        "Designed and built a clean browser-based task manager that lets users create, organize, and track personal tasks with an intuitive interface.",
-      tech: ["JavaScript", "HTML", "CSS"],
-      github: "https://github.com/SultanZhalifa/TaskFlow",
+        "Rewrote a Java + raw SQLite class project from scratch in Kotlin with MVVM, Room, and Coroutines. Wrote 51 unit tests covering authentication flows, book CRUD, ViewModel state transitions, search and filter, form validation, and Google Books API parsing including edge cases. Set up GitHub Actions CI to run the full suite on every push.",
+      tech: ["Kotlin", "JUnit 4", "MockK", "Turbine", "Room", "MVVM", "GitHub Actions CI"],
+      github: "https://github.com/SultanZhalifa/MiniBookLibrary",
       demo: null,
       featured: true,
       context: "Personal Project",
     },
     {
       id: 3,
-      title: "MiniBookLibrary",
-      subtitle: "Android App for Personal Book Collection Management",
+      title: "Smart Warehouse",
+      subtitle: "AI Inventory Management System",
       description:
-        "Developed an Android application with user login and full CRUD features for managing a personal book collection, with local data persistence via SQLite.",
-      tech: ["Android", "SQLite", "Java"],
-      github: "https://github.com/SultanZhalifa/MiniBookLibrary",
+        "Built an object detection pipeline using YOLOv8 and YOLOv11 to track warehouse inventory in real time. Contributed to validation and accuracy testing of detection output.",
+      tech: ["Python", "YOLOv8", "YOLOv11", "PostgreSQL", "JavaScript"],
+      github: "https://github.com/SultanZhalifa/smart-warehouse",
+      demo: null,
+      featured: true,
+      context: "Group Project, Software Engineering Course",
+    },
+    {
+      id: 4,
+      title: "TaskFlow",
+      subtitle: "Task Management Web Application",
+      description:
+        "Built a full CRUD task manager with filtering and status tracking. Self-tested core flows and failure states before each release.",
+      tech: ["React", "JavaScript", "Tailwind CSS"],
+      github: "https://github.com/SultanZhalifa/TaskFlow",
       demo: null,
       featured: false,
       context: "Personal Project",
@@ -101,8 +112,8 @@ export const data = {
       period: "Apr 2023 — Apr 2024",
       location: "Karawang, Indonesia",
       points: [
-        "Worked as a contract employee on the Repair AF / Welding Division assembly line, carrying out rework and quality control tasks on welded body components to OEM tolerance and safety standards.",
-        "Met daily production targets across a full one-year contract, building strong habits around discipline, time management, and reliable shift-based operations.",
+        "Performed quality control checks on welded components daily, flagging rework items that did not meet OEM tolerance standards.",
+        "Built disciplined habits around systematic checking, attention to detail, and consistent delivery within a structured manufacturing team.",
       ],
     },
     {
@@ -111,7 +122,7 @@ export const data = {
       period: "Mar 2021 — May 2021",
       location: "Cikarang, Indonesia",
       points: [
-        "Completed a two-month industrial practice program at an authorized Nissan Datsun dealership, assisting workshop technicians with routine light vehicle service, inspection, and basic diagnostic procedures.",
+        "Supported workshop inspection and service operations at an authorized Nissan Datsun dealership.",
         "Received a 'Good' performance rating from the Workshop Head upon completion.",
       ],
     },
@@ -121,12 +132,22 @@ export const data = {
     {
       issuer: "Google for Education",
       date: "May 2026",
-      items: ["Gemini Certified Faculty", "Gemini Certified Student — valid through May 2029"],
+      items: ["Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
       issuer: "IBM SkillsBuild",
       date: "May 2026",
-      items: ["Designing AI Solutions", "Intro to LLMs", "Sensemaking with Data", "Data Literacy"],
+      items: ["Team Essentials for AI Solutions", "Intro to LLMs", "Sensemaking with Data", "Data Literacy"],
+    },
+    {
+      issuer: "Adobe Learning Manager",
+      date: "May 2026",
+      items: ["Intelligent by Design: Build an AI Agent"],
+    },
+    {
+      issuer: "Dibimbing",
+      date: "May 2026",
+      items: ["Certificate of Appreciation: Event Online Cyber Security"],
     },
     {
       issuer: "RevoU",
