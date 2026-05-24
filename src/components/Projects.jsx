@@ -84,7 +84,7 @@ function ProjectRow({ project, index, inView }) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div style={{
+            <div className="project-expanded" style={{
               paddingBottom: '28px',
               paddingLeft: '52px',
               display: 'flex', flexDirection: 'column', gap: '20px',
@@ -259,6 +259,7 @@ export default function Projects() {
         }
         @media (max-width: 640px) {
           button[id^="project-card"] { padding: 18px 0; transition: padding-left 0.2s; }
+          .project-expanded { padding-left: 20px !important; }
         }
       `}</style>
     </section>

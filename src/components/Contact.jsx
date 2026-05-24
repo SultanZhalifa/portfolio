@@ -144,7 +144,7 @@ export default function Contact() {
 
           {/* Form column */}
           <motion.div
-            className="card"
+            className="card contact-form-card"
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.45, delay: 0.1 }}
@@ -243,9 +243,12 @@ export default function Contact() {
       <style>{`
         .contact-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
           gap: 48px;
           align-items: start;
+        }
+        @media (max-width: 480px) {
+          .contact-form-card { padding: 20px !important; }
         }
         .contact-item {
           display: flex;

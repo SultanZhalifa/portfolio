@@ -93,9 +93,10 @@ export default function Certifications() {
         .cert-right {
           flex: 1;
         }
-        @media (max-width: 560px) {
+        @media (max-width: 640px) {
           .cert-row { flex-direction: column; gap: 12px; padding: 20px 0; }
           .cert-left { min-width: unset; }
+          .cert-row { gap: 16px; }
         }
       `}</style>
     </section>
