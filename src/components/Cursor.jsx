@@ -39,7 +39,8 @@ export default function Cursor() {
     };
 
     window.addEventListener('mousemove', onMove, { passive: true });
-    document.querySelectorAll('a, button, [role="button"]').forEach(el => {
+    const interactiveEls = [...document.querySelectorAll('a, button, [role="button"]')];
+    interactiveEls.forEach(el => {
       el.addEventListener('mouseenter', onEnterLink);
       el.addEventListener('mouseleave', onLeaveLink);
     });
@@ -48,6 +49,10 @@ export default function Cursor() {
     return () => {
       window.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(rafId);
+      interactiveEls.forEach(el => {
+        el.removeEventListener('mouseenter', onEnterLink);
+        el.removeEventListener('mouseleave', onLeaveLink);
+      });
     };
   }, []);
 

@@ -15,7 +15,7 @@ export const data = {
     {
       school: "President University",
       degree: "Bachelor of Informatics",
-      period: "2024 — 2027 (Expected)",
+      period: "2024 — 2028 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
         "5th semester. Coursework: Algorithms and Data Structures, Database Systems, Software Engineering, Computer Networks, Operating Systems.",
@@ -112,8 +112,8 @@ export const data = {
       period: "Apr 2023 — Apr 2024",
       location: "Karawang, Indonesia",
       points: [
-        "Performed quality control checks on welded components daily, flagging rework items that did not meet OEM tolerance standards.",
-        "Built disciplined habits around systematic checking, attention to detail, and consistent delivery within a structured manufacturing team.",
+        "Applied systematic quality control checks on welded components, flagging rework items against OEM tolerance standards — directly translates to the debugging and code review mindset used in software engineering.",
+        "Operated within a structured team under strict delivery schedules; built habits of attention to detail, reproducibility, and consistent output that carry directly into writing reliable, tested software.",
       ],
     },
     {
@@ -122,7 +122,7 @@ export const data = {
       period: "Mar 2021 — May 2021",
       location: "Cikarang, Indonesia",
       points: [
-        "Supported workshop inspection and service operations at an authorized Nissan Datsun dealership.",
+        "Supported workshop inspection and service operations; developed a systematic approach to diagnosing and resolving technical failures.",
         "Received a 'Good' performance rating from the Workshop Head upon completion.",
       ],
     },
