@@ -5,9 +5,9 @@ import emailjs from 'emailjs-com';
 import { data } from '../data';
 
 // EmailJS config — replace with your actual IDs from emailjs.com
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'service_lnabd9c';
+const EMAILJS_TEMPLATE_ID = 'template_8dm3f7k';
+const EMAILJS_PUBLIC_KEY  = '8azyJj6BjhDONY1Hp';
 
 const contacts = [
   { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}` },
@@ -35,7 +35,7 @@ export default function Contact() {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        { from_name: form.name, from_email: form.email, message: form.message },
+        { name: form.name, email: form.email, message: form.message },
         EMAILJS_PUBLIC_KEY,
       );
       setSent(true);
