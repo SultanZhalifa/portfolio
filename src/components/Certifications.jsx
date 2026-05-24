@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiAward } from 'react-icons/fi';
 import { data } from '../data';
 
 export default function Certifications() {
@@ -8,48 +7,97 @@ export default function Certifications() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="certifications" className="section" ref={ref}>
+    <section id="certifications" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
       <div className="container">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-          <p className="section-label">Credentials</p>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="section-eyebrow">
+            <span className="section-number">05</span>
+            <span className="section-label">Credentials</span>
+          </div>
           <h2 className="section-title">Certifications</h2>
           <p className="section-sub">Verified credentials from industry-recognized programs.</p>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '12px' }}>
+        {/* Table list */}
+        <div style={{ borderTop: '1px solid #111' }}>
           {data.certifications.map((cert, i) => (
             <motion.div
               key={i}
-              className="card"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              style={{ padding: '24px' }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="cert-row"
+              onMouseEnter={e => e.currentTarget.style.background = '#060606'}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              style={{ transition: 'background 0.2s' }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              {/* Issuer + Date */}
+              <div className="cert-left">
                 <div style={{
-                  width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  border: '1px solid #1c1c1c', borderRadius: '6px', color: '#555',
+                  fontFamily: 'Space Grotesk', fontSize: '0.88rem',
+                  fontWeight: 700, color: '#aaa', letterSpacing: '-0.01em',
+                  marginBottom: '3px',
                 }}>
-                  <FiAward size={14} />
+                  {cert.issuer}
                 </div>
-                <span style={{ fontSize: '0.7rem', color: '#444', letterSpacing: '0.04em' }}>{cert.date}</span>
+                <div style={{
+                  fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+                  color: '#2a2a2a', letterSpacing: '0.06em',
+                }}>
+                  {cert.date}
+                </div>
               </div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#888', marginBottom: '10px', letterSpacing: '0.01em' }}>
-                {cert.issuer}
-              </div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+
+              {/* Cert items */}
+              <div className="cert-right">
                 {cert.items.map((item, j) => (
-                  <li key={j} style={{ display: 'flex', gap: '8px', fontSize: '0.82rem', color: '#555', lineHeight: 1.5 }}>
-                    <span style={{ color: '#2a2a2a', flexShrink: 0 }}>—</span>
-                    {item}
-                  </li>
+                  <div key={j} style={{
+                    display: 'flex', alignItems: 'baseline', gap: '10px',
+                    paddingBottom: j < cert.items.length - 1 ? '8px' : '0',
+                  }}>
+                    <span style={{
+                      fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
+                      color: '#222', flexShrink: 0,
+                    }}>
+                      —
+                    </span>
+                    <span style={{ fontSize: '0.83rem', color: '#555', lineHeight: 1.6 }}>
+                      {item}
+                    </span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .cert-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 32px;
+          padding: 24px 0;
+          border-bottom: 1px solid #111;
+        }
+        .cert-left {
+          min-width: 200px;
+          flex-shrink: 0;
+          padding-top: 2px;
+        }
+        .cert-right {
+          flex: 1;
+        }
+        @media (max-width: 560px) {
+          .cert-row { flex-direction: column; gap: 12px; padding: 20px 0; }
+          .cert-left { min-width: unset; }
+        }
+      `}</style>
     </section>
   );
 }

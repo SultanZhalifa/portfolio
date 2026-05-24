@@ -1,215 +1,259 @@
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiMapPin, FiArrowRight, FiDownload } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight } from 'react-icons/fi';
 import { data } from '../data';
+
+const allTech = [
+  'Python', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
+  'FastAPI', 'PostgreSQL', 'MongoDB', 'Docker', 'YOLOv8', 'Gemini AI',
+  'Kotlin', 'Android', 'GitHub Actions', 'JUnit 4', 'MockK', 'Turbine',
+  'MVVM', 'REST API', 'Linux', 'Penetration Testing',
+];
+
+const marqueeItems = [...allTech, ...allTech];
+
+const stats = [
+  { value: '5th',  label: 'Semester' },
+  { value: '3+',   label: 'Projects Built' },
+  { value: '1yr',  label: 'Industry Exp.' },
+  { value: '4+',   label: 'Certifications' },
+];
 
 export default function Hero() {
   return (
-    <section id="hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
-
-      {/* Subtle radial glow */}
+    <section
+      id="hero"
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        zIndex: 1,
+      }}
+    >
+      {/* Radial glow */}
       <div style={{
-        position: 'absolute', top: '30%', left: '60%',
-        width: '600px', height: '600px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 65%)',
+        position: 'absolute', top: '20%', right: '-10%',
+        width: '700px', height: '700px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 60%)',
         borderRadius: '50%', pointerEvents: 'none',
       }} />
 
-      <div className="container hero-container" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="hero-grid">
+      {/* Main content */}
+      <div className="container hero-container" style={{ position: 'relative', zIndex: 1, paddingTop: '120px' }}>
 
-          {/* Left content */}
-          <div>
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '36px' }}
-            >
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '6px 14px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 500,
-                background: '#0f0f0f', border: '1px solid #1c1c1c', color: '#555',
-                letterSpacing: '0.05em', textTransform: 'uppercase'
-              }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fff', display: 'inline-block', animation: 'pulse 2s ease-in-out infinite' }} />
-                Available for Internship
-              </span>
-            </motion.div>
+        {/* Status badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '48px' }}
+        >
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '5px 13px', borderRadius: '4px',
+            fontSize: '0.68rem', fontFamily: 'JetBrains Mono', fontWeight: 500,
+            background: '#0c0c0c', border: '1px solid #1c1c1c', color: '#555',
+            letterSpacing: '0.1em', textTransform: 'uppercase',
+          }}>
+            <span style={{
+              width: '5px', height: '5px', borderRadius: '50%', background: '#fff',
+              display: 'inline-block',
+              animation: 'pulse-dot 2.4s ease-in-out infinite',
+            }} />
+            Available for Internship
+          </span>
+        </motion.div>
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              style={{
-                fontFamily: 'Space Grotesk', fontWeight: 800,
-                fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
-                letterSpacing: '-0.03em', lineHeight: 1.05,
-                marginBottom: '16px', color: '#fff',
-              }}
-            >
-              Sultan<br />Zhalifunnas<br />
-              <span style={{ color: '#2a2a2a', WebkitTextStroke: '1px #333' }}>Musyaffa</span>
-            </motion.h1>
+        {/* Name — editorial large */}
+        <motion.h1
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: 'Space Grotesk',
+            fontWeight: 800,
+            fontSize: 'clamp(3.2rem, 7.5vw, 7rem)',
+            letterSpacing: '-0.04em',
+            lineHeight: 0.95,
+            marginBottom: '32px',
+          }}
+        >
+          <span style={{ display: 'block', color: '#f5f5f5' }}>Sultan</span>
+          <span style={{ display: 'block', color: '#f5f5f5' }}>Zhalifunnas</span>
+          <span style={{
+            display: 'block',
+            color: 'transparent',
+            WebkitTextStroke: '1.5px #2a2a2a',
+          }}>
+            Musyaffa
+          </span>
+        </motion.h1>
 
-            {/* Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}
-            >
-              <div style={{ width: '28px', height: '1px', background: '#333' }} />
-              <p style={{ color: '#555', fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                {data.subtitle}
-              </p>
-            </motion.div>
-
-            {/* Summary */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              style={{ color: '#666', fontSize: '0.95rem', maxWidth: '520px', lineHeight: 1.8, marginBottom: '16px' }}
-            >
-              {data.summary}
-            </motion.p>
-
-            {/* Location */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#444', fontSize: '0.82rem', marginBottom: '44px' }}
-            >
-              <FiMapPin size={12} />
-              {data.location}
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '52px' }}
-            >
-              <a href="#projects" className="btn btn-primary" id="hero-view-projects-btn">
-                View Projects <FiArrowRight size={14} />
-              </a>
-              <a href="#contact" className="btn btn-ghost" id="hero-contact-btn">
-                Get in Touch
-              </a>
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.65 }}
-              style={{ display: 'flex', gap: '10px' }}
-            >
-              {[
-                { Icon: FiGithub, href: data.github, label: 'GitHub' },
-                { Icon: FiLinkedin, href: data.linkedin, label: 'LinkedIn' },
-                { Icon: FiMail, href: `mailto:${data.email}`, label: 'Email' },
-              ].map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={label !== 'Email' ? '_blank' : undefined}
-                  rel="noreferrer"
-                  id={`hero-${label.toLowerCase()}-link`}
-                  title={label}
-                  className="icon-box"
-                  style={{ textDecoration: 'none', width: '38px', height: '38px' }}
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
-            </motion.div>
+        {/* Role + summary row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{ display: 'flex', alignItems: 'flex-start', gap: '48px', flexWrap: 'wrap', marginBottom: '52px' }}
+        >
+          <div style={{ flexShrink: 0 }}>
+            <div style={{
+              fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
+              color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
+            }}>
+              Role
+            </div>
+            <div style={{ fontSize: '0.9rem', color: '#666', fontWeight: 500 }}>
+              {data.subtitle}
+            </div>
           </div>
+          <div style={{ flex: 1, minWidth: '240px', maxWidth: '480px' }}>
+            <div style={{
+              fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
+              color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
+            }}>
+              About
+            </div>
+            <p style={{ color: '#555', fontSize: '0.875rem', lineHeight: 1.85 }}>
+              Informatics undergraduate at President University with hands-on experience in fullstack web, Android, and AI-integrated systems. Background in cybersecurity and manufacturing quality.
+            </p>
+          </div>
+        </motion.div>
 
-          {/* Right — minimal stats column */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1px', minWidth: '180px' }}
-            className="hero-stats"
-          >
-            {[
-              { value: '5th', label: 'Semester' },
-              { value: '3+', label: 'Projects Built' },
-              { value: '1yr', label: 'Industry Experience' },
-              { value: '4+', label: 'Certifications' },
-            ].map(({ value, label }) => (
-              <div
-                key={label}
-                style={{
-                  padding: '20px 24px',
-                  border: '1px solid #1c1c1c',
-                  borderRadius: '6px',
-                  background: '#080808',
-                  textAlign: 'center',
-                  marginBottom: '8px',
-                }}
-              >
-                <div style={{ fontFamily: 'Space Grotesk', fontSize: '1.8rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
-                  {value}
-                </div>
-                <div style={{ fontSize: '0.72rem', color: '#444', letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: '4px' }}>
-                  {label}
+        {/* CTAs + Social */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '80px' }}
+        >
+          <a href="#projects" className="btn btn-primary" id="hero-view-projects-btn">
+            View Projects <FiArrowRight size={13} />
+          </a>
+          <a href="#contact" className="btn btn-ghost" id="hero-contact-btn">
+            Get in Touch
+          </a>
+          <div style={{ width: '1px', height: '28px', background: '#1c1c1c', margin: '0 4px' }} />
+          {[
+            { Icon: FiGithub,   href: data.github,              label: 'GitHub'   },
+            { Icon: FiLinkedin, href: data.linkedin,            label: 'LinkedIn' },
+            { Icon: FiMail,     href: `mailto:${data.email}`,   label: 'Email'    },
+          ].map(({ Icon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={label !== 'Email' ? '_blank' : undefined}
+              rel="noreferrer"
+              id={`hero-${label.toLowerCase()}-link`}
+              title={label}
+              className="icon-box"
+              style={{ textDecoration: 'none', width: '36px', height: '36px' }}
+            >
+              <Icon size={14} />
+            </a>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Stats strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.65, duration: 0.5 }}
+        style={{
+          borderTop: '1px solid #111', borderBottom: '1px solid #111',
+          background: '#040404', position: 'relative', zIndex: 1,
+        }}
+      >
+        <div className="container">
+          <div className="hero-stats">
+            {stats.map(({ value, label }, i) => (
+              <div key={label} className="hero-stat-item">
+                {i > 0 && <div className="hero-stat-divider" />}
+                <div>
+                  <div style={{
+                    fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                    fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                  }}>
+                    {value}
+                  </div>
+                  <div style={{
+                    fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+                    color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase',
+                    marginTop: '6px',
+                  }}>
+                    {label}
+                  </div>
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Bottom border line */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', background: '#111' }} />
+      {/* Marquee tech strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        style={{
+          overflow: 'hidden',
+          borderBottom: '1px solid #111',
+          background: '#000',
+          padding: '14px 0',
+          position: 'relative', zIndex: 1,
+        }}
+      >
+        <div className="marquee-track">
+          {marqueeItems.map((tech, i) => (
+            <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '24px', paddingRight: '24px' }}>
+              <span style={{
+                fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
+                color: '#2a2a2a', letterSpacing: '0.06em', whiteSpace: 'nowrap',
+              }}>
+                {tech}
+              </span>
+              <span style={{ color: '#1a1a1a', fontSize: '0.5rem' }}>+</span>
+            </span>
+          ))}
+        </div>
+      </motion.div>
 
       <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-        .hero-grid {
+        .hero-container { max-width: 1080px; }
+        .hero-stats {
           display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 48px;
-          align-items: center;
+          grid-template-columns: repeat(4, 1fr);
+          position: relative;
         }
-        @media (max-width: 900px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-          }
-          .hero-stats {
-            flex-direction: row !important;
-            flex-wrap: wrap;
-            gap: 8px !important;
-            min-width: unset !important;
-            margin-top: 32px;
-          }
-          .hero-stats > div {
-            flex: 1 1 calc(50% - 4px);
-            min-width: 120px;
-            margin-bottom: 0 !important;
-            padding: 14px 16px !important;
-          }
-          .hero-stats > div > div:first-child {
-            font-size: 1.4rem !important;
-          }
+        .hero-stat-item {
+          display: flex;
+          align-items: center;
+          gap: 0;
+          padding: 28px 0;
+        }
+        .hero-stat-item > div:last-child {
+          padding: 0 36px;
+        }
+        .hero-stat-divider {
+          width: 1px;
+          height: 40px;
+          background: #181818;
+          flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+          .hero-stats { grid-template-columns: repeat(2, 1fr); }
+          .hero-stat-item:nth-child(2) .hero-stat-divider,
+          .hero-stat-item:nth-child(4) .hero-stat-divider { display: none; }
+          .hero-stat-item { padding: 22px 0; }
+          .hero-stat-item > div:last-child { padding: 0 22px; }
         }
         @media (max-width: 480px) {
-          .hero-stats > div {
-            flex: 1 1 calc(50% - 4px);
-            padding: 12px 10px !important;
-          }
-          .hero-stats > div > div:first-child {
-            font-size: 1.2rem !important;
-          }
+          .hero-stat-item > div:last-child { padding: 0 16px; }
+          .hero-stat-item { padding: 18px 0; }
         }
       `}</style>
     </section>
