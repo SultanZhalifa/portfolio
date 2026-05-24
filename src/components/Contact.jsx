@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck } from 'react-icons/fi';
+import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy } from 'react-icons/fi';
 import emailjs from 'emailjs-com';
 import { data } from '../data';
 
@@ -10,20 +10,28 @@ const EMAILJS_TEMPLATE_ID = 'template_8dm3f7k';
 const EMAILJS_PUBLIC_KEY  = '8azyJj6BjhDONY1Hp';
 
 const contacts = [
-  { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}` },
-  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                         href: `tel:${data.phone}` },
-  { Icon: FiGithub,   label: 'GitHub',   value: 'github.com/SultanZhalifa',         href: data.github },
-  { Icon: FiLinkedin, label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa',     href: data.linkedin },
-  { Icon: FiMapPin,   label: 'Location', value: data.location,                      href: null },
+  { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}`, copyable: true  },
+  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                         href: `tel:${data.phone}`,    copyable: true  },
+  { Icon: FiGithub,   label: 'GitHub',   value: 'github.com/SultanZhalifa',         href: data.github,            copyable: false },
+  { Icon: FiLinkedin, label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa',     href: data.linkedin,          copyable: false },
+  { Icon: FiMapPin,   label: 'Location', value: data.location,                      href: null,                   copyable: false },
 ];
 
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [form, setForm]     = useState({ name: '', email: '', message: '' });
-  const [sent, setSent]     = useState(false);
+  const [form, setForm]       = useState({ name: '', email: '', message: '' });
+  const [sent, setSent]       = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError]   = useState('');
+  const [error, setError]     = useState('');
+  const [copied, setCopied]   = useState(null);
+
+  const copyToClipboard = useCallback((value, label) => {
+    navigator.clipboard.writeText(value).then(() => {
+      setCopied(label);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  }, []);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -75,8 +83,8 @@ export default function Contact() {
             transition={{ duration: 0.45 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
           >
-            {contacts.map(({ Icon, label, value, href }) => (
-              <div key={label}>
+            {contacts.map(({ Icon, label, value, href, copyable }) => (
+              <div key={label} style={{ position: 'relative' }}>
                 {href ? (
                   <a
                     href={href}
@@ -85,33 +93,28 @@ export default function Contact() {
                     id={`contact-${label.toLowerCase()}-link`}
                     className="contact-item contact-item-link"
                   >
-                    <div className="contact-icon-box">
-                      <Icon size={12} />
-                    </div>
-                    <div>
-                      <div style={{
-                        fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                        color: '#2a2a2a', letterSpacing: '0.1em',
-                        textTransform: 'uppercase', marginBottom: '2px',
-                      }}>
-                        {label}
-                      </div>
+                    <div className="contact-icon-box"><Icon size={12} /></div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.82rem', color: '#555' }}>{value}</div>
                     </div>
+                    {copyable && (
+                      <button
+                        onClick={e => { e.preventDefault(); copyToClipboard(value, label); }}
+                        title={`Copy ${label}`}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: copied === label ? '#aaa' : '#2a2a2a', padding: '2px', display: 'flex', alignItems: 'center', transition: 'color 0.2s', flexShrink: 0 }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#888'}
+                        onMouseLeave={e => e.currentTarget.style.color = copied === label ? '#aaa' : '#2a2a2a'}
+                      >
+                        {copied === label ? <FiCheck size={12} /> : <FiCopy size={12} />}
+                      </button>
+                    )}
                   </a>
                 ) : (
                   <div className="contact-item">
-                    <div className="contact-icon-box">
-                      <Icon size={12} />
-                    </div>
+                    <div className="contact-icon-box"><Icon size={12} /></div>
                     <div>
-                      <div style={{
-                        fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                        color: '#2a2a2a', letterSpacing: '0.1em',
-                        textTransform: 'uppercase', marginBottom: '2px',
-                      }}>
-                        {label}
-                      </div>
+                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.82rem', color: '#444' }}>{value}</div>
                     </div>
                   </div>

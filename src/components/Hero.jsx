@@ -1,6 +1,25 @@
-import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowRight } from 'react-icons/fi';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiDownload } from 'react-icons/fi';
 import { data } from '../data';
+
+function useCountUp(target, inView, duration = 1400) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const isNum = typeof target === 'number';
+    if (!isNum) { setCount(target); return; }
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, target, duration]);
+  return count;
+}
 
 const allTech = [
   'Python', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
@@ -12,13 +31,15 @@ const allTech = [
 const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
-  { value: '5th',  label: 'Semester' },
-  { value: '3+',   label: 'Projects Built' },
-  { value: '1yr',  label: 'Industry Exp.' },
-  { value: '4+',   label: 'Certifications' },
+  { value: 5,    suffix: 'th', label: 'Semester'       },
+  { value: 3,    suffix: '+',  label: 'Projects Built'  },
+  { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
+  { value: 4,    suffix: '+',  label: 'Certifications'  },
 ];
 
 export default function Hero() {
+  const statsRef = useRef(null);
+  const statsInView = useInView(statsRef, { once: true, margin: '-60px' });
   return (
     <section
       id="hero"
@@ -132,6 +153,14 @@ export default function Hero() {
           <a href="#projects" className="btn btn-primary" id="hero-view-projects-btn">
             View Projects <FiArrowRight size={13} />
           </a>
+          <a
+            href="/Sultan_CV_General.pdf"
+            download
+            className="btn btn-ghost"
+            id="hero-download-cv-btn"
+          >
+            <FiDownload size={13} /> Download CV
+          </a>
           <a href="#contact" className="btn btn-ghost" id="hero-contact-btn">
             Get in Touch
           </a>
@@ -159,6 +188,7 @@ export default function Hero() {
 
       {/* Stats strip */}
       <motion.div
+        ref={statsRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.65, duration: 0.5 }}
@@ -169,27 +199,31 @@ export default function Hero() {
       >
         <div className="container">
           <div className="hero-stats">
-            {stats.map(({ value, label }, i) => (
-              <div key={label} className="hero-stat-item">
-                {i > 0 && <div className="hero-stat-divider" />}
-                <div>
-                  <div style={{
-                    fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                    fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
-                    lineHeight: 1,
-                  }}>
-                    {value}
-                  </div>
-                  <div style={{
-                    fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                    color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase',
-                    marginTop: '6px',
-                  }}>
-                    {label}
+            {stats.map(({ value, suffix, label }, i) => {
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const counted = useCountUp(value, statsInView);
+              return (
+                <div key={label} className="hero-stat-item">
+                  {i > 0 && <div className="hero-stat-divider" />}
+                  <div>
+                    <div style={{
+                      fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                      fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
+                      lineHeight: 1,
+                    }}>
+                      {statsInView ? counted : 0}{suffix}
+                    </div>
+                    <div style={{
+                      fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+                      color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase',
+                      marginTop: '6px',
+                    }}>
+                      {label}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </motion.div>

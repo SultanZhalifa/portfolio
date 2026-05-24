@@ -156,8 +156,15 @@ function ProjectRow({ project, index, inView }) {
 }
 
 export default function Projects() {
-  const ref = useRef(null);
+  const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [filter, setFilter] = useState('All');
+
+  // Collect unique tech tags across all projects
+  const allTags = ['All', ...Array.from(new Set(data.projects.flatMap(p => p.tech)))];
+  const filtered = filter === 'All'
+    ? data.projects
+    : data.projects.filter(p => p.tech.includes(filter));
 
   return (
     <section id="projects" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
@@ -176,11 +183,54 @@ export default function Projects() {
           <p className="section-sub">Work across web development, AI integration, and mobile.</p>
         </motion.div>
 
+        {/* Tech filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '32px' }}
+        >
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => setFilter(tag)}
+              style={{
+                fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
+                letterSpacing: '0.04em', padding: '4px 12px',
+                borderRadius: '4px', border: '1px solid',
+                borderColor: filter === tag ? '#555' : '#1e1e1e',
+                background: filter === tag ? '#111' : 'transparent',
+                color: filter === tag ? '#f5f5f5' : '#3a3a3a',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => { if (filter !== tag) { e.currentTarget.style.borderColor = '#333'; e.currentTarget.style.color = '#888'; } }}
+              onMouseLeave={e => { if (filter !== tag) { e.currentTarget.style.borderColor = '#1e1e1e'; e.currentTarget.style.color = '#3a3a3a'; } }}
+            >
+              {tag}
+            </button>
+          ))}
+        </motion.div>
+
         {/* Project list */}
         <div style={{ borderTop: '1px solid #111' }}>
-          {data.projects.map((project, i) => (
-            <ProjectRow key={project.id} project={project} index={i} inView={inView} />
-          ))}
+          <AnimatePresence mode="wait">
+            {filtered.length === 0 ? (
+              <motion.p
+                key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                style={{ padding: '32px 0', color: '#333', fontFamily: 'JetBrains Mono', fontSize: '0.75rem' }}
+              >
+                No projects with {filter} yet.
+              </motion.p>
+            ) : (
+              <motion.div key={filter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+                {filtered.map((project, i) => (
+                  <ProjectRow key={project.id} project={project} index={i} inView={inView} />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* GitHub CTA */}
