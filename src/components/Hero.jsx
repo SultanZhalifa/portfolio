@@ -160,7 +160,7 @@ export default function Hero() {
             className="btn btn-ghost"
             id="hero-download-cv-btn"
           >
-            <FiDownload size={13} /> Download CV
+            <FiDownload size={13} /> Resume
           </a>
           <a href="#contact" className="btn btn-ghost" id="hero-contact-btn">
             Get in Touch
