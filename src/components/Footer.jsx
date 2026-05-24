@@ -32,7 +32,7 @@ export default function Footer() {
             fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
             color: '#222', letterSpacing: '0.06em',
           }}>
-            &copy; {year} — Built with React + Vite
+            &copy; {year} Sultan Zhalifunnas Musyaffa
           </span>
 
           <div style={{ display: 'flex', gap: '6px' }}>
