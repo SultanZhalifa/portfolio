@@ -103,6 +103,18 @@ export const data = {
       featured: false,
       context: "Personal Project",
     },
+    {
+      id: 5,
+      title: "devlog",
+      subtitle: "Developer Progress Tracker with Streak Analytics",
+      description:
+        "Built a full-stack platform for developers to log daily learning, visualize activity streaks (GitHub-style contribution calendar), and share progress publicly. Implemented GitHub OAuth via Auth.js, analytics dashboard with Recharts, and automated tests with Vitest + React Testing Library.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Prisma", "Tailwind CSS", "Auth.js", "Vitest", "GitHub Actions"],
+      github: "https://github.com/SultanZhalifa/devlog",
+      demo: "https://devlog-sultanzhalifa.vercel.app",
+      featured: true,
+      context: "Personal Project",
+    },
   ],
 
   experience: [
