@@ -116,10 +116,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-name"
           style={{
             fontFamily: 'Space Grotesk',
             fontWeight: 800,
-            fontSize: 'clamp(3.2rem, 7.5vw, 7rem)',
             letterSpacing: '-0.04em',
             lineHeight: 0.95,
             marginBottom: '32px',
@@ -141,7 +141,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: '48px', flexWrap: 'wrap', marginBottom: '52px' }}
+          className="hero-role-row"
+          style={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap', marginBottom: '52px' }}
         >
           <div style={{ flexShrink: 0 }}>
             <div style={{
@@ -268,6 +269,8 @@ export default function Hero() {
 
       <style>{`
         .hero-container { max-width: 1080px; }
+        .hero-name { font-size: clamp(3.2rem, 7.5vw, 7rem); }
+        .hero-role-row { gap: 48px; }
         .hero-stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -294,10 +297,13 @@ export default function Hero() {
           .hero-stat-item:nth-child(4) .hero-stat-divider { display: none; }
           .hero-stat-item { padding: 22px 0; }
           .hero-stat-item > div:last-child { padding: 0 22px; }
+          .hero-role-row { gap: 28px; }
         }
         @media (max-width: 480px) {
+          .hero-name { font-size: clamp(2.6rem, 11vw, 3.2rem); }
           .hero-stat-item > div:last-child { padding: 0 16px; }
           .hero-stat-item { padding: 18px 0; }
+          .hero-role-row { gap: 20px; }
         }
       `}</style>
     </section>
