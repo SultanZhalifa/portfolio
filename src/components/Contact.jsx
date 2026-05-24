@@ -1,13 +1,12 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy } from 'react-icons/fi';
+import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy, FiFileText } from 'react-icons/fi';
 import emailjs from 'emailjs-com';
 import { data } from '../data';
 
-// EmailJS config — replace with your actual IDs from emailjs.com
-const EMAILJS_SERVICE_ID  = 'service_lnabd9c';
-const EMAILJS_TEMPLATE_ID = 'template_8dm3f7k';
-const EMAILJS_PUBLIC_KEY  = '8azyJj6BjhDONY1Hp';
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const contacts = [
   { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}`, copyable: true  },
@@ -25,11 +24,17 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
   const [copied, setCopied]   = useState(null);
+  const copyTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => { if (copyTimerRef.current) clearTimeout(copyTimerRef.current); };
+  }, []);
 
   const copyToClipboard = useCallback((value, label) => {
     navigator.clipboard.writeText(value).then(() => {
       setCopied(label);
-      setTimeout(() => setCopied(null), 2000);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(null), 2000);
     });
   }, []);
 
@@ -72,7 +77,7 @@ export default function Contact() {
             <span className="section-label">Get In Touch</span>
           </div>
           <h2 className="section-title">Let's Connect</h2>
-          <p className="section-sub">Open to internship opportunities and project collaborations. Drop a message or reach out directly.</p>
+          <p className="section-sub">Open to internship opportunities and project collaborations. Drop a message, reach out directly, or grab my resume below.</p>
         </motion.div>
 
         <div className="contact-grid">
@@ -83,6 +88,20 @@ export default function Contact() {
             transition={{ duration: 0.45 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
           >
+            <a
+              href="/Sultan_CV_General.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="contact-item contact-item-link"
+              style={{ marginBottom: '10px' }}
+            >
+              <div className="contact-icon-box"><FiFileText size={12} /></div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Resume</div>
+                <div style={{ fontSize: '0.82rem', color: '#555' }}>Sultan_CV_General.pdf</div>
+              </div>
+            </a>
+
             {contacts.map(({ Icon, label, value, href, copyable }) => (
               <div key={label} style={{ position: 'relative' }}>
                 {href ? (
@@ -95,7 +114,7 @@ export default function Contact() {
                   >
                     <div className="contact-icon-box"><Icon size={12} /></div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.82rem', color: '#555' }}>{value}</div>
                     </div>
                     {copyable && (
@@ -114,7 +133,7 @@ export default function Contact() {
                   <div className="contact-item">
                     <div className="contact-icon-box"><Icon size={12} /></div>
                     <div>
-                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.82rem', color: '#444' }}>{value}</div>
                     </div>
                   </div>

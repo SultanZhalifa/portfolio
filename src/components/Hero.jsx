@@ -4,11 +4,10 @@ import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-ic
 import { data } from '../data';
 
 function useCountUp(target, inView, duration = 1400) {
-  const [count, setCount] = useState(0);
+  const isNum = typeof target === 'number';
+  const [count, setCount] = useState(isNum ? 0 : target);
   useEffect(() => {
-    if (!inView) return;
-    const isNum = typeof target === 'number';
-    if (!isNum) { setCount(target); return; }
+    if (!inView || !isNum) return;
     let start = 0;
     const step = target / (duration / 16);
     const timer = setInterval(() => {
@@ -17,7 +16,7 @@ function useCountUp(target, inView, duration = 1400) {
       else setCount(Math.floor(start));
     }, 16);
     return () => clearInterval(timer);
-  }, [inView, target, duration]);
+  }, [inView, target, duration, isNum]);
   return count;
 }
 
@@ -36,6 +35,31 @@ const stats = [
   { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
   { value: 4,    suffix: '+',  label: 'Certifications'  },
 ];
+
+function StatItem({ value, suffix, label, inView, showDivider }) {
+  const counted = useCountUp(value, inView);
+  return (
+    <div className="hero-stat-item">
+      {showDivider && <div className="hero-stat-divider" />}
+      <div>
+        <div style={{
+          fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+          fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
+          lineHeight: 1,
+        }}>
+          {inView ? counted : 0}{suffix}
+        </div>
+        <div style={{
+          fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+          color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase',
+          marginTop: '6px',
+        }}>
+          {label}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const statsRef = useRef(null);
@@ -200,31 +224,16 @@ export default function Hero() {
       >
         <div className="container">
           <div className="hero-stats">
-            {stats.map(({ value, suffix, label }, i) => {
-              // eslint-disable-next-line react-hooks/rules-of-hooks
-              const counted = useCountUp(value, statsInView);
-              return (
-                <div key={label} className="hero-stat-item">
-                  {i > 0 && <div className="hero-stat-divider" />}
-                  <div>
-                    <div style={{
-                      fontFamily: 'Space Grotesk', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                      fontWeight: 800, color: '#f5f5f5', letterSpacing: '-0.03em',
-                      lineHeight: 1,
-                    }}>
-                      {statsInView ? counted : 0}{suffix}
-                    </div>
-                    <div style={{
-                      fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                      color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase',
-                      marginTop: '6px',
-                    }}>
-                      {label}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {stats.map(({ value, suffix, label }, i) => (
+              <StatItem
+                key={label}
+                value={value}
+                suffix={suffix}
+                label={label}
+                inView={statsInView}
+                showDivider={i > 0}
+              />
+            ))}
           </div>
         </div>
       </motion.div>

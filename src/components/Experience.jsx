@@ -99,7 +99,7 @@ export default function Experience() {
             <span className="section-label">Background</span>
           </div>
           <h2 className="section-title">Experience & Education</h2>
-          <p className="section-sub">Industry background and academic path.</p>
+          <p className="section-sub">Academic path and industry background that shaped my discipline, attention to detail, and systematic approach to engineering.</p>
         </motion.div>
 
         <div className="exp-grid">
