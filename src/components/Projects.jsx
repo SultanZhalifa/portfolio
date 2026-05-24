@@ -1,134 +1,187 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiArrowUpRight } from 'react-icons/fi';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { FiGithub, FiExternalLink, FiChevronDown } from 'react-icons/fi';
 import { data } from '../data';
 
-export default function Projects() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  const featured = data.projects.filter(p => p.featured);
-  const others = data.projects.filter(p => !p.featured);
+function ProjectRow({ project, index, inView }) {
+  const [open, setOpen] = useState(false);
+  const num = String(index + 1).padStart(2, '0');
 
   return (
-    <section id="projects" className="section" ref={ref}>
-      <div className="container">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-          <p className="section-label">Portfolio</p>
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="section-sub">Selected work across web development, AI integration, and mobile.</p>
-        </motion.div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.45, delay: index * 0.09 }}
+      style={{ borderBottom: '1px solid #111' }}
+    >
+      {/* Main row — clickable */}
+      <button
+        id={`project-card-${project.id}`}
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', display: 'flex', alignItems: 'center', gap: '24px',
+          padding: '24px 0', background: 'none', border: 'none', cursor: 'pointer',
+          textAlign: 'left', transition: 'background 0.2s',
+        }}
+        onMouseEnter={e => e.currentTarget.style.paddingLeft = '8px'}
+        onMouseLeave={e => e.currentTarget.style.paddingLeft = '0'}
+      >
+        {/* Number */}
+        <span style={{
+          fontFamily: 'JetBrains Mono', fontSize: '0.72rem',
+          color: '#242424', letterSpacing: '0.06em', flexShrink: 0,
+          minWidth: '28px',
+        }}>
+          {num}
+        </span>
 
-        {/* Featured grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '16px', marginBottom: '16px' }}>
-          {featured.map((project, i) => (
-            <motion.div
-              key={project.id}
-              id={`project-card-${project.id}`}
-              className="card"
-              initial={{ opacity: 0, y: 32 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '0' }}
-            >
-              {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
-                <div>
-                  <div style={{ fontSize: '0.7rem', color: '#444', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '6px' }}>
-                    {project.context}
-                  </div>
-                  <h3 style={{ fontFamily: 'Space Grotesk', fontSize: '1.15rem', fontWeight: 700, letterSpacing: '-0.01em', color: '#fff' }}>
-                    {project.title}
-                  </h3>
+        {/* Context badge */}
+        <span style={{
+          fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+          color: '#2e2e2e', letterSpacing: '0.08em', textTransform: 'uppercase',
+          flexShrink: 0, minWidth: '130px',
+          display: 'none',
+        }} className="project-context">
+          {project.context.split(',')[0]}
+        </span>
+
+        {/* Title */}
+        <h3 style={{
+          fontFamily: 'Space Grotesk', fontSize: 'clamp(1rem, 2.5vw, 1.35rem)',
+          fontWeight: 700, letterSpacing: '-0.02em',
+          color: open ? '#f5f5f5' : '#888',
+          transition: 'color 0.2s', flex: 1,
+        }}>
+          {project.title}
+        </h3>
+
+        {/* Subtitle — hide on mobile */}
+        <span style={{
+          fontSize: '0.8rem', color: '#333', flex: 1,
+          maxWidth: '280px', display: 'none',
+        }} className="project-subtitle">
+          {project.subtitle}
+        </span>
+
+        {/* Arrow */}
+        <FiChevronDown
+          size={15}
+          style={{
+            color: '#333', transition: 'transform 0.25s, color 0.2s',
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            flexShrink: 0,
+          }}
+        />
+      </button>
+
+      {/* Expanded content */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{
+              paddingBottom: '28px',
+              paddingLeft: '52px',
+              display: 'flex', flexDirection: 'column', gap: '20px',
+            }}>
+              {/* Context + subtitle */}
+              <div>
+                <div style={{
+                  fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
+                  color: '#2e2e2e', letterSpacing: '0.1em', textTransform: 'uppercase',
+                  marginBottom: '8px',
+                }}>
+                  {project.context}
                 </div>
+                <p style={{
+                  color: '#555', fontSize: '0.875rem', lineHeight: 1.8,
+                  maxWidth: '580px',
+                }}>
+                  {project.description}
+                </p>
+              </div>
+
+              {/* Tech tags */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
+              </div>
+
+              {/* Links */}
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
                   id={`project-${project.id}-github`}
-                  style={{ color: '#444', textDecoration: 'none', transition: 'color 0.2s', flexShrink: 0 }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    color: '#444', textDecoration: 'none', fontSize: '0.78rem',
+                    fontFamily: 'JetBrains Mono', letterSpacing: '0.04em',
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
                   onMouseLeave={e => e.currentTarget.style.color = '#444'}
                 >
-                  <FiArrowUpRight size={18} />
-                </a>
-              </div>
-
-              {/* Subtitle */}
-              <p style={{ fontSize: '0.78rem', color: '#555', letterSpacing: '0.01em', marginBottom: '14px', fontStyle: 'italic' }}>
-                {project.subtitle}
-              </p>
-
-              {/* Description */}
-              <p style={{ color: '#666', fontSize: '0.88rem', lineHeight: 1.75, marginBottom: '28px', flex: 1 }}>
-                {project.description}
-              </p>
-
-              {/* Tech tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '28px' }}>
-                {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
-              </div>
-
-              {/* Divider */}
-              <div className="divider" style={{ marginBottom: '20px' }} />
-
-              {/* Footer links */}
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#444', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#444'}
-                >
-                  <FiGithub size={13} /> Source Code
+                  <FiGithub size={12} /> Source Code
                 </a>
                 {project.demo && (
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#888', textDecoration: 'none', fontSize: '0.8rem' }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '6px',
+                      color: '#444', textDecoration: 'none', fontSize: '0.78rem',
+                      fontFamily: 'JetBrains Mono', letterSpacing: '0.04em',
+                      transition: 'color 0.2s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
+                    onMouseLeave={e => e.currentTarget.style.color = '#444'}
                   >
-                    <FiExternalLink size={13} /> Live Demo
+                    <FiExternalLink size={12} /> Live Demo
                   </a>
                 )}
               </div>
-            </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+export default function Projects() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section id="projects" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
+      <div className="container">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="section-eyebrow">
+            <span className="section-number">03</span>
+            <span className="section-label">Portfolio</span>
+          </div>
+          <h2 className="section-title">Selected Projects</h2>
+          <p className="section-sub">Work across web development, AI integration, and mobile.</p>
+        </motion.div>
+
+        {/* Project list */}
+        <div style={{ borderTop: '1px solid #111' }}>
+          {data.projects.map((project, i) => (
+            <ProjectRow key={project.id} project={project} index={i} inView={inView} />
           ))}
         </div>
-
-        {/* Other projects */}
-        {others.map((project, i) => (
-          <motion.div
-            key={project.id}
-            id={`project-card-${project.id}`}
-            className="card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.25 + i * 0.08 }}
-            style={{ padding: '24px 28px', marginBottom: '8px' }}
-            className="project-other-card"
-          >
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '0.7rem', color: '#444', marginBottom: '4px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{project.context}</div>
-              <h3 style={{ fontFamily: 'Space Grotesk', fontSize: '0.95rem', fontWeight: 600, marginBottom: '6px', color: '#ddd' }}>{project.title}</h3>
-              <p style={{ color: '#555', fontSize: '0.83rem', lineHeight: 1.6 }}>{project.description}</p>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'flex-end', maxWidth: '220px' }}>
-              {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
-            </div>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              className="icon-box"
-              style={{ flexShrink: 0, textDecoration: 'none' }}
-            >
-              <FiGithub size={14} />
-            </a>
-          </motion.div>
-        ))}
 
         {/* GitHub CTA */}
         <motion.div
@@ -137,27 +190,25 @@ export default function Projects() {
           transition={{ delay: 0.5 }}
           style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}
         >
-          <a href={data.github} target="_blank" rel="noreferrer" className="btn btn-ghost" id="view-all-github-btn">
-            <FiGithub size={14} /> View All on GitHub
+          <a
+            href={data.github}
+            target="_blank"
+            rel="noreferrer"
+            id="view-all-github-btn"
+            className="btn btn-ghost"
+          >
+            <FiGithub size={13} /> View All on GitHub
           </a>
         </motion.div>
       </div>
 
       <style>{`
-        .project-other-card {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 24px;
+        @media (min-width: 768px) {
+          .project-context { display: block !important; }
+          .project-subtitle { display: block !important; }
         }
-        .project-other-tags { display: flex; }
         @media (max-width: 640px) {
-          .project-other-card {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 14px;
-          }
-          .project-other-tags { display: none; }
+          button[id^="project-card"] { padding: 18px 0; transition: padding-left 0.2s; }
         }
       `}</style>
     </section>
