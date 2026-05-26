@@ -31,9 +31,9 @@ const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
   { value: 5,    suffix: 'th', label: 'Semester'       },
-  { value: 3,    suffix: '+',  label: 'Projects Built'  },
+  { value: 5,    suffix: '+',  label: 'Projects Built'  },
   { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
-  { value: 4,    suffix: '+',  label: 'Certifications'  },
+  { value: 10,   suffix: '+',  label: 'Certifications'  },
 ];
 
 function StatItem({ value, suffix, label, inView, showDivider }) {
@@ -313,3 +313,4 @@ export default function Hero() {
     </section>
   );
 }
+
