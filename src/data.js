@@ -15,7 +15,7 @@ export const data = {
     {
       school: "President University",
       degree: "Bachelor of Informatics",
-      period: "2024 — 2028 (Expected)",
+      period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
         "5th semester. Coursework: Algorithms and Data Structures, Database Systems, Software Engineering, Computer Networks, Operating Systems.",
@@ -35,14 +35,14 @@ export const data = {
       category: "Mobile & Testing",
       items: [
         "Android (Kotlin)", "MVVM", "Room", "Coroutines",
-        "JUnit 4", "MockK", "Turbine", "GitHub Actions CI", "Manual Testing", "Edge Case Analysis",
+        "JUnit 4", "MockK", "Turbine", "Vitest", "GitHub Actions CI", "Manual Testing",
       ],
     },
     {
       category: "AI & Data",
       items: [
-        "Gemini AI", "YOLOv8", "YOLOv11", "Chart.js",
-        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Room ORM",
+        "Gemini AI", "YOLOv8", "YOLOv11", "Chart.js", "Recharts",
+        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Prisma ORM", "Room ORM",
       ],
     },
     {
@@ -57,10 +57,22 @@ export const data = {
   projects: [
     {
       id: 1,
+      title: "devlog",
+      subtitle: "Developer Progress Tracker with Streak Analytics",
+      description:
+        "Built a full-stack platform for developers to log daily learning, visualize activity streaks (GitHub-style contribution calendar), and share progress publicly. Implemented GitHub OAuth via Auth.js, analytics dashboard with Recharts, mood tracking, tag-based entries, explore feed, and automated tests with Vitest + GitHub Actions CI.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Prisma", "Tailwind CSS", "Auth.js", "Recharts", "Vitest", "GitHub Actions"],
+      github: "https://github.com/SultanZhalifa/devlog",
+      demo: "https://devlog-rust.vercel.app",
+      featured: true,
+      context: "Personal Project",
+    },
+    {
+      id: 2,
       title: "fintrack-ai",
       subtitle: "AI-Powered Personal Finance Tracker",
       description:
-        "Built a React web app with Chart.js for spending visualization and Gemini AI for natural language financial insights. Deployed on Vercel.",
+        "Built a React web app with Chart.js for spending visualization and Gemini AI for natural language financial insights. Designed to surface actionable recommendations from raw user input. Deployed on Vercel.",
       tech: ["React", "Chart.js", "Gemini AI", "JavaScript", "Tailwind CSS"],
       github: "https://github.com/SultanZhalifa/fintrack-ai",
       demo: "https://fintrack-ai.vercel.app",
@@ -68,7 +80,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 2,
+      id: 3,
       title: "MiniBookLibrary",
       subtitle: "Android App with 51 Automated Unit Tests and CI",
       description:
@@ -80,19 +92,19 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 3,
-      title: "Smart Warehouse",
+      id: 4,
+      title: "smartwarehouse-ai",
       subtitle: "AI Inventory Management System",
       description:
-        "Built an object detection pipeline using YOLOv8 and YOLOv11 to track warehouse inventory in real time. Contributed to validation and accuracy testing of detection output.",
+        "Built an object detection pipeline using YOLOv8 and YOLOv11 to track warehouse inventory in real time. Contributed to validation and accuracy testing of detection output against expected inventory states.",
       tech: ["Python", "YOLOv8", "YOLOv11", "PostgreSQL", "JavaScript"],
-      github: "https://github.com/SultanZhalifa/smartwarehouse-ai",
+      github: "https://github.com/SultanZhalifa/smart-warehouse",
       demo: null,
       featured: true,
       context: "Group Project, Software Engineering Course",
     },
     {
-      id: 4,
+      id: 5,
       title: "TaskFlow",
       subtitle: "Task Management Web Application",
       description:
@@ -101,18 +113,6 @@ export const data = {
       github: "https://github.com/SultanZhalifa/TaskFlow",
       demo: null,
       featured: false,
-      context: "Personal Project",
-    },
-    {
-      id: 5,
-      title: "devlog",
-      subtitle: "Developer Progress Tracker with Streak Analytics",
-      description:
-        "Built a full-stack platform for developers to log daily learning, visualize activity streaks (GitHub-style contribution calendar), and share progress publicly. Implemented GitHub OAuth via Auth.js, analytics dashboard with Recharts, and automated tests with Vitest + React Testing Library.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Prisma", "Tailwind CSS", "Auth.js", "Vitest", "GitHub Actions"],
-      github: "https://github.com/SultanZhalifa/devlog",
-      demo: "https://devlog-sultanzhalifa.vercel.app",
-      featured: true,
       context: "Personal Project",
     },
   ],
@@ -155,6 +155,17 @@ export const data = {
       issuer: "Adobe Learning Manager",
       date: "May 2026",
       items: ["Intelligent by Design: Build an AI Agent"],
+    },
+    {
+      issuer: "Dicoding",
+      date: "May 2026",
+      items: [
+        "Memulai Pemrograman dengan C",
+        "Memulai Pemrograman dengan Java",
+        "Memulai Pemrograman dengan Haskell",
+        "Belajar Prinsip Pemrograman SOLID",
+        "Belajar Dasar Manajemen Proyek (x Google Developers)",
+      ],
     },
     {
       issuer: "Dibimbing",
