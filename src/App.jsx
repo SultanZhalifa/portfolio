@@ -14,11 +14,12 @@ import BackToTop      from './components/BackToTop';
 export default function App() {
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <ProgressBar />
       <SideNav />
       <BackToTop />
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <Skills />
         <Projects />
