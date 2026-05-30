@@ -33,15 +33,15 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           display: 'flex', justifyContent: 'space-between',
           alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '4px',
         }}>
-          <div>
+          <div style={{ flex: '1 1 200px', minWidth: 0 }}>
             <h3 style={{
               fontFamily: 'Space Grotesk', fontSize: '0.95rem',
               fontWeight: 700, color: '#ddd', marginBottom: '3px',
-              letterSpacing: '-0.01em',
+              letterSpacing: '-0.01em', overflowWrap: 'break-word', wordBreak: 'break-word',
             }}>
               {type === 'work' ? item.role : item.degree}
             </h3>
-            <div style={{ fontSize: '0.82rem', color: '#555', fontWeight: 500 }}>
+            <div style={{ fontSize: '0.82rem', color: '#555', fontWeight: 500, overflowWrap: 'break-word' }}>
               {type === 'work' ? item.company : item.school}
             </div>
           </div>
