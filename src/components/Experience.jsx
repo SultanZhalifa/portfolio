@@ -41,14 +41,14 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             }}>
               {type === 'work' ? item.role : item.degree}
             </h3>
-            <div style={{ fontSize: '0.82rem', color: '#555', fontWeight: 500, overflowWrap: 'break-word' }}>
+            <div style={{ fontSize: '0.82rem', color: '#7d7d7d', fontWeight: 500, overflowWrap: 'break-word' }}>
               {type === 'work' ? item.company : item.school}
             </div>
           </div>
           <div style={{ textAlign: 'right', flexShrink: 0 }}>
             <div style={{
               fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
-              color: '#333', letterSpacing: '0.04em', marginBottom: '2px',
+              color: '#5e5e5e', letterSpacing: '0.04em', marginBottom: '2px',
             }}>
               {item.period}
             </div>
@@ -66,8 +66,8 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           display: 'flex', flexDirection: 'column', gap: '8px',
         }}>
           {(item.points || []).map((pt, pi) => (
-            <li key={pi} style={{ display: 'flex', gap: '12px', fontSize: '0.83rem', color: '#484848', lineHeight: 1.75 }}>
-              <span style={{ color: '#222', flexShrink: 0, marginTop: '3px', fontFamily: 'JetBrains Mono', fontSize: '0.65rem' }}>—</span>
+            <li key={pi} style={{ display: 'flex', gap: '12px', fontSize: '0.83rem', color: '#7d7d7d', lineHeight: 1.75 }}>
+              <span style={{ color: '#555', flexShrink: 0, marginTop: '3px', fontFamily: 'JetBrains Mono', fontSize: '0.65rem' }}>—</span>
               {pt}
             </li>
           ))}
@@ -109,7 +109,7 @@ export default function Experience() {
               <FiBriefcase size={12} style={{ color: '#333' }} />
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
-                color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase',
+                color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase',
               }}>
                 Work Experience
               </span>
@@ -129,7 +129,7 @@ export default function Experience() {
               <FiBook size={12} style={{ color: '#333' }} />
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
-                color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase',
+                color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase',
               }}>
                 Education
               </span>

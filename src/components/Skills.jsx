@@ -47,7 +47,7 @@ export default function Skills() {
               <div className="skill-label-col">
                 <span style={{
                   fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                  color: '#2a2a2a', letterSpacing: '0.06em', marginRight: '12px',
+                  color: '#808080', letterSpacing: '0.06em', marginRight: '12px',
                 }}>
                   {categoryIcons[i]}
                 </span>
@@ -82,7 +82,7 @@ export default function Skills() {
             <div className="skill-label-col">
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                color: '#2a2a2a', letterSpacing: '0.06em', marginRight: '12px',
+                color: '#808080', letterSpacing: '0.06em', marginRight: '12px',
               }}>
                 05
               </span>

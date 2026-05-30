@@ -111,6 +111,8 @@ export default function Navbar() {
         <button
           id="mobile-menu-btn"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
           style={{ background: 'none', border: 'none', color: '#f5f5f5', cursor: 'pointer', display: 'none', padding: '4px' }}
           className="mobile-menu-btn"
         >
@@ -136,14 +138,14 @@ export default function Navbar() {
                 style={{
                   display: 'block',
                   padding: '13px 22px',
-                  color: '#555',
+                  color: '#7d7d7d',
                   textDecoration: 'none',
                   borderBottom: '1px solid #111',
                   fontSize: '0.875rem',
                   transition: 'color 0.2s',
                 }}
                 onMouseEnter={e => e.target.style.color = '#f5f5f5'}
-                onMouseLeave={e => e.target.style.color = '#555'}
+                onMouseLeave={e => e.target.style.color = '#7d7d7d'}
               >
                 {label}
               </a>

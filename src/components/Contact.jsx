@@ -97,8 +97,8 @@ export default function Contact() {
             >
               <div className="contact-icon-box"><FiFileText size={12} /></div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#2a2a2a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Resume</div>
-                <div style={{ fontSize: '0.82rem', color: '#555' }}>Sultan_CV_General.pdf</div>
+                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Resume</div>
+                <div style={{ fontSize: '0.82rem', color: '#7d7d7d' }}>Sultan_CV_General.pdf</div>
               </div>
             </a>
 
@@ -115,7 +115,7 @@ export default function Contact() {
                     <div className="contact-icon-box"><Icon size={12} /></div>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
-                      <div style={{ fontSize: '0.82rem', color: '#555' }}>{value}</div>
+                      <div style={{ fontSize: '0.82rem', color: '#7d7d7d' }}>{value}</div>
                     </div>
                     {copyable && (
                       <button
@@ -179,7 +179,7 @@ export default function Contact() {
                     <label style={{
                       display: 'block',
                       fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                      color: '#333', letterSpacing: '0.1em',
+                      color: '#5e5e5e', letterSpacing: '0.1em',
                       textTransform: 'uppercase', marginBottom: '8px',
                     }}>
                       {field.label}
@@ -201,7 +201,7 @@ export default function Contact() {
                   <label style={{
                     display: 'block',
                     fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                    color: '#333', letterSpacing: '0.1em',
+                    color: '#5e5e5e', letterSpacing: '0.1em',
                     textTransform: 'uppercase', marginBottom: '8px',
                   }}>
                     Message
@@ -220,7 +220,7 @@ export default function Contact() {
                 </div>
 
                 {error && (
-                  <p style={{ color: '#555', fontSize: '0.78rem', marginBottom: '14px', fontFamily: 'JetBrains Mono' }}>
+                  <p style={{ color: '#7d7d7d', fontSize: '0.78rem', marginBottom: '14px', fontFamily: 'JetBrains Mono' }}>
                     {error}
                   </p>
                 )}
