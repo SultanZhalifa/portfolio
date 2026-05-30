@@ -35,7 +35,7 @@ export default function SideNav() {
   }, []);
 
   return (
-    <div style={{
+    <nav aria-label="Section navigation" style={{
       position: 'fixed', right: '28px', top: '50%',
       transform: 'translateY(-50%)',
       display: 'flex', flexDirection: 'column', gap: '14px',
@@ -67,6 +67,8 @@ export default function SideNav() {
           <a
             href={`#${id}`}
             title={label}
+            aria-label={`Go to ${label} section`}
+            aria-current={active === id ? 'true' : undefined}
             style={{
               width: active === id ? '8px' : '5px',
               height: active === id ? '8px' : '5px',
@@ -86,6 +88,6 @@ export default function SideNav() {
       <style>{`
         @media (max-width: 1024px) { .sidenav { display: none !important; } }
       `}</style>
-    </div>
+    </nav>
   );
 }
