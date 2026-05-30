@@ -54,7 +54,7 @@ function StatItem({ value, suffix, label, inView, showDivider }) {
         </div>
         <div style={{
           fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-          color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase',
+          color: '#7d7d7d', letterSpacing: '0.1em', textTransform: 'uppercase',
           marginTop: '6px',
         }}>
           {label}
@@ -102,7 +102,7 @@ export default function Hero() {
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '5px 13px', borderRadius: '4px',
             fontSize: '0.68rem', fontFamily: 'JetBrains Mono', fontWeight: 500,
-            background: '#0c0c0c', border: '1px solid #1c1c1c', color: '#555',
+            background: '#0c0c0c', border: '1px solid #1c1c1c', color: '#7d7d7d',
             letterSpacing: '0.1em', textTransform: 'uppercase',
           }}>
             <span style={{
@@ -151,7 +151,7 @@ export default function Hero() {
           <div style={{ flexShrink: 0 }}>
             <div style={{
               fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
-              color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
+              color: '#5e5e5e', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
             }}>
               Role
             </div>
@@ -162,11 +162,11 @@ export default function Hero() {
           <div style={{ flex: 1, minWidth: '240px', maxWidth: '480px' }}>
             <div style={{
               fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
-              color: '#333', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
+              color: '#5e5e5e', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
             }}>
               About
             </div>
-            <p style={{ color: '#555', fontSize: '0.875rem', lineHeight: 1.85 }}>
+            <p style={{ color: '#7d7d7d', fontSize: '0.875rem', lineHeight: 1.85 }}>
               Informatics undergraduate at President University with hands-on experience in fullstack web, Android, and AI-integrated systems. Background in cybersecurity and manufacturing quality.
             </p>
           </div>
@@ -243,8 +243,9 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Marquee tech strip */}
+      {/* Marquee tech strip — decorative; real tech list is in Skills */}
       <motion.div
+        aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
@@ -261,7 +262,7 @@ export default function Hero() {
             <span key={i} translate="no" style={{ display: 'inline-flex', alignItems: 'center', gap: '24px', paddingRight: '24px' }}>
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
-                color: '#2a2a2a', letterSpacing: '0.06em', whiteSpace: 'nowrap',
+                color: '#3a3a3a', letterSpacing: '0.06em', whiteSpace: 'nowrap',
               }}>
                 {tech}
               </span>

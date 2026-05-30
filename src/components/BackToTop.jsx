@@ -19,7 +19,7 @@ export default function BackToTop() {
         position: 'fixed', bottom: '28px', right: '28px',
         width: '38px', height: '38px',
         border: '1px solid #242424', borderRadius: '8px',
-        background: '#0c0c0c', color: '#555',
+        background: '#0c0c0c', color: '#7d7d7d',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         cursor: 'pointer', zIndex: 800,
         opacity: visible ? 1 : 0,

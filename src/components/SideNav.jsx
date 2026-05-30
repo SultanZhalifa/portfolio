@@ -54,7 +54,7 @@ export default function SideNav() {
           {/* Tooltip label */}
           <div style={{
             fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-            color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase',
+            color: '#7d7d7d', letterSpacing: '0.08em', textTransform: 'uppercase',
             opacity: hovered === id ? 1 : 0,
             transform: hovered === id ? 'translateX(0)' : 'translateX(6px)',
             transition: 'opacity 0.2s, transform 0.2s',
