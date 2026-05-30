@@ -47,7 +47,7 @@ export default function Certifications() {
                 </div>
                 <div style={{
                   fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                  color: '#2a2a2a', letterSpacing: '0.06em',
+                  color: '#808080', letterSpacing: '0.06em',
                 }}>
                   {cert.date}
                 </div>
@@ -66,7 +66,7 @@ export default function Certifications() {
                     }}>
                       —
                     </span>
-                    <span style={{ fontSize: '0.83rem', color: '#555', lineHeight: 1.6 }}>
+                    <span style={{ fontSize: '0.83rem', color: '#7d7d7d', lineHeight: 1.6 }}>
                       {item}
                     </span>
                   </div>

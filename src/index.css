@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Fonts are loaded via <link> in index.html (non-render-blocking) */
 
 /* ─── Reset ─────────────────────────────────────────── */
 *, *::before, *::after {
@@ -22,8 +22,8 @@
 
   --text-1:     #f5f5f5;
   --text-2:     #999999;
-  --text-3:     #555555;
-  --text-4:     #333333;
+  --text-3:     #7d7d7d;
+  --text-4:     #5e5e5e;
   --text-5:     #1a1a1a;
 
   --font-main:    'Inter', sans-serif;

@@ -38,7 +38,7 @@ function ProjectRow({ project, index, inView }) {
         {/* Context badge */}
         <span style={{
           fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-          color: '#2e2e2e', letterSpacing: '0.08em', textTransform: 'uppercase',
+          color: '#6e6e6e', letterSpacing: '0.08em', textTransform: 'uppercase',
           flexShrink: 0, minWidth: '130px',
           display: 'none',
         }} className="project-context">
@@ -57,7 +57,7 @@ function ProjectRow({ project, index, inView }) {
 
         {/* Subtitle — hide on mobile */}
         <span style={{
-          fontSize: '0.8rem', color: '#333', flex: 1,
+          fontSize: '0.8rem', color: '#6a6a6a', flex: 1,
           maxWidth: '280px', display: 'none',
         }} className="project-subtitle">
           {project.subtitle}
@@ -93,13 +93,13 @@ function ProjectRow({ project, index, inView }) {
               <div>
                 <div style={{
                   fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                  color: '#2e2e2e', letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#6e6e6e', letterSpacing: '0.1em', textTransform: 'uppercase',
                   marginBottom: '8px',
                 }}>
                   {project.context}
                 </div>
                 <p style={{
-                  color: '#555', fontSize: '0.875rem', lineHeight: 1.8,
+                  color: '#7d7d7d', fontSize: '0.875rem', lineHeight: 1.8,
                   maxWidth: '580px',
                 }}>
                   {project.description}
@@ -219,7 +219,7 @@ export default function Projects() {
               <motion.p
                 key="empty"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ padding: '32px 0', color: '#333', fontFamily: 'JetBrains Mono', fontSize: '0.75rem' }}
+                style={{ padding: '32px 0', color: '#6a6a6a', fontFamily: 'JetBrains Mono', fontSize: '0.75rem' }}
               >
                 No projects with {filter} yet.
               </motion.p>
