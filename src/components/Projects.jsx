@@ -180,7 +180,7 @@ export default function Projects() {
             <span className="section-label">Portfolio</span>
           </div>
           <h2 className="section-title">Selected Projects</h2>
-          <p className="section-sub">Work across web development, AI integration, and mobile.</p>
+          <p className="section-sub">Work across web, mobile, AI integration, and competition entries.</p>
         </motion.div>
 
         {/* Tech filter */}
