@@ -22,16 +22,16 @@ function useCountUp(target, inView, duration = 1400) {
 
 const allTech = [
   'Python', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
-  'FastAPI', 'PostgreSQL', 'MongoDB', 'Docker', 'YOLOv8', 'Gemini AI',
-  'Kotlin', 'Android', 'GitHub Actions', 'JUnit 4', 'MockK', 'Turbine',
-  'MVVM', 'REST API', 'Linux', 'Penetration Testing',
+  'FastAPI', 'PostgreSQL', 'MongoDB', 'Docker', 'YOLOv11', 'Gemini AI',
+  'Kotlin', 'Android', 'Flutter', 'Dart', 'GitHub Actions', 'JUnit 4',
+  'MockK', 'Turbine', 'MVVM', 'REST API', 'Linux', 'PWA',
 ];
 
 const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
   { value: 5,    suffix: 'th', label: 'Semester'       },
-  { value: 5,    suffix: '+',  label: 'Projects Built'  },
+  { value: 8,    suffix: '+',  label: 'Projects Built'  },
   { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
   { value: 10,   suffix: '+',  label: 'Certifications'  },
 ];

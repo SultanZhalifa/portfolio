@@ -27,14 +27,14 @@ export const data = {
     {
       category: "Languages & Web",
       items: [
-        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "SQL",
+        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "Dart", "SQL",
         "React", "Next.js", "Node.js", "Express", "FastAPI", "Flask", "Tailwind CSS",
       ],
     },
     {
       category: "Mobile & Testing",
       items: [
-        "Android (Kotlin)", "MVVM", "Room", "Coroutines",
+        "Android (Kotlin)", "Flutter", "MVVM", "Room", "Coroutines", "Provider",
         "JUnit 4", "MockK", "Turbine", "Vitest", "GitHub Actions CI", "Manual Testing",
       ],
     },
@@ -48,7 +48,7 @@ export const data = {
     {
       category: "Tools & Security",
       items: [
-        "Git", "GitHub", "Docker", "Linux", "REST API", "Android Studio",
+        "Git", "GitHub", "Docker", "Linux", "REST API", "Android Studio", "PWA",
         "Vulnerability Assessment", "Penetration Testing", "Digital Forensics", "Network Security",
       ],
     },
@@ -93,15 +93,15 @@ export const data = {
     },
     {
       id: 4,
-      title: "smartwarehouse-ai",
-      subtitle: "AI Inventory Management System",
+      title: "PestGuard-AI",
+      subtitle: "AI-Powered Bio-Hazard & Pest Detection System",
       description:
-        "Built an object detection pipeline using YOLOv8 and YOLOv11 to track warehouse inventory in real time. Contributed to validation and accuracy testing of detection output against expected inventory states.",
-      tech: ["Python", "YOLOv8", "YOLOv11", "PostgreSQL", "JavaScript"],
-      github: "https://github.com/SultanZhalifa/smart-warehouse",
-      demo: null,
+        "Built an AI-powered warehouse pest detection system for PT. Kawan Lama Group's AI Open Innovation Challenge. Uses YOLO11 custom-trained model to detect snakes, cats, and geckos in warehouse zones with CLAHE low-light preprocessing. Features real-time WebSocket alerts, browser audio alarms, Telegram notifications, Gemini AI chatbot with RAG pattern, multi-zone camera monitoring, and Docker deployment.",
+      tech: ["React", "Python", "FastAPI", "YOLOv11", "Gemini AI", "Docker", "WebSocket", "SQLite"],
+      github: "https://github.com/SultanZhalifa/PestGuard-AI",
+      demo: "https://smartwarehouse-ai.vercel.app",
       featured: true,
-      context: "Group Project, Software Engineering Course",
+      context: "Group Project, AI Open Innovation Challenge 2026",
     },
     {
       id: 5,
@@ -114,6 +114,30 @@ export const data = {
       demo: null,
       featured: false,
       context: "Personal Project",
+    },
+    {
+      id: 6,
+      title: "Duitku",
+      subtitle: "Offline-First Expense Tracker with Flutter & Material 3",
+      description:
+        "Built a clean, offline-first personal finance app with Flutter and Material 3. Features multi-wallet and multi-currency support with user-defined exchange rates, recurring transactions with automatic catch-up, monthly budget tracking with category-level progress bars, interactive donut and trend charts, biometric app lock, JSON backup/restore, CSV export, and animated first-run onboarding. All data stays on-device with no account required.",
+      tech: ["Flutter", "Dart", "Material 3", "Provider", "SQLite"],
+      github: "https://github.com/SultanZhalifa/Duitku",
+      demo: "https://sultanzhalifa.github.io/Duitku/",
+      featured: true,
+      context: "Personal Project",
+    },
+    {
+      id: 7,
+      title: "SaringSini",
+      subtitle: "AI Hoax Filter & Family Communication Coach",
+      description:
+        "Built a mobile-first SPA for detecting misinformation in WhatsApp family groups, developed for #JuaraVibeCoding 2026. Uses Gemini 3.5 Flash for multimodal analysis (text, screenshot, deepfake, URL phishing). Features AI coaching with 4 parent personas and mood tracking, real-time tone adjuster slider, generative Hoax DNA visualization, regional language templates (Jawa, Sunda, Minang, Batak), live hoax map of Indonesia, quiz system, and PWA support.",
+      tech: ["Node.js", "Express", "Gemini AI", "JavaScript", "PWA"],
+      github: "https://github.com/SultanZhalifa/SaringSini",
+      demo: null,
+      featured: true,
+      context: "Competition Entry, #JuaraVibeCoding 2026",
     },
   ],
 
