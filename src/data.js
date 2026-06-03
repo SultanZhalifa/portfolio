@@ -6,7 +6,7 @@ export const data = {
   title: "Informatics Student",
   subtitle: "Fullstack & AI Developer",
   summary:
-    "Informatics undergraduate at President University with hands-on experience across fullstack web, Android, and AI-integrated systems. Wrote 51 automated unit tests for an Android project using JUnit 4, MockK, and Turbine with GitHub Actions CI. Built and deployed a React web app with Gemini AI integration. Brings additional depth from a cybersecurity background in vulnerability assessment and penetration testing, and a manufacturing quality background from PT Honda Prospect Motor.",
+    "Informatics undergraduate at President University building fullstack web, Android, and AI-integrated systems end to end. Delivered a real-time computer-vision pest-detection platform for an enterprise logistics client (PT Kawan Lama Group) using YOLO11 and a Gemini assistant, and shipped a Kotlin Android app backed by 51 automated tests. Comfortable across the stack — React, Next.js, FastAPI, PostgreSQL — with added perspective from cybersecurity and a manufacturing quality background.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
@@ -18,7 +18,7 @@ export const data = {
       period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "5th semester. Coursework: Algorithms and Data Structures, Database Systems, Software Engineering, Computer Networks, Operating Systems.",
+        "5th semester. Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
       ],
     },
   ],
@@ -57,13 +57,13 @@ export const data = {
   projects: [
     {
       id: 1,
-      title: "devlog",
-      subtitle: "Developer Progress Tracker with Streak Analytics",
+      title: "DevLog",
+      subtitle: "Developer Progress Tracking Platform",
       description:
-        "Built a full-stack platform for developers to log daily learning, visualize activity streaks (GitHub-style contribution calendar), and share progress publicly. Implemented GitHub OAuth via Auth.js, analytics dashboard with Recharts, mood tracking, tag-based entries, explore feed, and automated tests with Vitest + GitHub Actions CI.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Prisma", "Tailwind CSS", "Auth.js", "Recharts", "Vitest", "GitHub Actions"],
+        "Developed a fullstack platform for logging daily learning with a GitHub-style streak heatmap, analytics dashboard, public profiles, and a discovery feed — built on GitHub OAuth, a relational follow schema, and unit-tested streak logic behind a CI pipeline. Implemented with Next.js 16, Prisma, and PostgreSQL on Supabase.",
+      tech: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "Auth.js", "Tailwind CSS", "Recharts", "Vitest"],
       github: "https://github.com/SultanZhalifa/devlog",
-      demo: "https://devlog-rust.vercel.app",
+      demo: "https://devlog-sultanzhalifa.vercel.app",
       featured: true,
       context: "Personal Project",
     },
@@ -82,10 +82,10 @@ export const data = {
     {
       id: 3,
       title: "MiniBookLibrary",
-      subtitle: "Android App with 51 Automated Unit Tests and CI",
+      subtitle: "Offline-First Android App with 51 Automated Tests",
       description:
-        "Rewrote a Java + raw SQLite class project from scratch in Kotlin with MVVM, Room, and Coroutines. Wrote 51 unit tests covering authentication flows, book CRUD, ViewModel state transitions, search and filter, form validation, and Google Books API parsing including edge cases. Set up GitHub Actions CI to run the full suite on every push.",
-      tech: ["Kotlin", "JUnit 4", "MockK", "Turbine", "Room", "MVVM", "GitHub Actions CI"],
+        "Built a Kotlin book-management app (MVVM, Room, Coroutines, Flow) with reading-progress tracking, ISBN auto-fill via the Google Books API, PDF/JSON export, and salted SHA-256 account security. Wrote 51 unit tests (JUnit 4, MockK, Turbine) covering authentication, CRUD, ViewModel state, and API parsing — run automatically alongside debug-APK builds through GitHub Actions CI on every push.",
+      tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/MiniBookLibrary",
       demo: null,
       featured: true,
@@ -93,15 +93,15 @@ export const data = {
     },
     {
       id: 4,
-      title: "PestGuard-AI",
-      subtitle: "AI-Powered Bio-Hazard & Pest Detection System",
+      title: "PestGuard AI",
+      subtitle: "Real-Time Warehouse Pest & Bio-Hazard Detection",
       description:
-        "Built an AI-powered warehouse pest detection system for PT. Kawan Lama Group's AI Open Innovation Challenge. Uses YOLO11 custom-trained model to detect snakes, cats, and geckos in warehouse zones with CLAHE low-light preprocessing. Features real-time WebSocket alerts, browser audio alarms, Telegram notifications, Gemini AI chatbot with RAG pattern, multi-zone camera monitoring, and Docker deployment.",
-      tech: ["React", "Python", "FastAPI", "YOLOv11", "Gemini AI", "Docker", "WebSocket", "SQLite"],
+        "Engineered a 24/7 computer-vision surveillance platform for PT Kawan Lama Group (Logistics), detecting snakes, cats, and geckos across up to four camera zones with sub-second alerts via WebSocket, browser audio, and Telegram. Custom-trained a YOLO11-Nano model (~5.2 MB) with CLAHE low-light preprocessing, and added a Gemini 2.0 Flash RAG assistant, role-based access, and PDF/CSV reporting — quantifying an estimated Rp 144–324 million in annual savings per warehouse.",
+      tech: ["Python", "FastAPI", "React", "YOLO11", "OpenCV", "Gemini AI", "WebSocket", "SQLite", "Docker"],
       github: "https://github.com/SultanZhalifa/PestGuard-AI",
       demo: "https://pestguard-ai.vercel.app/login",
       featured: true,
-      context: "Group Project, AI Open Innovation Challenge 2026",
+      context: "Client Project — PT Kawan Lama Group (Logistics)",
     },
     {
       id: 5,
@@ -118,10 +118,10 @@ export const data = {
     {
       id: 6,
       title: "Duitku",
-      subtitle: "Offline-First Expense Tracker with Flutter & Material 3",
+      subtitle: "Cross-Platform Personal Finance Tracker",
       description:
-        "Built a clean, offline-first personal finance app with Flutter and Material 3. Features multi-wallet and multi-currency support with user-defined exchange rates, recurring transactions with automatic catch-up, monthly budget tracking with category-level progress bars, interactive donut and trend charts, biometric app lock, JSON backup/restore, CSV export, and animated first-run onboarding. All data stays on-device with no account required.",
-      tech: ["Flutter", "Dart", "Material 3", "Provider", "SQLite"],
+        "Created an offline-first Flutter app for multi-wallet, multi-currency expense tracking with transfers, recurring automation, budgets, and biometric lock — running identical code on Android and web, backed by 17 unit tests. Features user-defined exchange rates, monthly budget tracking with category-level progress, interactive donut and trend charts, and JSON backup/CSV export. All data stays on-device with no account required.",
+      tech: ["Flutter", "Dart", "Provider", "FL Chart", "SQLite", "Material 3"],
       github: "https://github.com/SultanZhalifa/Duitku",
       demo: "https://sultanzhalifa.github.io/Duitku/",
       featured: true,
@@ -130,10 +130,10 @@ export const data = {
     {
       id: 7,
       title: "SaringSini",
-      subtitle: "AI Hoax Filter & Family Communication Coach",
+      subtitle: "AI Misinformation Checker for Family Chats",
       description:
-        "Built a mobile-first SPA for detecting misinformation in WhatsApp family groups, developed for #JuaraVibeCoding 2026. Uses Gemini 3.5 Flash for multimodal analysis (text, screenshot, deepfake, URL phishing). Features AI coaching with 4 parent personas and mood tracking, real-time tone adjuster slider, generative Hoax DNA visualization, regional language templates (Jawa, Sunda, Minang, Batak), live hoax map of Indonesia, quiz system, and PWA support.",
-      tech: ["Node.js", "Express", "Gemini AI", "JavaScript", "PWA"],
+        "Built a mobile-first PWA that analyzes text, images, and URLs for hoaxes using multimodal Gemini, generating family-friendly response templates across four Indonesian regional languages (Jawa, Sunda, Minang, Batak). Hardened with rate limiting, CSP / anti-XSS headers, and a multi-stage Docker build, deployed on Google Cloud Run. Features AI coaching with parent personas, a real-time tone adjuster, generative Hoax DNA visualization, and a live Indonesia hoax map.",
+      tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
       featured: true,
@@ -205,6 +205,18 @@ export const data = {
       issuer: "SMK N 1 Cikarang Utara",
       date: "Mar 2022",
       items: ["Vocational Competency Certificate in Light Vehicle Automotive Engineering"],
+    },
+  ],
+
+  activities: [
+    {
+      title: "HACKSPHERE 2025 — National 48-Hour Hackathon",
+      role: "Event Committee",
+      org: "President University",
+      date: "Oct 2025",
+      points: [
+        "Served on the organizing committee for a 48-hour national hackathon uniting university students, high-schoolers, and industry professionals in teams of three, supporting participant operations and event logistics throughout.",
+      ],
     },
   ],
 };

@@ -7,7 +7,6 @@ import Experience     from './components/Experience';
 import Certifications from './components/Certifications';
 import Contact        from './components/Contact';
 import Footer         from './components/Footer';
-import ProgressBar    from './components/ProgressBar';
 import SideNav        from './components/SideNav';
 import BackToTop      from './components/BackToTop';
 
@@ -15,7 +14,6 @@ export default function App() {
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <ProgressBar />
       <SideNav />
       <BackToTop />
       <Navbar />

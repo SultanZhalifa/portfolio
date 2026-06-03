@@ -167,7 +167,7 @@ export default function Hero() {
               About
             </div>
             <p style={{ color: '#7d7d7d', fontSize: '0.875rem', lineHeight: 1.85 }}>
-              Informatics undergraduate at President University with hands-on experience in fullstack web, Android, and AI-integrated systems. Background in cybersecurity and manufacturing quality.
+              Informatics undergraduate at President University building fullstack web, Android, and AI-integrated systems end to end. Added perspective from cybersecurity and a manufacturing quality background.
             </p>
           </div>
         </motion.div>
@@ -183,7 +183,7 @@ export default function Hero() {
             View Projects <FiArrowRight size={13} />
           </a>
           <a
-            href="/Sultan_CV_General.pdf"
+            href="/Sultan_Zhalifunnas_Musyaffa_CV.pdf"
             target="_blank"
             rel="noreferrer"
             className="btn btn-ghost"

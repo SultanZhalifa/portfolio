@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiBriefcase, FiBook } from 'react-icons/fi';
+import { FiBriefcase, FiBook, FiUsers } from 'react-icons/fi';
 import { data } from '../data';
 
 function TimelineItem({ item, index, inView, type, isLast }) {
@@ -143,6 +143,80 @@ export default function Experience() {
             ))}
           </div>
         </div>
+
+        {/* Organizations & Activities */}
+        {data.activities && data.activities.length > 0 && (
+          <div style={{ marginTop: '64px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '36px' }}>
+              <FiUsers size={12} style={{ color: '#333' }} />
+              <span style={{
+                fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
+                color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase',
+              }}>
+                Organizations & Activities
+              </span>
+              <div style={{ flex: 1, height: '1px', background: '#141414' }} />
+            </div>
+            {data.activities.map((act, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
+                style={{ display: 'flex', gap: '20px' }}
+              >
+                <div style={{ flexShrink: 0 }}>
+                  <div style={{
+                    width: '32px', height: '32px', borderRadius: '6px',
+                    border: '1px solid #1c1c1c', background: '#080808',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#333', flexShrink: 0,
+                  }}>
+                    <FiUsers size={12} />
+                  </div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{
+                    display: 'flex', justifyContent: 'space-between',
+                    alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '4px',
+                  }}>
+                    <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+                      <h3 style={{
+                        fontFamily: 'Space Grotesk', fontSize: '0.95rem',
+                        fontWeight: 700, color: '#ddd', marginBottom: '3px',
+                        letterSpacing: '-0.01em', overflowWrap: 'break-word',
+                      }}>
+                        {act.title}
+                      </h3>
+                      <div style={{ fontSize: '0.82rem', color: '#7d7d7d', fontWeight: 500 }}>
+                        {act.role}{act.org ? ` — ${act.org}` : ''}
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                      <div style={{
+                        fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
+                        color: '#5e5e5e', letterSpacing: '0.04em',
+                      }}>
+                        {act.date}
+                      </div>
+                    </div>
+                  </div>
+                  <ul style={{
+                    marginTop: '14px', paddingLeft: '0', listStyle: 'none',
+                    display: 'flex', flexDirection: 'column', gap: '8px',
+                  }}>
+                    {(act.points || []).map((pt, pi) => (
+                      <li key={pi} style={{ display: 'flex', gap: '12px', fontSize: '0.83rem', color: '#7d7d7d', lineHeight: 1.75 }}>
+                        <span style={{ color: '#555', flexShrink: 0, marginTop: '3px', fontFamily: 'JetBrains Mono', fontSize: '0.65rem' }}>—</span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
 
       <style>{`
