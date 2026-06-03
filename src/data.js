@@ -167,8 +167,8 @@ export const data = {
   certifications: [
     {
       issuer: "Google for Education",
-      date: "May 2026",
-      items: ["Gemini Certified Faculty", "Gemini Certified Student"],
+      date: "2026",
+      items: ["Gemini Certified Educator", "Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
       issuer: "IBM SkillsBuild",
@@ -182,8 +182,9 @@ export const data = {
     },
     {
       issuer: "Dicoding",
-      date: "May 2026",
+      date: "2026",
       items: [
+        "Akselerasi Karier dan Produktivitas dengan Gemini",
         "Memulai Pemrograman dengan C",
         "Memulai Pemrograman dengan Java",
         "Memulai Pemrograman dengan Haskell",
@@ -198,8 +199,8 @@ export const data = {
     },
     {
       issuer: "RevoU",
-      date: "Sep 2024",
-      items: ["Intro to Data Analytics"],
+      date: "2024 — 2026",
+      items: ["Coding Camp: Intro to Software Engineering", "Intro to Data Analytics"],
     },
     {
       issuer: "SMK N 1 Cikarang Utara",
