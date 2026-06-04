@@ -90,6 +90,8 @@ export default function Hero() {
 
       {/* Main content */}
       <div className="container hero-container" style={{ position: 'relative', zIndex: 1, paddingTop: '120px' }}>
+       <div className="hero-main-grid">
+        <div className="hero-text-col">
 
         {/* Status badge */}
         <motion.div
@@ -214,6 +216,33 @@ export default function Hero() {
             </a>
           ))}
         </motion.div>
+
+        </div>{/* end hero-text-col */}
+
+        {/* Portrait */}
+        <motion.div
+          className="hero-photo-col"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="hero-photo-frame">
+            <picture>
+              <source srcSet="/sultan-portrait.webp" type="image/webp" />
+              <img
+                src="/sultan-portrait.jpg"
+                alt="Sultan Zhalifunnas Musyaffa"
+                className="hero-photo-img"
+                width="900"
+                height="1260"
+                loading="eager"
+              />
+            </picture>
+            <div className="hero-photo-overlay" />
+          </div>
+        </motion.div>
+
+       </div>{/* end hero-main-grid */}
       </div>
 
       {/* Stats strip */}
@@ -276,6 +305,55 @@ export default function Hero() {
         .hero-container { max-width: 1080px; }
         .hero-name { font-size: clamp(3.2rem, 7.5vw, 7rem); }
         .hero-role-row { gap: 48px; }
+
+        /* Hero layout: text + portrait */
+        .hero-main-grid {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 56px;
+        }
+        .hero-text-col { flex: 1; min-width: 0; }
+        .hero-photo-col {
+          flex-shrink: 0;
+          width: clamp(220px, 24vw, 300px);
+          margin-top: 8px;
+        }
+        .hero-photo-frame {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 5 / 7;
+          border: 1px solid #1c1c1c;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #0a0a0a;
+          box-shadow: 0 24px 60px -24px rgba(0,0,0,0.8);
+        }
+        .hero-photo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          filter: grayscale(100%) contrast(1.02);
+          transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+        }
+        .hero-photo-frame:hover .hero-photo-img {
+          filter: grayscale(0%) contrast(1);
+          transform: scale(1.03);
+        }
+        .hero-photo-overlay {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%);
+        }
+        @media (max-width: 860px) {
+          .hero-main-grid { flex-direction: column-reverse; align-items: flex-start; gap: 36px; }
+          .hero-photo-col {
+            width: clamp(160px, 42vw, 220px);
+            margin-top: 0;
+          }
+        }
         .hero-stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
