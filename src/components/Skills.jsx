@@ -53,7 +53,7 @@ export default function Skills() {
                 </span>
                 <span style={{
                   fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
-                  color: '#3a3a3a', letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#9a9a9a', letterSpacing: '0.1em', textTransform: 'uppercase',
                   fontWeight: 500,
                 }}>
                   {group.category}
@@ -88,7 +88,7 @@ export default function Skills() {
               </span>
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
-                color: '#3a3a3a', letterSpacing: '0.1em', textTransform: 'uppercase',
+                color: '#9a9a9a', letterSpacing: '0.1em', textTransform: 'uppercase',
                 fontWeight: 500,
               }}>
                 Languages

@@ -62,7 +62,7 @@ export default function Certifications() {
                   }}>
                     <span style={{
                       fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                      color: '#222', flexShrink: 0,
+                      color: '#555', flexShrink: 0,
                     }}>
                       —
                     </span>

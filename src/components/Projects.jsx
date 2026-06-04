@@ -29,7 +29,7 @@ function ProjectRow({ project, index, inView }) {
         {/* Number */}
         <span style={{
           fontFamily: 'JetBrains Mono', fontSize: '0.72rem',
-          color: '#242424', letterSpacing: '0.06em', flexShrink: 0,
+          color: '#5e5e5e', letterSpacing: '0.06em', flexShrink: 0,
           minWidth: '28px',
         }}>
           {num}

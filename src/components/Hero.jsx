@@ -134,7 +134,7 @@ export default function Hero() {
           <span style={{
             display: 'block',
             color: 'transparent',
-            WebkitTextStroke: '1.5px #2a2a2a',
+            WebkitTextStroke: '1.5px #555',
           }}>
             Musyaffa
           </span>
@@ -262,11 +262,11 @@ export default function Hero() {
             <span key={i} translate="no" style={{ display: 'inline-flex', alignItems: 'center', gap: '24px', paddingRight: '24px' }}>
               <span style={{
                 fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
-                color: '#3a3a3a', letterSpacing: '0.06em', whiteSpace: 'nowrap',
+                color: '#767676', letterSpacing: '0.06em', whiteSpace: 'nowrap',
               }}>
                 {tech}
               </span>
-              <span style={{ color: '#1a1a1a', fontSize: '0.5rem' }}>+</span>
+              <span style={{ color: '#444', fontSize: '0.5rem' }}>+</span>
             </span>
           ))}
         </div>

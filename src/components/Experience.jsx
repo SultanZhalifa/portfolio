@@ -54,7 +54,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             </div>
             <div style={{
               fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-              color: '#252525', letterSpacing: '0.02em',
+              color: '#6e6e6e', letterSpacing: '0.02em',
             }}>
               {item.location}
             </div>
