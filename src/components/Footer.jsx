@@ -30,7 +30,7 @@ export default function Footer() {
         }}>
           <span style={{
             fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-            color: '#222', letterSpacing: '0.06em',
+            color: '#7d7d7d', letterSpacing: '0.06em',
           }}>
             &copy; {year} Sultan Zhalifunnas Musyaffa
           </span>
