@@ -3,6 +3,10 @@
 .env.local
 .env.production
 
+# Local source assets (optimized versions live in public/)
+44730-557166.jpg
+FAVICON TAB.svg
+
 # Logs
 logs
 *.log
