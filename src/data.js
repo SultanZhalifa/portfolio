@@ -69,6 +69,18 @@ export const data = {
     },
     {
       id: 2,
+      title: "SRMAudit",
+      subtitle: "GRC & Security Audit Platform — OCTAVE Allegro",
+      description:
+        "Built an enterprise GRC and security-audit platform implementing the OCTAVE Allegro risk-assessment methodology — a small, fast, fully-typed SPA with a clean layered architecture (core → data → services → UI). Features dual-mode persistence: cloud mode with Supabase auth, per-user RLS, and storage, or a fully-functional local mode via IndexedDB — no mocks, no fake state. Designed a warm, minimal, accessible UI with light/dark themes, zero emoji (every glyph is an inline SVG), and strict quality gates: strict TypeScript, ESLint, Prettier, Vitest, and CI.",
+      tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
+      github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
+      demo: null,
+      featured: true,
+      context: "Mini Project — Security Risk Management",
+    },
+    {
+      id: 3,
       title: "FinTrack.ai",
       subtitle: "Local-First Finance App with a Health Score",
       description:
@@ -80,7 +92,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 3,
+      id: 4,
       title: "MiniBookLibrary",
       subtitle: "Offline-First Android App with 51 Automated Tests",
       description:
@@ -92,7 +104,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 4,
+      id: 5,
       title: "PestGuard AI",
       subtitle: "Real-Time Warehouse Pest & Bio-Hazard Detection",
       description:
@@ -104,7 +116,7 @@ export const data = {
       context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group (Logistics)",
     },
     {
-      id: 5,
+      id: 6,
       title: "TaskFlow",
       subtitle: "Zero-Dependency Task Manager in Vanilla JS",
       description:
@@ -116,7 +128,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 6,
+      id: 7,
       title: "Duitku",
       subtitle: "Cross-Platform Personal Finance Tracker",
       description:
@@ -128,7 +140,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 7,
+      id: 8,
       title: "SaringSini",
       subtitle: "AI Misinformation Checker for Family Chats",
       description:
