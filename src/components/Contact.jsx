@@ -97,7 +97,7 @@ export default function Contact() {
             >
               <div className="contact-icon-box"><FiFileText size={12} /></div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Resume</div>
+                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>CV</div>
                 <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>Sultan_Zhalifunnas_Musyaffa_CV.pdf</div>
               </div>
             </a>
