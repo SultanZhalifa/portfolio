@@ -121,19 +121,22 @@ body::before {
   background-size: 72px 72px;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
+  contain: strict;
 }
 
-/* Noise grain overlay */
+/* Noise grain overlay — lightweight tiling pattern */
 body::after {
   content: '';
   position: fixed;
-  inset: -200%;
-  width: 400%;
-  height: 400%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  inset: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMFBQUFBQVWBr+FAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAiklEQVQ4y62TQQ6AMAwD+wL8/8mIhEM3bUEckPAh8SZNmoINj6M5Z3N+hLkPxkNgeBLnB7AKd8A5Bwd3YGcV7sDGLtwB39E+A0cF5guwFNkCdhYkC7jLkSwg70GSQG4PmgXMOZAl4DaATAG5PKgWMPtAloBaH9UJuPUhTcCsD7IFCDpkC5g+4wuYPuMbB+v7SsQAAAAASUVORK5CYII=");
+  background-repeat: repeat;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.35;
+  opacity: 0.03;
+  will-change: transform;
+  contain: strict;
 }
 
 /* ─── Scrollbar ──────────────────────────────────────── */
@@ -143,7 +146,7 @@ body::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
 
 /* ─── Layout ─────────────────────────────────────────── */
-.section { padding: 128px 0; position: relative; z-index: 1; }
+.section { padding: 128px 0; position: relative; z-index: 1; contain: content; }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 36px; }
 
 /* ─── Section Header ─────────────────────────────────── */

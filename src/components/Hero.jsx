@@ -8,14 +8,15 @@ function useCountUp(target, inView, duration = 1400) {
   const [count, setCount] = useState(isNum ? 0 : target);
   useEffect(() => {
     if (!inView || !isNum) return;
-    let start = 0;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
+    let rafId;
+    const startTime = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [inView, target, duration, isNum]);
   return count;
 }
