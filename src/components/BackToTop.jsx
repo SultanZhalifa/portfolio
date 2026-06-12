@@ -16,7 +16,7 @@ export default function BackToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       title="Back to top"
       style={{
-        position: 'fixed', bottom: '28px', right: '28px',
+        position: 'fixed', bottom: 'max(16px, env(safe-area-inset-bottom, 16px))', right: '16px',
         width: '38px', height: '38px',
         border: '1px solid #242424', borderRadius: '8px',
         background: '#0c0c0c', color: '#7d7d7d',

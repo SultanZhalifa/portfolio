@@ -159,6 +159,9 @@ export default function Navbar() {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
         }
+        @media (max-width: 360px) {
+          #navbar .container { padding: 0 14px; }
+        }
       `}</style>
     </motion.nav>
   );

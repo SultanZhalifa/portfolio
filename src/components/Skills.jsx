@@ -121,6 +121,9 @@ export default function Skills() {
           .skill-row { flex-direction: column; gap: 12px; padding: 18px 0; }
           .skill-label-col { min-width: unset; }
         }
+        @media (max-width: 360px) {
+          .skill-row { padding: 14px 0; gap: 10px; }
+        }
       `}</style>
     </section>
   );

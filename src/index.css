@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+/* Ensure horizontal overflow never causes scroll */
+html, body {
+  overflow-x: hidden;
+}
+
 /* ─── Design Tokens ──────────────────────────────────── */
 :root {
   --bg:         #000000;
@@ -359,4 +364,35 @@ body::after {
   .btn { padding: 9px 16px; font-size: 0.78rem; }
   .input-field { padding: 11px 13px; font-size: 0.85rem; }
   .section-sub { margin-bottom: 36px; }
+}
+
+/* ─── Ultra-small (≤360px) ───────────────────────────── */
+@media (max-width: 360px) {
+  .section { padding: 48px 0; }
+  .section-title { font-size: 1.4rem; }
+  .container { padding: 0 14px; }
+  .btn { padding: 8px 14px; font-size: 0.75rem; gap: 6px; }
+  .tag { font-size: 0.6rem; padding: 2px 6px; }
+}
+
+/* ─── Safe area (notched phones) ─────────────────────── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ─── Touch target minimum 44px ──────────────────────── */
+@media (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .icon-box { min-width: 44px; min-height: 44px; }
+  a, button { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* ─── Long text overflow ─────────────────────────────── */
+.text-break {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }

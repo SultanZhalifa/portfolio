@@ -261,6 +261,10 @@ export default function Projects() {
           button[id^="project-card"] { padding: 18px 0; transition: padding-left 0.2s; }
           .project-expanded { padding-left: 20px !important; }
         }
+        @media (max-width: 360px) {
+          button[id^="project-card"] { padding: 14px 0; gap: 12px !important; }
+          .project-expanded { padding-left: 12px !important; padding-bottom: 20px !important; }
+        }
       `}</style>
     </section>
   );
