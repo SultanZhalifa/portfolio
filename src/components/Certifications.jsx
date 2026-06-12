@@ -98,6 +98,9 @@ export default function Certifications() {
           .cert-left { min-width: unset; }
           .cert-row { gap: 16px; }
         }
+        @media (max-width: 360px) {
+          .cert-row { padding: 16px 0; gap: 10px; }
+        }
       `}</style>
     </section>
   );

@@ -57,6 +57,30 @@ export const data = {
   projects: [
     {
       id: 1,
+      title: "Obsidian",
+      subtitle: "Enterprise-Grade Real-Time Crypto Trading Terminal",
+      description:
+        "Built a professional trading terminal as a full-stack TypeScript monorepo — a single durable WebSocket connection to Binance's live market feed, server-side technical indicator computation (RSI, MACD, Bollinger Bands — validated against canonical reference series), a paper-trading P&L engine with average-cost tracking across open/add/partial-close/flip/fee scenarios, and real-time price alerts evaluated server-side. Auth uses Argon2id + session tokens (SHA-256 hashed, sliding expiry), with RBAC, CSRF origin checks, rate limiting, and an append-only audit log. Designed a deliberate monochrome design system with graded grayscale and hand-built SVG glyphs, WCAG AA compliant. Tested with Vitest (indicator + P&L unit tests) and Playwright (full e2e flows on desktop + mobile).",
+      tech: ["Next.js 15", "TypeScript", "PostgreSQL", "TimescaleDB", "Drizzle ORM", "WebSocket", "TanStack Query", "Zustand", "Vitest", "Playwright", "Docker"],
+      github: "https://github.com/SultanZhalifa/Obsidian",
+      demo: null,
+      featured: true,
+      context: "Personal Project",
+    },
+    {
+      id: 2,
+      title: "Naik Kelas",
+      subtitle: "AstraPay Micro-Merchant Credit Scoring Prototype",
+      description:
+        "Built a working fintech prototype for the AstraPay Hackathon 2026 (Tim Andalusia) — transforms motor-based micro-merchant QRIS transaction trails into AstraScore, a transparent, deterministic alternative credit score with explainable factor breakdowns. Features Modal Jalan (micro working capital) with auto-deducting 20% QRIS repayments in real time, a tiered loyalty loop (score rises → plafon grows → fee drops via AstraPoints redemption), and a full audit view letting merchants verify every calculation. Covered by 20 unit tests (score engine + 5-persona tier verification), plus API edge-case and headless UI flow tests with screenshots.",
+      tech: ["Next.js", "TypeScript", "Vitest", "QRIS"],
+      github: "https://github.com/SultanZhalifa/naik-kelas",
+      demo: null,
+      featured: true,
+      context: "Hackathon — AstraPay 2026",
+    },
+    {
+      id: 3,
       title: "DevLog",
       subtitle: "Developer Progress Tracking Platform",
       description:
@@ -68,7 +92,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 2,
+      id: 4,
       title: "SRMAudit",
       subtitle: "GRC & Security Audit Platform — OCTAVE Allegro",
       description:
@@ -80,7 +104,7 @@ export const data = {
       context: "Mini Project — Security Risk Management",
     },
     {
-      id: 3,
+      id: 5,
       title: "FinTrack.ai",
       subtitle: "Local-First Finance App with a Health Score",
       description:
@@ -92,7 +116,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 4,
+      id: 6,
       title: "MiniBookLibrary",
       subtitle: "Offline-First Android App with 51 Automated Tests",
       description:
@@ -104,7 +128,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 5,
+      id: 7,
       title: "PestGuard AI",
       subtitle: "Real-Time Warehouse Pest & Bio-Hazard Detection",
       description:
@@ -116,7 +140,7 @@ export const data = {
       context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group (Logistics)",
     },
     {
-      id: 6,
+      id: 8,
       title: "TaskFlow",
       subtitle: "Zero-Dependency Task Manager in Vanilla JS",
       description:
@@ -128,7 +152,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 7,
+      id: 9,
       title: "Duitku",
       subtitle: "Cross-Platform Personal Finance Tracker",
       description:
@@ -140,7 +164,7 @@ export const data = {
       context: "Personal Project",
     },
     {
-      id: 8,
+      id: 10,
       title: "SaringSini",
       subtitle: "AI Misinformation Checker for Family Chats",
       description:

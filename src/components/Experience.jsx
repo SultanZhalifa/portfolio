@@ -228,6 +228,9 @@ export default function Experience() {
         @media (max-width: 640px) {
           .exp-grid { gap: 48px; }
         }
+        @media (max-width: 360px) {
+          .exp-grid { gap: 36px; }
+        }
       `}</style>
     </section>
   );

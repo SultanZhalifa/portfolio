@@ -96,9 +96,9 @@ export default function Contact() {
               style={{ marginBottom: '10px' }}
             >
               <div className="contact-icon-box"><FiFileText size={12} /></div>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Resume</div>
-                <div style={{ fontSize: '0.82rem', color: '#7d7d7d' }}>Sultan_Zhalifunnas_Musyaffa_CV.pdf</div>
+                <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>Sultan_Zhalifunnas_Musyaffa_CV.pdf</div>
               </div>
             </a>
 
@@ -113,9 +113,9 @@ export default function Contact() {
                     className="contact-item contact-item-link"
                   >
                     <div className="contact-icon-box"><Icon size={12} /></div>
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
-                      <div style={{ fontSize: '0.82rem', color: '#7d7d7d' }}>{value}</div>
+                      <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>{value}</div>
                     </div>
                     {copyable && (
                       <button
@@ -276,6 +276,14 @@ export default function Contact() {
         }
         @media (max-width: 640px) {
           .contact-grid { gap: 32px; }
+        }
+        @media (max-width: 480px) {
+          .contact-item { padding: 12px 12px; gap: 10px; }
+          .contact-item div[style] { overflow-wrap: break-word; word-break: break-word; }
+        }
+        @media (max-width: 360px) {
+          .contact-form-card { padding: 16px !important; }
+          .contact-item { padding: 10px 10px; }
         }
       `}</style>
     </section>
