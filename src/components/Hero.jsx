@@ -31,7 +31,7 @@ const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
   { value: 5,    suffix: 'th', label: 'Semester'       },
-  { value: 8,    suffix: '+',  label: 'Projects Built'  },
+  { value: 10,   suffix: '+',  label: 'Projects Built'  },
   { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
   { value: 10,   suffix: '+',  label: 'Certifications'  },
 ];
@@ -376,8 +376,7 @@ export default function Hero() {
         }
         @media (max-width: 768px) {
           .hero-stats { grid-template-columns: repeat(2, 1fr); }
-          .hero-stat-item:nth-child(2) .hero-stat-divider,
-          .hero-stat-item:nth-child(4) .hero-stat-divider { display: none; }
+          .hero-stat-item:nth-child(odd) .hero-stat-divider { display: none; }
           .hero-stat-item { padding: 22px 0; }
           .hero-stat-item > div:last-child { padding: 0 22px; }
           .hero-role-row { gap: 28px; }
@@ -386,7 +385,12 @@ export default function Hero() {
           .hero-name { font-size: clamp(2.6rem, 11vw, 3.2rem); }
           .hero-stat-item > div:last-child { padding: 0 16px; }
           .hero-stat-item { padding: 18px 0; }
-          .hero-role-row { gap: 20px; }
+          .hero-role-row { gap: 20px; flex-direction: column; }
+        }
+        @media (max-width: 360px) {
+          .hero-name { font-size: clamp(2.2rem, 10vw, 2.6rem); }
+          .hero-photo-col { width: clamp(120px, 38vw, 160px); }
+          .hero-stat-item > div:last-child { padding: 0 12px; }
         }
       `}</style>
     </section>
