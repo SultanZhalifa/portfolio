@@ -31,10 +31,10 @@ const allTech = [
 const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
-  { value: 5,    suffix: 'th', label: 'Semester'       },
-  { value: 10,   suffix: '+',  label: 'Projects Built'  },
-  { value: 1,    suffix: 'yr', label: 'Industry Exp.'   },
-  { value: 10,   suffix: '+',  label: 'Certifications'  },
+  { value: 6,    suffix: 'th', label: 'Semester'         },
+  { value: 12,   suffix: '+',  label: 'Projects Built'   },
+  { value: 6,    suffix: '+',  label: 'AI-Integrated Apps' },
+  { value: 15,   suffix: '+',  label: 'Certifications'   },
 ];
 
 function StatItem({ value, suffix, label, inView, showDivider }) {
@@ -170,7 +170,7 @@ export default function Hero() {
               About
             </div>
             <p style={{ color: '#7d7d7d', fontSize: '0.875rem', lineHeight: 1.85 }}>
-              Informatics undergraduate at President University building fullstack web, Android, and AI-integrated systems end to end. Added perspective from cybersecurity and a manufacturing quality background.
+              AI-focused full-stack engineer & founder. I architect and ship production-grade products end to end — computer vision, real-time systems, fintech, and mobile — from system design to deployment.
             </p>
           </div>
         </motion.div>
@@ -186,7 +186,7 @@ export default function Hero() {
             View Projects <FiArrowRight size={13} />
           </a>
           <a
-            href="/Sultan_Zhalifunnas_Musyaffa_CV.pdf"
+            href="/Sultan_CV.pdf"
             target="_blank"
             rel="noreferrer"
             className="btn btn-ghost"
