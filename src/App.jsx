@@ -1,6 +1,7 @@
 import './index.css';
 import Navbar         from './components/Navbar';
 import Hero           from './components/Hero';
+import Now            from './components/Now';
 import Skills         from './components/Skills';
 import Projects       from './components/Projects';
 import Experience     from './components/Experience';
@@ -19,6 +20,7 @@ export default function App() {
       <Navbar />
       <main id="main-content">
         <Hero />
+        <Now />
         <Skills />
         <Projects />
         <Experience />

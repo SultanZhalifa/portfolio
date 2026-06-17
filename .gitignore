@@ -3,6 +3,9 @@
 .env.local
 .env.production
 
+# Local Claude Code state (plans, memory, settings)
+.claude/
+
 # Local source assets (optimized versions live in public/)
 44730-557166.jpg
 FAVICON TAB.svg
