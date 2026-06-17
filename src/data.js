@@ -3,13 +3,18 @@ export const data = {
   nameShort: "Sultan",
   location: "Bekasi, Indonesia",
   phone: "+62 856 9422 9552",
-  title: "Informatics Student",
-  subtitle: "Fullstack & AI Developer",
+  title: "AI Full-Stack Engineer & Founder",
+  subtitle: "AI Full-Stack Engineer · Founder",
   summary:
-    "Informatics undergraduate at President University building fullstack web, Android, and AI-integrated systems end to end. Delivered a real-time computer-vision pest-detection platform for an enterprise logistics client (PT Kawan Lama Group) using YOLO11 and a Gemini assistant, and shipped a Kotlin Android app backed by 51 automated tests. Comfortable across the stack — React, Next.js, FastAPI, PostgreSQL — with added perspective from cybersecurity and a manufacturing quality background.",
+    "AI-focused full-stack software engineer and founder. I architect and ship production-grade products end to end — across computer vision, real-time systems, fintech, and mobile — independently, from system design to deployment. Proficient in TypeScript, Python, and Kotlin with modern AI APIs (Anthropic Claude, Gemini, YOLO11). Recently delivered a real-time computer-vision pest-detection platform for PT Kawan Lama Group (YOLO11 + a Gemini RAG assistant) and founded FounderIQ, an AI startup-validation SaaS.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
+
+  now: [
+    "Building FounderIQ — an AI startup-validation SaaS (Next.js 15 · Claude API)",
+    "Open to Software Engineering / AI internship opportunities",
+  ],
 
   education: [
     {
@@ -18,7 +23,8 @@ export const data = {
       period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "5th semester. Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
+        "6th semester. Recipient of the Jababeka Scholarship.",
+        "Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
       ],
     },
   ],
@@ -27,7 +33,7 @@ export const data = {
     {
       category: "Languages & Web",
       items: [
-        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "Dart", "SQL",
+        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "Dart", "C", "Haskell", "SQL",
         "React", "Next.js", "Node.js", "Express", "FastAPI", "Flask", "Tailwind CSS",
       ],
     },
@@ -41,7 +47,8 @@ export const data = {
     {
       category: "AI & Data",
       items: [
-        "Gemini AI", "YOLOv8", "YOLOv11", "Chart.js", "Recharts",
+        "Anthropic Claude", "Gemini AI", "Vercel AI SDK", "Prompt Engineering",
+        "YOLOv8", "YOLOv11", "Chart.js", "Recharts",
         "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Prisma ORM", "Room ORM",
       ],
     },
@@ -66,6 +73,19 @@ export const data = {
       demo: null,
       featured: true,
       context: "Personal Project",
+      caseStudy: {
+        problem: "Retail crypto tools either hide their math or can't be trusted with real money — indicators differ between platforms and paper-trading P&L quietly drifts.",
+        approach: [
+          "A single durable WebSocket to Binance's live feed; technical indicators (RSI, MACD, Bollinger Bands) computed server-side and validated against canonical reference series.",
+          "A paper-trading P&L engine tracking average cost across open / add / partial-close / flip / fee scenarios, with price alerts evaluated server-side.",
+          "Hardened auth — Argon2id + SHA-256 session tokens, RBAC, CSRF origin checks, rate limiting, and an append-only audit log.",
+        ],
+        result: [
+          "Deterministic, reference-validated indicators and P&L — no client-side guessing.",
+          "Covered by Vitest unit tests (indicators + P&L) and Playwright e2e flows on desktop + mobile.",
+          "WCAG-AA monochrome design system with hand-built SVG glyphs.",
+        ],
+      },
     },
     {
       id: 2,
@@ -78,6 +98,18 @@ export const data = {
       demo: null,
       featured: true,
       context: "Hackathon — AstraPay 2026",
+      caseStudy: {
+        problem: "Motor-based micro-merchants are invisible to traditional credit scoring despite a steady QRIS cash flow.",
+        approach: [
+          "Transforms QRIS transaction trails into AstraScore — a transparent, deterministic alternative credit score with explainable factor breakdowns.",
+          "Modal Jalan micro working-capital with auto-deducting 20% QRIS repayments in real time, and a tiered loyalty loop (score rises → plafon grows → fee drops).",
+          "A full audit view letting merchants verify every calculation.",
+        ],
+        result: [
+          "20 unit tests (score engine + 5-persona tier verification), plus API edge-case and headless UI flow tests with screenshots.",
+          "Built for the AstraPay Hackathon 2026 (Tim Andalusia).",
+        ],
+      },
     },
     {
       id: 3,
@@ -90,6 +122,18 @@ export const data = {
       demo: "https://devlog-sultanzhalifa.vercel.app",
       featured: true,
       context: "Personal Project",
+      caseStudy: {
+        problem: "Developers lose momentum because daily learning is invisible and accountability is hard to sustain.",
+        approach: [
+          "Next.js 16 App Router (server components, type-safe data access) with GitHub OAuth via Auth.js v5.",
+          "A GitHub-style streak heatmap, public shareable profiles, and a discovery feed on a relational follow schema.",
+          "The tricky calculateStreak logic isolated and covered by 8 edge-case unit tests (empty logs, gaps, deduplication).",
+        ],
+        result: [
+          "Live product at devlog-sultanzhalifa.vercel.app.",
+          "GitHub Actions runs typecheck, lint, and tests on every push.",
+        ],
+      },
     },
     {
       id: 4,
@@ -114,6 +158,18 @@ export const data = {
       demo: "https://financetrackersultan.vercel.app/",
       featured: true,
       context: "Personal Project",
+      caseStudy: {
+        problem: "Most finance apps require an account and upload your data to a server — and some fake 'AI advice' even with no model configured.",
+        approach: [
+          "100% local-first (React 19 + Vite) — no backend, no account, fully private in the browser.",
+          "A financial health score (0–100) across savings rate, budget adherence, expense stability, and emergency buffer, with YNAB-style safe-to-spend and month-end forecasts.",
+          "Multi-account tracking, recurring transactions, a Ctrl/Cmd-K command palette, CSV/JSON backup, and optional Gemini insights.",
+        ],
+        result: [
+          "Installable offline PWA; live at financetrackersultan.vercel.app.",
+          "Honest by design — with no API key it asks for one instead of faking advice.",
+        ],
+      },
     },
     {
       id: 6,
@@ -138,6 +194,18 @@ export const data = {
       demo: "https://pestguard-ai.vercel.app/login",
       featured: true,
       context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group (Logistics)",
+      caseStudy: {
+        problem: "Warehouse pest control is reactive and expensive — damage is found after the fact, and manual monitoring can't run 24/7.",
+        approach: [
+          "Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing across up to four camera zones.",
+          "Sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech, with risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO) each mapped to its own SOP.",
+          "A Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting; fully Dockerized.",
+        ],
+        result: [
+          "Estimated Rp 144–324 million annual saving per warehouse, breaking even in 4–6 months.",
+          "Built for PT Kawan Lama Group's AI Open Innovation Challenge 2026.",
+        ],
+      },
     },
     {
       id: 8,
@@ -162,6 +230,18 @@ export const data = {
       demo: "https://sultanzhalifa.github.io/Duitku/",
       featured: true,
       context: "Personal Project",
+      caseStudy: {
+        problem: "Cross-platform finance apps often miscount transfers as spending and double-post missed recurring transactions.",
+        approach: [
+          "Offline-first Flutter running identical code on Android and web; transfers modeled as linked dual-leg pairs kept out of spending totals.",
+          "A recurring engine with idempotent catch-up — exactly one transaction per missed occurrence.",
+          "Multi-wallet / multi-currency with user-defined rates, category budgets with over-budget alerts, donut + 6-month trend charts, biometric lock, and versioned JSON backup/restore.",
+        ],
+        result: [
+          "17 automated tests with zero flutter analyze issues.",
+          "Live at sultanzhalifa.github.io/Duitku.",
+        ],
+      },
     },
     {
       id: 10,
@@ -175,27 +255,55 @@ export const data = {
       featured: true,
       context: "Competition Entry, #JuaraVibeCoding 2026",
     },
+    {
+      id: 11,
+      title: "FounderIQ",
+      subtitle: "AI Co-Founder Platform",
+      description:
+        "Validate startup ideas, generate business models, craft investor pitches, and analyze markets in real-time. Streams structured Claude AI responses through the Vercel AI SDK. Features Idea Validator (VC-grade score 0–100 with strengths, weaknesses, opportunities, and actionable next steps), Business Canvas (auto-generate a full 9-box Business Model Canvas in seconds), Pitch Crafter (punchy tagline, 30-second elevator pitch, and investor narrative), and Market Intel (TAM/SAM/SOM, top competitors, and go-to-market strategy). Deployed on Vercel.",
+      tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude"],
+      github: "https://github.com/SultanZhalifa/FounderIQ",
+      demo: "https://founderiq.vercel.app",
+      featured: true,
+      context: "Founder — AI SaaS",
+      caseStudy: {
+        problem: "First-time founders juggle idea validation, business modeling, pitching, and market research across a dozen disconnected tools — losing momentum before they start.",
+        approach: [
+          "One platform with four specialized AI tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the early-founder journey end to end.",
+          "Real-time streaming via the Vercel AI SDK + Anthropic Claude API, with structured output rendered progressively to cut perceived latency.",
+          "A dual AI-provider abstraction layer (Anthropic + OpenRouter) for runtime model switching and cost-flexible scaling.",
+        ],
+        result: [
+          "Live SaaS at founderiq.vercel.app, shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
+          "VC-grade idea scoring (0–100), a full 9-box Business Model Canvas, investor pitch, and TAM/SAM/SOM market intel in one click.",
+        ],
+      },
+    },
+    {
+      id: 12,
+      title: "AstraPayNK",
+      subtitle: "AstraPay Micro-Merchant Credit Scoring Mobile App",
+      description:
+        "Developed a Flutter mobile companion app for the AstraPay Hackathon 2026 (Naik Kelas project) — 'Mesin Skor & Modal Produktif untuk Pelaku Usaha Mikro Berbasis Motor'. Allows micro-merchants to monitor alternative credit scores (AstraScore), manage active working capital (Modal Jalan), and redeem loyalty points to lower interest fees. Features a modern dashboard with real-time score indicators, interactive financial charts, smooth onboarding flows, and a comprehensive profile audit logs.",
+      tech: ["Flutter", "Dart", "fl_chart", "google_fonts", "smooth_page_indicator", "flutter_svg"],
+      github: "https://github.com/SultanZhalifa/AstraPayNK",
+      demo: null,
+      featured: true,
+      context: "Hackathon Companion — AstraPay 2026",
+    },
   ],
+
 
   experience: [
     {
-      company: "PT Honda Prospect Motor",
-      role: "Production Worker — Repair AF / Welding Division",
-      period: "Apr 2023 — Apr 2024",
-      location: "Karawang, Indonesia",
+      company: "FounderIQ",
+      role: "Founder & Full-Stack Developer",
+      period: "Jun 2026 — Present",
+      location: "Remote — founderiq.vercel.app",
       points: [
-        "Applied systematic quality control checks on welded components, flagging rework items against OEM tolerance standards — directly translates to the debugging and code review mindset used in software engineering.",
-        "Operated within a structured team under strict delivery schedules; built habits of attention to detail, reproducibility, and consistent output that carry directly into writing reliable, tested software.",
-      ],
-    },
-    {
-      company: "PT Indomobil Trada Nasional Cikarang (Nissan Datsun)",
-      role: "Industrial Internship Program (PRAKERIN)",
-      period: "Mar 2021 — May 2021",
-      location: "Cikarang, Indonesia",
-      points: [
-        "Supported workshop inspection and service operations; developed a systematic approach to diagnosing and resolving technical failures.",
-        "Received a 'Good' performance rating from the Workshop Head upon completion.",
+        "Designed and launched an AI startup-validation SaaS with four specialized tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the full early-founder journey in one platform.",
+        "Engineered a real-time streaming architecture with the Vercel AI SDK + Anthropic Claude API, delivering structured AI output with progressive rendering and lower perceived latency.",
+        "Built a dual AI-provider abstraction layer (Anthropic + OpenRouter) for runtime model switching and cost-flexible scaling; shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
       ],
     },
   ],
@@ -203,7 +311,7 @@ export const data = {
   certifications: [
     {
       issuer: "Google for Education",
-      date: "2026",
+      date: "May 2026 · valid to 2029",
       items: ["Gemini Certified Educator", "Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
