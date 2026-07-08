@@ -2,27 +2,29 @@
 
 > Personal portfolio website built with React + Framer Motion. Monochrome, modern, fully responsive.
 
-**Live:** [sultanzhalifa.vercel.app](https://sultanzhalifa.vercel.app) &nbsp;|&nbsp; **CV:** Available on request
+**Live:** [sultanzhalifunnas.vercel.app](https://sultanzhalifunnas.vercel.app) &nbsp;|&nbsp; **CV:** Available on request
 
 ---
 
 ## Sections
 
-- **Hero** — Introduction, stats, social links
-- **Skills** — Cybersecurity, Development, AI & Tools, Infrastructure
-- **Projects** — Featured project cards with tech stack
-- **Experience & Education** — Timeline layout
-- **Certifications** — Google, IBM, RevoU credentials
-- **Contact** — Form + direct contact links
+- **Hero** — Introduction, animated stats, tech marquee, social links
+- **Now** — Currently-building status band
+- **Skills** — Languages & Web, Mobile & Testing, AI & Data, Tools & Security
+- **Projects** — Filterable list with expandable rows, previews & case-study modals
+- **Experience & Education** — Timeline layout with activities
+- **Certifications** — Google, IBM, Adobe, Dicoding, RevoU credentials
+- **Contact** — EmailJS form + live GitHub activity + direct contact links
 
 ## Tech Stack
 
 | Layer | Tech |
 |-------|------|
-| Framework | React 18 + Vite |
+| Framework | React 19 + Vite 8 |
 | Animations | Framer Motion |
 | Icons | React Icons (Feather) |
-| Fonts | Inter + Space Grotesk |
+| Email | EmailJS |
+| Fonts | Inter · Space Grotesk · JetBrains Mono |
 | Deploy | Vercel |
 
 ## Run Locally

@@ -10,7 +10,7 @@ const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const contacts = [
   { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}`, copyable: true  },
-  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                         href: `tel:${data.phone}`,    copyable: true  },
+  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                         href: `tel:${data.phone.replace(/\s+/g, '')}`, copyable: true },
   { Icon: FiGithub,   label: 'GitHub',   value: 'github.com/SultanZhalifa',         href: data.github,            copyable: false },
   { Icon: FiLinkedin, label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa',     href: data.linkedin,          copyable: false },
   { Icon: FiMapPin,   label: 'Location', value: data.location,                      href: null,                   copyable: false },
@@ -105,30 +105,39 @@ export default function Contact() {
             {contacts.map(({ Icon, label, value, href, copyable }) => (
               <div key={label} style={{ position: 'relative' }}>
                 {href ? (
-                  <a
-                    href={href}
-                    target={href.startsWith('http') ? '_blank' : undefined}
-                    rel="noreferrer"
-                    id={`contact-${label.toLowerCase()}-link`}
-                    className="contact-item contact-item-link"
-                  >
-                    <div className="contact-icon-box"><Icon size={12} /></div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
-                      <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>{value}</div>
-                    </div>
+                  <>
+                    <a
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel="noreferrer"
+                      id={`contact-${label.toLowerCase()}-link`}
+                      className="contact-item contact-item-link"
+                      style={copyable ? { paddingRight: '44px' } : undefined}
+                    >
+                      <div className="contact-icon-box"><Icon size={12} /></div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                        <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>{value}</div>
+                      </div>
+                    </a>
                     {copyable && (
                       <button
-                        onClick={e => { e.preventDefault(); copyToClipboard(value, label); }}
+                        onClick={() => copyToClipboard(value, label)}
                         title={`Copy ${label}`}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: copied === label ? '#aaa' : '#2a2a2a', padding: '2px', display: 'flex', alignItems: 'center', transition: 'color 0.2s', flexShrink: 0 }}
+                        aria-label={`Copy ${label}`}
+                        style={{
+                          position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)',
+                          background: 'none', border: 'none', cursor: 'pointer',
+                          color: copied === label ? '#aaa' : '#2a2a2a', padding: '6px',
+                          display: 'flex', alignItems: 'center', transition: 'color 0.2s',
+                        }}
                         onMouseEnter={e => e.currentTarget.style.color = '#888'}
                         onMouseLeave={e => e.currentTarget.style.color = copied === label ? '#aaa' : '#2a2a2a'}
                       >
                         {copied === label ? <FiCheck size={12} /> : <FiCopy size={12} />}
                       </button>
                     )}
-                  </a>
+                  </>
                 ) : (
                   <div className="contact-item">
                     <div className="contact-icon-box"><Icon size={12} /></div>

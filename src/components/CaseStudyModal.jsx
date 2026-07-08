@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiGithub, FiExternalLink } from 'react-icons/fi';
 
@@ -56,7 +57,10 @@ export default function CaseStudyModal({ project, onClose }) {
 
   const cs = project?.caseStudy;
 
-  return (
+  // Rendered through a portal to document.body so the fixed overlay escapes any
+  // ancestor with `contain`/`transform` (e.g. `.section { contain: content }`),
+  // which would otherwise confine `position: fixed` to the section box.
+  return createPortal(
     <AnimatePresence>
       {project && cs && (
         <motion.div
@@ -190,6 +194,7 @@ export default function CaseStudyModal({ project, onClose }) {
           `}</style>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
