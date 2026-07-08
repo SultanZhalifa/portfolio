@@ -2,40 +2,19 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { data } from '../data';
+import { sections, useActiveSection } from '../hooks/useActiveSection';
 
-const links = [
-  { label: 'About',          href: '#hero' },
-  { label: 'Skills',         href: '#skills' },
-  { label: 'Projects',       href: '#projects' },
-  { label: 'Experience',     href: '#experience' },
-  { label: 'Certifications', href: '#certifications' },
-  { label: 'Contact',        href: '#contact' },
-];
+const links = sections.map(({ id, label }) => ({ label, href: `#${id}` }));
 
 export default function Navbar() {
-  const [scrolled, setScrolled]     = useState(false);
-  const [menuOpen, setMenuOpen]     = useState(false);
-  const [activeSection, setActive]  = useState('hero');
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const activeSection = useActiveSection(0.3);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const ids = links.map(l => l.href.slice(1));
-    const observers = ids.map(id => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActive(id); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach(o => o?.disconnect());
   }, []);
 
   return (

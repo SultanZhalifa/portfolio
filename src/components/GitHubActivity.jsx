@@ -73,24 +73,27 @@ function StaticCTA() {
   );
 }
 
+// Read a still-fresh cache entry synchronously (used to seed initial state).
+function readFreshCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.t < CACHE_TTL) return cached.d;
+  } catch { /* ignore corrupt cache */ }
+  return null;
+}
+
 export default function GitHubActivity() {
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState(readFreshCache);
   const [failed, setFailed] = useState(false);
   const [chartFailed, setChartFailed] = useState(false);
 
   useEffect(() => {
+    // Fresh cache already seeded initial state — nothing to fetch.
+    if (readFreshCache()) return;
+
     let cancelled = false;
 
-    // 1. Try fresh cache
-    try {
-      const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (cached && Date.now() - cached.t < CACHE_TTL) {
-        setStats(cached.d);
-        return;
-      }
-    } catch { /* ignore corrupt cache */ }
-
-    // 2. Fetch live
+    // Fetch live
     fetchGitHub()
       .then(d => {
         if (cancelled) return;
