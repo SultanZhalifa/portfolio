@@ -1,37 +1,15 @@
 import { useState, useEffect } from 'react';
-
-const sections = [
-  { id: 'hero',           label: 'About'          },
-  { id: 'skills',         label: 'Skills'         },
-  { id: 'projects',       label: 'Projects'       },
-  { id: 'experience',     label: 'Experience'     },
-  { id: 'certifications', label: 'Certifications' },
-  { id: 'contact',        label: 'Contact'        },
-];
+import { sections, useActiveSection } from '../hooks/useActiveSection';
 
 export default function SideNav() {
-  const [active,  setActive]  = useState('hero');
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(null);
+  const active = useActiveSection(0.35);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 300);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const observers = sections.map(({ id }) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActive(id); },
-        { threshold: 0.35 }
-      );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach(o => o?.disconnect());
   }, []);
 
   return (
