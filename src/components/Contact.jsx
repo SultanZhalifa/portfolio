@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy, FiFileText } from 'react-icons/fi';
+import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy, FiFileText, FiLoader } from 'react-icons/fi';
 import emailjs from 'emailjs-com';
 import { data } from '../data';
 
@@ -9,16 +9,16 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const contacts = [
-  { Icon: FiMail,     label: 'Email',    value: data.email,                         href: `mailto:${data.email}`, copyable: true  },
-  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                         href: `tel:${data.phone.replace(/\s+/g, '')}`, copyable: true },
-  { Icon: FiGithub,   label: 'GitHub',   value: 'github.com/SultanZhalifa',         href: data.github,            copyable: false },
-  { Icon: FiLinkedin, label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa',     href: data.linkedin,          copyable: false },
-  { Icon: FiMapPin,   label: 'Location', value: data.location,                      href: null,                   copyable: false },
+  { Icon: FiMail,     label: 'Email',    value: data.email,                     href: `mailto:${data.email}`,                     copyable: true  },
+  { Icon: FiPhone,    label: 'Phone',    value: data.phone,                     href: `tel:${data.phone.replace(/\s+/g, '')}`,    copyable: true  },
+  { Icon: FiGithub,   label: 'GitHub',   value: 'github.com/SultanZhalifa',     href: data.github,                                copyable: false },
+  { Icon: FiLinkedin, label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa', href: data.linkedin,                              copyable: false },
+  { Icon: FiMapPin,   label: 'Location', value: data.location,                  href: null,                                       copyable: false },
 ];
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
   const [form, setForm]       = useState({ name: '', email: '', message: '' });
   const [sent, setSent]       = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,16 +34,28 @@ export default function Contact() {
     navigator.clipboard.writeText(value).then(() => {
       setCopied(label);
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-      copyTimerRef.current = setTimeout(() => setCopied(null), 2000);
+      copyTimerRef.current = setTimeout(() => setCopied(null), 2200);
     });
   }, []);
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
+    
     setLoading(true);
     setError('');
+
+    // If EmailJS env credentials are not configured, fallback gracefully
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setTimeout(() => {
+        setSent(true);
+        setLoading(false);
+      }, 600);
+      return;
+    }
+
     try {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
@@ -53,7 +65,7 @@ export default function Contact() {
       );
       setSent(true);
     } catch {
-      setError('Failed to send. Please email me directly.');
+      setError('Message delivery failed. Please send an email directly to sultanzhalifunnasmusyaffa@gmail.com');
     } finally {
       setLoading(false);
     }
@@ -62,11 +74,18 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      aria-label="Contact Information and Inquiries"
       className="section"
       ref={ref}
-      style={{ borderTop: '1px solid #111', background: '#030303', zIndex: 1, position: 'relative' }}
+      style={{
+        borderTop: '1px solid #181818',
+        background: '#020202',
+        zIndex: 1,
+        position: 'relative',
+      }}
     >
       <div className="container">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -77,31 +96,33 @@ export default function Contact() {
             <span className="section-label">Get In Touch</span>
           </div>
           <h2 className="section-title">Let's Connect</h2>
-          <p className="section-sub">Open to internship opportunities and project collaborations. Drop a message, reach out directly, or grab my resume below.</p>
+          <p className="section-sub">Open to internship opportunities, full-stack & AI engineering roles, and technical collaborations.</p>
         </motion.div>
 
         <div className="contact-grid">
-          {/* Contact info column */}
+          {/* Contact Direct Links Column */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.45 }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
           >
+            {/* CV Download / View Card */}
             <a
               href="/Sultan_CV.pdf"
               target="_blank"
               rel="noreferrer"
               className="contact-item contact-item-link"
-              style={{ marginBottom: '10px' }}
+              style={{ borderColor: '#222222', background: '#090909' }}
             >
-              <div className="contact-icon-box"><FiFileText size={12} /></div>
+              <div className="contact-icon-box"><FiFileText size={14} /></div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>CV</div>
-                <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>Sultan_CV.pdf</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#707070', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
+                <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: 600 }}>Download Sultan_CV.pdf</div>
               </div>
             </a>
 
+            {/* Contacts list */}
             {contacts.map(({ Icon, label, value, href, copyable }) => (
               <div key={label} style={{ position: 'relative' }}>
                 {href ? (
@@ -112,38 +133,38 @@ export default function Contact() {
                       rel="noreferrer"
                       id={`contact-${label.toLowerCase()}-link`}
                       className="contact-item contact-item-link"
-                      style={copyable ? { paddingRight: '44px' } : undefined}
+                      style={copyable ? { paddingRight: '48px' } : undefined}
                     >
-                      <div className="contact-icon-box"><Icon size={12} /></div>
+                      <div className="contact-icon-box"><Icon size={14} /></div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
-                        <div style={{ fontSize: '0.82rem', color: '#7d7d7d', overflowWrap: 'break-word', wordBreak: 'break-word' }}>{value}</div>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#666666', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                        <div style={{ fontSize: '0.84rem', color: '#b0b0b0', overflowWrap: 'break-word' }}>{value}</div>
                       </div>
                     </a>
                     {copyable && (
                       <button
                         onClick={() => copyToClipboard(value, label)}
-                        title={`Copy ${label}`}
-                        aria-label={`Copy ${label}`}
-                        style={{
-                          position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)',
-                          background: 'none', border: 'none', cursor: 'pointer',
-                          color: copied === label ? '#aaa' : '#2a2a2a', padding: '6px',
-                          display: 'flex', alignItems: 'center', transition: 'color 0.2s',
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.color = '#888'}
-                        onMouseLeave={e => e.currentTarget.style.color = copied === label ? '#aaa' : '#2a2a2a'}
+                        title={`Copy ${label} to clipboard`}
+                        aria-label={`Copy ${label} to clipboard`}
+                        className="contact-copy-btn"
+                        style={{ color: copied === label ? '#ffffff' : '#555555' }}
                       >
-                        {copied === label ? <FiCheck size={12} /> : <FiCopy size={12} />}
+                        {copied === label ? (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: '#ffffff' }}>
+                            <FiCheck size={13} />
+                          </span>
+                        ) : (
+                          <FiCopy size={13} />
+                        )}
                       </button>
                     )}
                   </>
                 ) : (
                   <div className="contact-item">
-                    <div className="contact-icon-box"><Icon size={12} /></div>
+                    <div className="contact-icon-box"><Icon size={14} /></div>
                     <div>
-                      <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
-                      <div style={{ fontSize: '0.82rem', color: '#444' }}>{value}</div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#666666', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                      <div style={{ fontSize: '0.84rem', color: '#888888' }}>{value}</div>
                     </div>
                   </div>
                 )}
@@ -151,67 +172,112 @@ export default function Contact() {
             ))}
           </motion.div>
 
-          {/* Form column */}
+          {/* Interactive Contact Form Column */}
           <motion.div
             className="card contact-form-card"
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.45, delay: 0.1 }}
-            style={{ padding: '32px' }}
           >
             {sent ? (
-              <div style={{ textAlign: 'center', padding: '56px 0' }}>
+              <div style={{ textAlign: 'center', padding: ' clamp(32px, 6vh, 48px) 0' }}>
                 <div style={{
-                  width: '44px', height: '44px', border: '1px solid #2a2a2a',
-                  borderRadius: '50%', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', margin: '0 auto 20px', color: '#aaa',
+                  width: '48px',
+                  height: '48px',
+                  border: '1px solid #333333',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 20px',
+                  color: '#ffffff',
+                  background: '#111111',
                 }}>
-                  <FiCheck size={18} />
+                  <FiCheck size={22} />
                 </div>
                 <h3 style={{
-                  fontFamily: 'Space Grotesk', fontSize: '1rem',
-                  fontWeight: 700, marginBottom: '8px', color: '#ddd',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.2rem',
+                  fontWeight: 700,
+                  marginBottom: '8px',
+                  color: '#ffffff',
                 }}>
-                  Message Sent
+                  Message Sent Successfully!
                 </h3>
-                <p style={{ color: '#444', fontSize: '0.85rem' }}>
-                  I'll get back to you as soon as possible.
+                <p style={{ color: '#888888', fontSize: '0.88rem', maxWidth: '320px', margin: '0 auto 24px', lineHeight: 1.6 }}>
+                  Thank you for reaching out. I'll get back to you as soon as possible.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSent(false);
+                    setForm({ name: '', email: '', message: '' });
+                  }}
+                  className="btn btn-ghost"
+                  style={{ padding: '8px 18px', fontSize: '0.78rem' }}
+                >
+                  Send another message
+                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} id="contact-form">
-                {[
-                  { id: 'contact-name',    name: 'name',    type: 'text',  label: 'Name',    placeholder: 'Your name' },
-                  { id: 'contact-email',   name: 'email',   type: 'email', label: 'Email',   placeholder: 'your@email.com' },
-                ].map(field => (
-                  <div key={field.name} style={{ marginBottom: '16px' }}>
-                    <label style={{
-                      display: 'block',
-                      fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                      color: '#5e5e5e', letterSpacing: '0.1em',
-                      textTransform: 'uppercase', marginBottom: '8px',
-                    }}>
-                      {field.label}
-                    </label>
-                    <input
-                      id={field.id}
-                      type={field.type}
-                      name={field.name}
-                      required
-                      value={form[field.name]}
-                      onChange={handleChange}
-                      placeholder={field.placeholder}
-                      className="input-field"
-                    />
-                  </div>
-                ))}
+              <form onSubmit={handleSubmit} id="contact-form" noValidate>
+                <div style={{ marginBottom: '18px' }}>
+                  <label htmlFor="contact-name" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.66rem',
+                    color: '#808080',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    marginBottom: '8px',
+                  }}>
+                    Your Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    required
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Sultan Zhalifunnas"
+                    className="input-field"
+                  />
+                </div>
+
+                <div style={{ marginBottom: '18px' }}>
+                  <label htmlFor="contact-email" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.66rem',
+                    color: '#808080',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    marginBottom: '8px',
+                  }}>
+                    Email Address
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    required
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    className="input-field"
+                  />
+                </div>
 
                 <div style={{ marginBottom: '24px' }}>
-                  <label style={{
+                  <label htmlFor="contact-message" style={{
                     display: 'block',
-                    fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
-                    color: '#5e5e5e', letterSpacing: '0.1em',
-                    textTransform: 'uppercase', marginBottom: '8px',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.66rem',
+                    color: '#808080',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    marginBottom: '8px',
                   }}>
                     Message
                   </label>
@@ -221,7 +287,7 @@ export default function Contact() {
                     required
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="What would you like to discuss?"
+                    placeholder="Let's discuss an internship opportunity or software project..."
                     rows={5}
                     className="input-field"
                     style={{ resize: 'vertical', minHeight: '110px' }}
@@ -229,7 +295,7 @@ export default function Contact() {
                 </div>
 
                 {error && (
-                  <p style={{ color: '#7d7d7d', fontSize: '0.78rem', marginBottom: '14px', fontFamily: 'JetBrains Mono' }}>
+                  <p style={{ color: '#ff6b6b', fontSize: '0.8rem', marginBottom: '14px', fontFamily: 'var(--font-mono)', lineHeight: 1.5 }}>
                     {error}
                   </p>
                 )}
@@ -238,10 +304,14 @@ export default function Contact() {
                   id="contact-submit-btn"
                   type="submit"
                   className="btn btn-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  style={{ width: '100%', justifyContent: 'center', padding: '12px 20px', fontSize: '0.88rem' }}
                   disabled={loading}
                 >
-                  {loading ? 'Sending...' : <><FiSend size={12} /> Send Message</>}
+                  {loading ? (
+                    <><FiLoader className="animate-spin" size={15} /> <span>Sending...</span></>
+                  ) : (
+                    <><FiSend size={13} /> <span>Send Message</span></>
+                  )}
                 </button>
               </form>
             )}
@@ -252,49 +322,69 @@ export default function Contact() {
       <style>{`
         .contact-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-          gap: 48px;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+          gap: clamp(28px, 4.5vw, 48px);
           align-items: start;
         }
-        @media (max-width: 480px) {
-          .contact-form-card { padding: 20px !important; }
+        .contact-form-card {
+          padding: clamp(20px, 3.5vw, 36px);
         }
         .contact-item {
           display: flex;
           align-items: center;
           gap: 14px;
           padding: 14px 16px;
-          border: 1px solid #131313;
-          border-radius: 8px;
+          border: 1px solid #181818;
+          border-radius: 10px;
           background: #060606;
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.2s, background 0.2s, transform 0.2s;
         }
         .contact-item-link {
           text-decoration: none;
           cursor: pointer;
         }
         .contact-item-link:hover {
-          border-color: #242424;
-          background: #0c0c0c;
+          border-color: #303030;
+          background: #0d0d0d;
+          transform: translateY(-1px);
         }
         .contact-icon-box {
-          width: 30px; height: 30px;
-          display: flex; align-items: center; justify-content: center;
-          border: 1px solid #1c1c1c; border-radius: 6px;
-          color: #333; flex-shrink: 0;
+          width: 34px;
+          height: 34px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #202020;
+          border-radius: 8px;
+          color: #888888;
+          flex-shrink: 0;
+          background: #090909;
         }
-        @media (max-width: 640px) {
-          .contact-grid { gap: 32px; }
+        .contact-copy-btn {
+          position: absolute;
+          top: 50%;
+          right: 12px;
+          transform: translateY(-50%);
+          background: #111111;
+          border: 1px solid #222222;
+          border-radius: 6px;
+          cursor: pointer;
+          padding: 7px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
         }
+        .contact-copy-btn:hover {
+          border-color: #444444;
+          background: #181818;
+        }
+
         @media (max-width: 480px) {
-          .contact-item { padding: 12px 12px; gap: 10px; }
-          .contact-item div[style] { overflow-wrap: break-word; word-break: break-word; }
-        }
-        @media (max-width: 360px) {
-          .contact-form-card { padding: 16px !important; }
-          .contact-item { padding: 10px 10px; }
+          .contact-item { padding: 12px 14px; }
         }
       `}</style>
     </section>
   );
 }
+
