@@ -7,7 +7,7 @@ const GH_USER = 'SultanZhalifa';
 const CACHE_KEY = 'gh-activity-v1';
 const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 
-// Minimal language → accent dot color map (kept subtle to fit the monochrome theme)
+// Language colors (subtle accents fitting monochrome dark aesthetic)
 const LANG_COLORS = {
   TypeScript: '#7a9cc6', JavaScript: '#c6b86a', Python: '#6a93c6',
   Kotlin: '#b98ac6', Dart: '#6ac6bd', HTML: '#c68a6a', CSS: '#8a86c6',
@@ -59,7 +59,7 @@ async function fetchGitHub() {
 
 function StaticCTA() {
   return (
-    <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center' }}>
       <a
         href={data.github}
         target="_blank"
@@ -67,18 +67,17 @@ function StaticCTA() {
         id="view-all-github-btn"
         className="btn btn-ghost"
       >
-        <FiGithub size={13} /> View All on GitHub
+        <FiGithub size={14} /> View All on GitHub
       </a>
     </div>
   );
 }
 
-// Read a still-fresh cache entry synchronously (used to seed initial state).
 function readFreshCache() {
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
     if (cached && Date.now() - cached.t < CACHE_TTL) return cached.d;
-  } catch { /* ignore corrupt cache */ }
+  } catch { /* ignore cache parse error */ }
   return null;
 }
 
@@ -88,12 +87,10 @@ export default function GitHubActivity() {
   const [chartFailed, setChartFailed] = useState(false);
 
   useEffect(() => {
-    // Fresh cache already seeded initial state — nothing to fetch.
     if (readFreshCache()) return;
 
     let cancelled = false;
 
-    // Fetch live
     fetchGitHub()
       .then(d => {
         if (cancelled) return;
@@ -102,7 +99,6 @@ export default function GitHubActivity() {
       })
       .catch(() => {
         if (cancelled) return;
-        // Fall back to stale cache if present, else show static CTA
         try {
           const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
           if (cached?.d) { setStats(cached.d); return; }
@@ -113,7 +109,6 @@ export default function GitHubActivity() {
     return () => { cancelled = true; };
   }, []);
 
-  // Hard failure with no data → keep the original CTA behavior
   if (failed && !stats) return <StaticCTA />;
 
   const numbers = stats
@@ -130,35 +125,46 @@ export default function GitHubActivity() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5 }}
-      style={{ marginTop: '64px' }}
+      style={{ marginTop: 'clamp(48px, 8vw, 72px)' }}
     >
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-        <FiGithub size={13} style={{ color: '#7d7d7d' }} />
+      {/* Header bar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <FiGithub size={14} style={{ color: '#888888' }} />
         <span style={{
-          fontFamily: 'JetBrains Mono', fontSize: '0.65rem',
-          color: '#9a9a9a', letterSpacing: '0.1em', textTransform: 'uppercase',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.68rem',
+          color: '#a0a0a0',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          fontWeight: 600,
         }}>
           Live from GitHub
         </span>
-        <div style={{ flex: 1, height: '1px', background: '#141414' }} />
+        <div style={{ flex: 1, height: '1px', background: '#181818' }} />
         <a
           href={data.github}
           target="_blank"
           rel="noreferrer"
           style={{
-            display: 'inline-flex', alignItems: 'center', gap: '5px',
-            fontFamily: 'JetBrains Mono', fontSize: '0.66rem', letterSpacing: '0.04em',
-            color: '#7d7d7d', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            letterSpacing: '0.04em',
+            color: '#a0a0a0',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+            whiteSpace: 'nowrap',
           }}
-          onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
-          onMouseLeave={e => e.currentTarget.style.color = '#7d7d7d'}
+          onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
+          onMouseLeave={e => e.currentTarget.style.color = '#a0a0a0'}
         >
-          @{GH_USER} <FiArrowUpRight size={11} />
+          @{GH_USER} <FiArrowUpRight size={12} />
         </a>
       </div>
 
@@ -168,14 +174,22 @@ export default function GitHubActivity() {
           {numbers.map(({ label, value }) => (
             <div key={label} className="gh-stat">
               <div translate="no" style={{
-                fontFamily: 'Space Grotesk', fontSize: '1.7rem', fontWeight: 800,
-                color: '#f5f5f5', letterSpacing: '-0.03em', lineHeight: 1,
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.5rem, 2.5vw, 1.9rem)',
+                fontWeight: 800,
+                color: '#ffffff',
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
               }}>
                 {value}
               </div>
               <div style={{
-                fontFamily: 'JetBrains Mono', fontSize: '0.58rem', color: '#7d7d7d',
-                letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '7px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.62rem',
+                color: '#808080',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                marginTop: '8px',
               }}>
                 {label}
               </div>
@@ -183,16 +197,20 @@ export default function GitHubActivity() {
           ))}
         </div>
 
-        {/* Recently pushed repos */}
+        {/* Recently pushed repositories */}
         <div className="gh-repos">
           <div style={{
-            fontFamily: 'JetBrains Mono', fontSize: '0.58rem', color: '#5e5e5e',
-            letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.64rem',
+            color: '#707070',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            marginBottom: '12px',
           }}>
             Recently pushed
           </div>
           {stats?.recent?.length ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
               {stats.recent.map(repo => (
                 <a
                   key={repo.name}
@@ -204,41 +222,64 @@ export default function GitHubActivity() {
                   <span className="gh-repo-name">{repo.name}</span>
                   <span className="gh-repo-meta">
                     {repo.language && (
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{
-                          width: '7px', height: '7px', borderRadius: '50%',
-                          background: LANG_COLORS[repo.language] || '#666', flexShrink: 0,
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: LANG_COLORS[repo.language] || '#666666',
+                          flexShrink: 0,
                         }} />
-                        {repo.language}
+                        <span>{repo.language}</span>
                       </span>
                     )}
                     {repo.stars > 0 && (
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <FiStar size={10} /> {repo.stars}
+                        <FiStar size={11} /> {repo.stars}
                       </span>
                     )}
-                    <span style={{ color: '#5e5e5e' }}>{timeAgo(repo.pushed_at)}</span>
+                    <span style={{ color: '#666666' }}>{timeAgo(repo.pushed_at)}</span>
                   </span>
                 </a>
               ))}
             </div>
           ) : (
-            <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.72rem', color: '#5e5e5e' }}>
-              {failed ? 'Could not load repos.' : 'Loading…'}
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#666666' }}>
+              {failed ? 'Could not load repositories.' : 'Loading GitHub activity…'}
             </div>
           )}
         </div>
       </div>
 
-      {/* Contribution chart */}
+      {/* Contribution Activity Graph */}
       {!chartFailed && (
         <div className="gh-chart">
-          <img
-            src={`https://ghchart.rshah.org/444444/${GH_USER}`}
-            alt={`${GH_USER} GitHub contribution graph`}
-            loading="lazy"
-            onError={() => setChartFailed(true)}
-          />
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            color: '#666666',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            marginBottom: '12px',
+          }}>
+            Annual Contribution Graph
+          </div>
+          <div style={{ overflowX: 'auto', paddingBottom: '4px' }}>
+            <img
+              src={`https://ghchart.rshah.org/444444/${GH_USER}`}
+              alt={`${GH_USER} GitHub contribution graph`}
+              loading="lazy"
+              style={{
+                width: '100%',
+                minWidth: '640px',
+                display: 'block',
+                filter: 'grayscale(1) brightness(1.15) contrast(1.05)',
+                opacity: 0.85,
+                transition: 'filter 0.5s var(--ease-out), opacity 0.5s var(--ease-out)',
+              }}
+              onError={() => setChartFailed(true)}
+            />
+          </div>
         </div>
       )}
 
@@ -246,15 +287,15 @@ export default function GitHubActivity() {
         .gh-grid {
           display: grid;
           grid-template-columns: 1fr 1.4fr;
-          gap: 40px;
+          gap: clamp(24px, 4vw, 40px);
           align-items: start;
         }
         .gh-stats {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 16px;
-          border: 1px solid #131313;
-          border-radius: 10px;
+          border: 1px solid #1a1a1a;
+          border-radius: 12px;
           background: #060606;
           padding: 24px 20px;
         }
@@ -264,57 +305,52 @@ export default function GitHubActivity() {
           align-items: center;
           justify-content: space-between;
           gap: 16px;
-          padding: 9px 12px;
-          margin: 0 -12px;
+          padding: 10px 12px;
+          margin: 0 -8px;
           border-radius: 6px;
           text-decoration: none;
-          transition: background 0.18s;
+          transition: background 0.2s;
         }
-        .gh-repo-row:hover { background: #0c0c0c; }
+        .gh-repo-row:hover { background: #0e0e0e; }
         .gh-repo-name {
           font-family: var(--font-mono);
-          font-size: 0.8rem;
-          color: #c4c4c4;
+          font-size: 0.82rem;
+          color: #cccccc;
           letter-spacing: 0.01em;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        .gh-repo-row:hover .gh-repo-name { color: #f5f5f5; }
+        .gh-repo-row:hover .gh-repo-name { color: #ffffff; }
         .gh-repo-meta {
           display: inline-flex;
           align-items: center;
-          gap: 14px;
+          gap: 12px;
           flex-shrink: 0;
           font-family: var(--font-mono);
-          font-size: 0.66rem;
-          color: #7d7d7d;
+          font-size: 0.68rem;
+          color: #888888;
         }
         .gh-chart {
-          margin-top: 36px;
-          border: 1px solid #131313;
-          border-radius: 10px;
+          margin-top: 32px;
+          border: 1px solid #1a1a1a;
+          border-radius: 12px;
           background: #060606;
           padding: 20px;
-          overflow-x: auto;
+          overflow: hidden;
         }
-        .gh-chart img {
-          width: 100%;
-          min-width: 600px;
-          display: block;
-          filter: grayscale(1) brightness(1.15) contrast(1.05);
-          opacity: 0.85;
-          transition: filter 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
+        .gh-chart:hover img {
+          filter: grayscale(0) brightness(1) !important;
+          opacity: 1 !important;
         }
-        .gh-chart:hover img { filter: grayscale(0) brightness(1); opacity: 1; }
 
-        @media (max-width: 768px) {
-          .gh-grid { grid-template-columns: 1fr; gap: 28px; }
+        @media (max-width: 820px) {
+          .gh-grid { grid-template-columns: 1fr; gap: 24px; }
         }
         @media (max-width: 480px) {
           .gh-stats { padding: 18px 14px; gap: 10px; }
-          .gh-stat > div:first-child { font-size: 1.4rem !important; }
-          .gh-repo-meta { gap: 10px; }
+          .gh-repo-meta { gap: 8px; }
+          .gh-repo-row { margin: 0 -4px; padding: 8px 8px; }
         }
       `}</style>
     </motion.div>

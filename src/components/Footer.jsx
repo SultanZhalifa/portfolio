@@ -5,37 +5,52 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{
-      borderTop: '1px solid #111',
-      background: '#000',
-      padding: '48px 0 36px',
-      position: 'relative', zIndex: 1,
-    }}>
+    <footer
+      role="contentinfo"
+      aria-label="Site Footer"
+      style={{
+        borderTop: '1px solid #161616',
+        background: '#000000',
+        padding: 'clamp(36px, 6vw, 56px) 0 clamp(24px, 4vw, 36px)',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
       <div className="container">
-        {/* Big name */}
+        {/* Large Signature Typography Watermark */}
         <div style={{
-          fontFamily: 'Space Grotesk', fontWeight: 800,
-          fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-          letterSpacing: '-0.04em', color: '#111',
-          marginBottom: '32px', lineHeight: 1,
+          fontFamily: 'var(--font-display)',
+          fontWeight: 800,
+          fontSize: 'clamp(1.6rem, 4.5vw, 3.2rem)',
+          letterSpacing: '-0.04em',
+          color: '#1a1a1a',
+          marginBottom: 'clamp(20px, 3.5vw, 36px)',
+          lineHeight: 1.05,
+          userSelect: 'none',
         }}>
           Sultan Zhalifunnas Musyaffa
         </div>
 
-        {/* Bottom row */}
+        {/* Bottom Row */}
         <div style={{
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: 'center', flexWrap: 'wrap', gap: '16px',
-          paddingTop: '20px', borderTop: '1px solid #111',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px',
+          paddingTop: '20px',
+          borderTop: '1px solid #141414',
         }}>
           <span style={{
-            fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-            color: '#7d7d7d', letterSpacing: '0.06em',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.68rem',
+            color: '#707070',
+            letterSpacing: '0.06em',
           }}>
-            &copy; {year} Sultan Zhalifunnas Musyaffa
+            &copy; {year} Sultan Zhalifunnas Musyaffa · Built with React 19 + Framer Motion
           </span>
 
-          <div style={{ display: 'flex', gap: '6px' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
             {[
               { Icon: FiGithub,   href: data.github,            label: 'GitHub'   },
               { Icon: FiLinkedin, href: data.linkedin,          label: 'LinkedIn' },
@@ -47,10 +62,11 @@ export default function Footer() {
                 target={label !== 'Email' ? '_blank' : undefined}
                 rel="noreferrer"
                 title={label}
+                aria-label={`Visit Sultan's ${label}`}
                 className="icon-box"
-                style={{ textDecoration: 'none', width: '32px', height: '32px' }}
+                style={{ textDecoration: 'none', width: '36px', height: '36px' }}
               >
-                <Icon size={13} />
+                <Icon size={14} />
               </a>
             ))}
           </div>
@@ -59,3 +75,4 @@ export default function Footer() {
     </footer>
   );
 }
+

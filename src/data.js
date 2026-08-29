@@ -3,17 +3,17 @@ export const data = {
   nameShort: "Sultan",
   location: "Bekasi, Indonesia",
   phone: "+62 856 9422 9552",
-  title: "AI Full-Stack Engineer & Founder",
-  subtitle: "AI Full-Stack Engineer · Founder",
+  title: "AI Full-Stack Engineer",
+  subtitle: "AI Full-Stack Engineer · Software Developer",
   summary:
-    "AI-focused full-stack software engineer and founder. I architect and ship production-grade products end to end — across computer vision, real-time systems, fintech, and mobile — independently, from system design to deployment. Proficient in TypeScript, Python, and Kotlin with modern AI APIs (Anthropic Claude, Gemini, YOLO11). Recently delivered a real-time computer-vision pest-detection platform for PT Kawan Lama Group (YOLO11 + a Gemini RAG assistant) and founded FounderIQ, an AI startup-validation SaaS.",
+    "AI-focused full-stack software engineer. I architect and ship production-grade products end to end — across computer vision, real-time systems, fintech, and mobile — independently, from system design to deployment. Proficient in TypeScript, Python, and Kotlin with modern AI APIs (Anthropic Claude, Gemini, YOLO11). Recently delivered a real-time computer-vision pest-detection platform for PT Kawan Lama Group (YOLO11 + a Gemini RAG assistant) and enterprise full-stack solutions.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
 
   now: [
-    "Building FounderIQ — an AI startup-validation SaaS (Next.js 15 · Claude API)",
-    "Open to Software Engineering / AI internship opportunities",
+    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation)",
+    "Open to Software Engineering & AI internship opportunities",
   ],
 
   education: [
@@ -265,7 +265,7 @@ export const data = {
       github: "https://github.com/SultanZhalifa/FounderIQ",
       demo: "https://founderiq.vercel.app",
       featured: true,
-      context: "Founder — AI SaaS",
+      context: "AI Startup Platform",
       caseStudy: {
         problem: "First-time founders juggle idea validation, business modeling, pitching, and market research across a dozen disconnected tools — losing momentum before they start.",
         approach: [
@@ -293,58 +293,76 @@ export const data = {
     },
   ],
 
-
   experience: [
     {
-      company: "FounderIQ",
-      role: "Founder & Full-Stack Developer",
-      period: "Jun 2026 — Present",
-      location: "Remote — founderiq.vercel.app",
+      company: "Kementerian PANRB",
+      role: "Software Engineer Intern",
+      period: "Jul 2026 — Present",
+      location: "Jakarta, DKI Jakarta (Government Digital Transformation)",
       points: [
-        "Designed and launched an AI startup-validation SaaS with four specialized tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the full early-founder journey in one platform.",
-        "Engineered a real-time streaming architecture with the Vercel AI SDK + Anthropic Claude API, delivering structured AI output with progressive rendering and lower perceived latency.",
-        "Built a dual AI-provider abstraction layer (Anthropic + OpenRouter) for runtime model switching and cost-flexible scaling; shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
+        "Supporting the development and enhancement of internal web-based applications for Government Digital Transformation initiatives at Kementerian PANRB.",
+        "Contributing across frontend and backend development, database schema design, and RESTful API integration.",
+        "Executing application testing, debugging, system maintenance, and continuous improvement for digital government evaluation and monitoring systems.",
+      ],
+    },
+    {
+      company: "Freelance — Independent IT Projects",
+      role: "Freelance Software Developer",
+      period: "Jan 2025 — Present",
+      location: "Remote",
+      points: [
+        "Delivered custom production-grade software across modern web (React, Next.js), cross-platform mobile (Flutter, Kotlin), and AI/Python integrations.",
+        "Owned client requirements, architecture, testing, and cloud deployment end-to-end under tight deadlines.",
       ],
     },
   ],
 
   certifications: [
     {
+      issuer: "Google (Coursera)",
+      date: "2024 — 2026",
+      items: [
+        "Google Cybersecurity Professional Certificate",
+        "Google IT Support Professional Certificate",
+      ],
+    },
+    {
       issuer: "Google for Education",
       date: "May 2026 · valid to 2029",
       items: ["Gemini Certified Educator", "Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
-      issuer: "IBM SkillsBuild",
-      date: "May 2026",
-      items: ["Team Essentials for AI Solutions", "Intro to LLMs", "Sensemaking with Data", "Data Literacy"],
-    },
-    {
-      issuer: "Adobe Learning Manager",
-      date: "May 2026",
-      items: ["Intelligent by Design: Build an AI Agent"],
-    },
-    {
-      issuer: "Dicoding",
-      date: "2026",
+      issuer: "IBM (SkillsBuild & Coursera)",
+      date: "2025 — 2026",
       items: [
-        "Akselerasi Karier dan Produktivitas dengan Gemini",
-        "Memulai Pemrograman dengan C",
-        "Memulai Pemrograman dengan Java",
-        "Memulai Pemrograman dengan Haskell",
-        "Belajar Prinsip Pemrograman SOLID",
-        "Belajar Dasar Manajemen Proyek (x Google Developers)",
+        "Build an AI Agent",
+        "Team Essentials for Designing AI Solutions",
+        "Introduction to Large Language Models (LLMs)",
+        "Data Literacy & Sensemaking with Data",
+        "Getting Started with Git and GitHub",
       ],
     },
     {
-      issuer: "Dibimbing",
-      date: "May 2026",
-      items: ["Certificate of Appreciation: Event Online Cyber Security"],
+      issuer: "Dicoding Indonesia",
+      date: "2026",
+      items: [
+        "Akselerasi Karier dan Produktivitas dengan Gemini",
+        "Belajar Prinsip Pemrograman SOLID",
+        "Memulai Pemrograman dengan Java",
+        "Memulai Pemrograman dengan C",
+        "Memulai Pemrograman dengan Haskell",
+        "Belajar Dasar Manajemen Proyek (x Google Developers)",
+      ],
     },
     {
       issuer: "RevoU",
       date: "2024 — 2026",
       items: ["Coding Camp: Intro to Software Engineering", "Intro to Data Analytics"],
+    },
+    {
+      issuer: "Dibimbing",
+      date: "May 2026",
+      items: ["Certificate of Appreciation: Cyber Security Online Event"],
     },
     {
       issuer: "SMK N 1 Cikarang Utara",
@@ -363,5 +381,16 @@ export const data = {
         "Served on the organizing committee for a 48-hour national hackathon uniting university students, high-schoolers, and industry professionals in teams of three, supporting participant operations and event logistics throughout.",
       ],
     },
+    {
+      title: "Kindness Community for Knowledge",
+      role: "IT Support Division & Event Operations",
+      org: "Cikarang, Bekasi",
+      date: "Oct 2024 — Present",
+      points: [
+        "Assisted in digital and technical support activities, documentation, data organization, and basic troubleshooting during events and community programs.",
+      ],
+    },
   ],
 };
+
+
