@@ -102,50 +102,48 @@ export default function Hero() {
       />
 
       {/* Main Container */}
-      <div className="container hero-container" style={{ position: 'relative', zIndex: 1, paddingTop: 'clamp(100px, 14vh, 140px)', paddingBottom: 'clamp(36px, 6vh, 60px)' }}>
+      <div className="container hero-container" style={{ position: 'relative', zIndex: 1, paddingTop: 'clamp(84px, 12vh, 130px)', paddingBottom: 'clamp(32px, 5vh, 56px)' }}>
         <div className="hero-main-grid">
-          {/* Left / Main Text Column */}
+          {/* Main Text Column */}
           <div className="hero-text-col">
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              style={{ display: 'inline-flex', alignItems: 'center', marginBottom: 'clamp(20px, 3.5vw, 36px)' }}
-            >
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                borderRadius: '6px',
-                fontSize: '0.72rem',
-                fontFamily: 'JetBrains Mono',
-                fontWeight: 500,
-                background: '#090909',
-                border: '1px solid #202020',
-                color: '#a0a0a0',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}>
-                <span style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: '#ffffff',
-                  display: 'inline-block',
-                  boxShadow: '0 0 6px rgba(255,255,255,0.8)',
-                  animation: 'pulse-dot 2.4s ease-in-out infinite',
-                }} />
-                Available for Internship
-              </span>
-            </motion.div>
+            {/* Top Status & Mobile Avatar Row */}
+            <div className="hero-top-row">
+              {/* Status badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45 }}
+                style={{ display: 'inline-flex', alignItems: 'center' }}
+              >
+                <span className="hero-status-pill">
+                  <span className="hero-status-dot" />
+                  Available for Internship
+                </span>
+              </motion.div>
+
+              {/* Mobile-Only Avatar */}
+              <motion.div
+                className="hero-mobile-avatar-wrap"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.45, delay: 0.15 }}
+              >
+                <img
+                  src="/sultan-portrait.jpg"
+                  alt="Sultan Zhalifunnas"
+                  className="hero-mobile-avatar-img"
+                  width="60"
+                  height="60"
+                  loading="eager"
+                />
+              </motion.div>
+            </div>
 
             {/* Main Name Heading */}
             <motion.h1
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="hero-name"
               translate="no"
               style={{
@@ -153,7 +151,8 @@ export default function Hero() {
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
                 lineHeight: 0.96,
-                marginBottom: 'clamp(20px, 3.5vw, 32px)',
+                marginTop: 'clamp(16px, 2.5vw, 24px)',
+                marginBottom: 'clamp(18px, 3vw, 28px)',
               }}
             >
               <span style={{ display: 'block', color: '#ffffff' }}>Sultan</span>
@@ -171,28 +170,28 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="hero-role-row"
             >
               <div className="hero-role-badge">
                 <div style={{
-                  fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
-                  color: '#6e6e6e', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '6px',
+                  fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
+                  color: '#707070', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   Role
                 </div>
-                <div style={{ fontSize: '0.94rem', color: '#dedede', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.92rem', color: '#ffffff', fontWeight: 600 }}>
                   {data.subtitle}
                 </div>
               </div>
               <div className="hero-role-desc">
                 <div style={{
-                  fontSize: '0.68rem', fontFamily: 'JetBrains Mono',
-                  color: '#6e6e6e', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '6px',
+                  fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
+                  color: '#707070', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   About
                 </div>
-                <p style={{ color: '#909090', fontSize: 'clamp(0.85rem, 1.3vw, 0.92rem)', lineHeight: 1.8 }}>
+                <p style={{ color: '#9a9a9a', fontSize: 'clamp(0.85rem, 1.2vw, 0.92rem)', lineHeight: 1.75 }}>
                   {data.summary}
                 </p>
               </div>
@@ -202,7 +201,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.4 }}
+              transition={{ duration: 0.45, delay: 0.35 }}
               className="hero-actions"
             >
               <a href="#projects" className="btn btn-primary" id="hero-view-projects-btn">
@@ -247,7 +246,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right / Portrait Column */}
+          {/* Desktop Right Portrait Column */}
           <motion.div
             className="hero-photo-col"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -328,26 +327,77 @@ export default function Hero() {
       </motion.div>
 
       <style>{`
-        .hero-name { font-size: clamp(2.8rem, 6.5vw, 6.2rem); }
+        .hero-name { font-size: clamp(2.6rem, 6vw, 5.8rem); }
         .hero-main-grid {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
-          gap: clamp(32px, 5vw, 64px);
+          gap: clamp(28px, 4.5vw, 60px);
         }
         .hero-text-col { flex: 1; min-width: 0; }
         
+        .hero-top-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+        }
+
+        .hero-status-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          border-radius: 6px;
+          font-size: 0.72rem;
+          font-family: var(--font-mono);
+          font-weight: 500;
+          background: #090909;
+          border: 1px solid #202020;
+          color: #a0a0a0;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .hero-status-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #ffffff;
+          display: inline-block;
+          box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+          animation: pulse-dot 2.4s ease-in-out infinite;
+        }
+
+        .hero-mobile-avatar-wrap {
+          display: none;
+        }
+        .hero-mobile-avatar-img {
+          width: 54px;
+          height: 54px;
+          border-radius: 12px;
+          border: 1px solid #282828;
+          object-fit: cover;
+          object-position: center 20%;
+          display: block;
+          filter: grayscale(100%);
+          transition: filter 0.3s ease;
+        }
+        .hero-mobile-avatar-img:hover {
+          filter: grayscale(0%);
+        }
+
         .hero-photo-col {
           flex-shrink: 0;
-          width: clamp(200px, 22vw, 290px);
-          margin-top: 6px;
+          width: clamp(200px, 22vw, 280px);
+          margin-top: 4px;
         }
         .hero-photo-frame {
           position: relative;
           width: 100%;
           aspect-ratio: 5 / 7;
           border: 1px solid #202020;
-          border-radius: 14px;
+          border-radius: 16px;
           overflow: hidden;
           background: #080808;
           box-shadow: 0 20px 50px -20px rgba(0,0,0,0.9);
@@ -356,6 +406,7 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: center 20%;
           display: block;
           filter: grayscale(100%) contrast(1.02);
           transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
@@ -368,18 +419,18 @@ export default function Hero() {
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%);
+          background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
         }
 
         .hero-role-row {
           display: flex;
           align-items: flex-start;
-          gap: 36px;
-          margin-bottom: clamp(32px, 4vw, 48px);
+          gap: 32px;
+          margin-bottom: clamp(28px, 4vw, 44px);
           flex-wrap: wrap;
         }
         .hero-role-badge { flex-shrink: 0; }
-        .hero-role-desc { flex: 1; min-width: 240px; max-width: 500px; }
+        .hero-role-desc { flex: 1; min-width: 240px; max-width: 520px; }
 
         .hero-actions {
           display: flex;
@@ -405,7 +456,7 @@ export default function Hero() {
           grid-template-columns: repeat(4, 1fr);
         }
         .hero-stat-cell {
-          padding: clamp(20px, 3vw, 30px) clamp(16px, 2.5vw, 32px);
+          padding: clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 32px);
           border-right: 1px solid #151515;
           text-align: left;
         }
@@ -418,7 +469,7 @@ export default function Hero() {
           overflow: hidden;
           border-bottom: 1px solid #181818;
           background: #020202;
-          padding: 14px 0;
+          padding: 13px 0;
           position: relative;
           z-index: 1;
           -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent 100%);
@@ -426,14 +477,14 @@ export default function Hero() {
         }
 
         @media (max-width: 860px) {
-          .hero-main-grid {
-            flex-direction: column-reverse;
-            align-items: flex-start;
-            gap: 28px;
-          }
           .hero-photo-col {
-            width: clamp(140px, 36vw, 190px);
-            margin-top: 0;
+            display: none !important;
+          }
+          .hero-mobile-avatar-wrap {
+            display: block;
+          }
+          .hero-name {
+            font-size: clamp(2.4rem, 9.5vw, 3.8rem);
           }
           .hero-stats-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -449,12 +500,14 @@ export default function Hero() {
 
         @media (max-width: 540px) {
           .hero-social-divider { display: none; }
-          .hero-actions { gap: 10px; }
+          .hero-actions { gap: 10px; width: 100%; }
           .hero-actions .btn { flex: 1 1 calc(50% - 6px); }
-          .hero-social-group { width: 100%; justify-content: flex-start; margin-top: 4px; }
+          .hero-social-group { width: 100%; justify-content: flex-start; margin-top: 6px; }
+          .hero-role-row { gap: 16px; margin-bottom: 24px; }
+          .hero-role-desc { min-width: 100%; }
         }
 
-        @media (max-width: 360px) {
+        @media (max-width: 380px) {
           .hero-actions .btn { flex: 1 1 100%; }
         }
       `}</style>

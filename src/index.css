@@ -55,7 +55,7 @@ html, body {
 /* ─── Base ───────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  scroll-padding-top: 76px;
   font-size: 16px;
   background-color: var(--bg);
   color: var(--text-1);
@@ -166,7 +166,7 @@ body::after {
 
 /* ─── Layout ─────────────────────────────────────────── */
 .section {
-  padding: clamp(72px, 11vw, 136px) 0;
+  padding: clamp(54px, 8vw, 120px) 0;
   position: relative;
   z-index: 1;
 }
