@@ -14,86 +14,115 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay: index * 0.09 }}
-      style={{ borderBottom: '1px solid #111' }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      style={{ borderBottom: '1px solid #141414' }}
     >
-      {/* Main row — clickable */}
+      {/* Main Accordion Trigger Row */}
       <button
         id={`project-card-${project.id}`}
         onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        aria-controls={`project-content-${project.id}`}
         style={{
-          width: '100%', display: 'flex', alignItems: 'center', gap: '24px',
-          padding: '24px 0', background: 'none', border: 'none', cursor: 'pointer',
-          textAlign: 'left', transition: 'background 0.2s',
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'clamp(12px, 3vw, 24px)',
+          padding: 'clamp(16px, 2.5vw, 24px) 0',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          textAlign: 'left',
+          transition: 'padding-left 0.2s ease, background-color 0.2s',
         }}
-        onMouseEnter={e => e.currentTarget.style.paddingLeft = '8px'}
+        onMouseEnter={e => e.currentTarget.style.paddingLeft = '6px'}
         onMouseLeave={e => e.currentTarget.style.paddingLeft = '0'}
       >
-        {/* Number */}
+        {/* Number index */}
         <span style={{
-          fontFamily: 'JetBrains Mono', fontSize: '0.72rem',
-          color: '#5e5e5e', letterSpacing: '0.06em', flexShrink: 0,
-          minWidth: '28px',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.72rem',
+          color: '#6e6e6e',
+          letterSpacing: '0.06em',
+          flexShrink: 0,
+          minWidth: '24px',
         }}>
           {num}
         </span>
 
-        {/* Context badge */}
-        <span style={{
-          fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-          color: '#6e6e6e', letterSpacing: '0.08em', textTransform: 'uppercase',
-          flexShrink: 0, minWidth: '130px',
-          display: 'none',
-        }} className="project-context">
+        {/* Project Context Badge */}
+        <span
+          className="project-context"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            color: '#8a8a8a',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            flexShrink: 0,
+            minWidth: '130px',
+            display: 'none',
+          }}
+        >
           {project.context.split(',')[0]}
         </span>
 
-        {/* Title */}
+        {/* Project Title */}
         <h3 style={{
-          fontFamily: 'Space Grotesk', fontSize: 'clamp(1rem, 2.5vw, 1.35rem)',
-          fontWeight: 700, letterSpacing: '-0.02em',
-          color: open ? '#f5f5f5' : '#888',
-          transition: 'color 0.2s', flex: 1,
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
+          fontWeight: 700,
+          letterSpacing: '-0.02em',
+          color: open ? '#ffffff' : '#a0a0a0',
+          transition: 'color 0.2s',
+          flex: 1,
         }}>
           {project.title}
         </h3>
 
-        {/* Subtitle — hide on mobile */}
-        <span style={{
-          fontSize: '0.8rem', color: '#6a6a6a', flex: 1,
-          maxWidth: '280px', display: 'none',
-        }} className="project-subtitle">
+        {/* Subtitle preview (Tablet/Desktop) */}
+        <span
+          className="project-subtitle"
+          style={{
+            fontSize: '0.82rem',
+            color: '#707070',
+            flex: 1,
+            maxWidth: '300px',
+            display: 'none',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {project.subtitle}
         </span>
 
-        {/* Arrow */}
+        {/* Expand / Collapse Chevron */}
         <FiChevronDown
-          size={15}
+          size={16}
           style={{
-            color: '#333', transition: 'transform 0.25s, color 0.2s',
+            color: open ? '#ffffff' : '#555555',
+            transition: 'transform 0.25s var(--ease-out), color 0.2s',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
             flexShrink: 0,
           }}
         />
       </button>
 
-      {/* Expanded content */}
+      {/* Expanded Accordion Body */}
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
+            id={`project-content-${project.id}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="project-expanded" style={{
-              paddingBottom: '28px',
-              paddingLeft: '52px',
-              display: 'flex', flexDirection: 'column', gap: '20px',
-            }}>
+            <div className="project-expanded-body">
               {/* Preview image */}
               {imgOk && (
                 <button
@@ -101,79 +130,72 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
                   onClick={() => project.caseStudy && onOpenCase(project)}
                   className="project-preview-frame"
                   style={{ cursor: project.caseStudy ? 'pointer' : 'default' }}
-                  aria-label={project.caseStudy ? `Open ${project.title} case study` : `${project.title} preview`}
+                  aria-label={project.caseStudy ? `Open ${project.title} case study modal` : `${project.title} preview`}
                   tabIndex={project.caseStudy ? 0 : -1}
                 >
                   <img
                     src={`/previews/${slugOf(project)}.webp`}
-                    alt={`${project.title} preview`}
+                    alt={`${project.title} screenshot preview`}
                     loading="lazy"
                     className="project-preview-img"
                     onError={() => setImgOk(false)}
                   />
                   {project.caseStudy && (
                     <span className="project-preview-badge">
-                      <FiLayers size={11} /> View Case Study
+                      <FiLayers size={12} /> View Detailed Case Study
                     </span>
                   )}
                 </button>
               )}
 
-              {/* Context + subtitle */}
+              {/* Context + Description */}
               <div>
                 <div style={{
-                  fontFamily: 'JetBrains Mono', fontSize: '0.62rem',
-                  color: '#6e6e6e', letterSpacing: '0.1em', textTransform: 'uppercase',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.66rem',
+                  color: '#808080',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
                   marginBottom: '8px',
                 }}>
-                  {project.context}
+                  {project.context} · {project.subtitle}
                 </div>
                 <p style={{
-                  color: '#7d7d7d', fontSize: '0.875rem', lineHeight: 1.8,
-                  maxWidth: '580px',
+                  color: '#9a9a9a',
+                  fontSize: '0.88rem',
+                  lineHeight: 1.8,
+                  maxWidth: '680px',
                 }}>
                   {project.description}
                 </p>
               </div>
 
-              {/* Tech tags */}
+              {/* Tech stack badges */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
               </div>
 
-              {/* Links */}
-              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              {/* Action buttons */}
+              <div className="project-action-links">
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
                   id={`project-${project.id}-github`}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '6px',
-                    color: '#444', textDecoration: 'none', fontSize: '0.78rem',
-                    fontFamily: 'JetBrains Mono', letterSpacing: '0.04em',
-                    transition: 'color 0.2s',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#444'}
+                  className="btn btn-ghost"
+                  style={{ padding: '8px 16px', fontSize: '0.78rem', gap: '6px' }}
                 >
-                  <FiGithub size={12} /> Source Code
+                  <FiGithub size={13} /> Source Code
                 </a>
                 {project.demo && (
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noreferrer"
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '6px',
-                      color: '#444', textDecoration: 'none', fontSize: '0.78rem',
-                      fontFamily: 'JetBrains Mono', letterSpacing: '0.04em',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
-                    onMouseLeave={e => e.currentTarget.style.color = '#444'}
+                    className="btn btn-primary"
+                    style={{ padding: '8px 16px', fontSize: '0.78rem', gap: '6px' }}
                   >
-                    <FiExternalLink size={12} /> Live Demo
+                    <FiExternalLink size={13} /> Live Demo
                   </a>
                 )}
                 {project.caseStudy && (
@@ -181,16 +203,16 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
                     type="button"
                     onClick={() => onOpenCase(project)}
                     id={`project-${project.id}-casestudy`}
+                    className="btn btn-ghost"
                     style={{
-                      display: 'flex', alignItems: 'center', gap: '6px',
-                      color: '#c4c4c4', background: 'none', border: 'none', cursor: 'pointer',
-                      fontSize: '0.78rem', fontFamily: 'JetBrains Mono', letterSpacing: '0.04em',
-                      transition: 'color 0.2s', padding: 0,
+                      padding: '8px 16px',
+                      fontSize: '0.78rem',
+                      gap: '6px',
+                      borderColor: '#303030',
+                      color: '#ffffff',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#f5f5f5'}
-                    onMouseLeave={e => e.currentTarget.style.color = '#c4c4c4'}
                   >
-                    <FiLayers size={12} /> View Case Study →
+                    <FiLayers size={13} /> Case Study →
                   </button>
                 )}
               </div>
@@ -204,20 +226,20 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
 
 export default function Projects() {
   const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
   const [filter, setFilter] = useState('All');
   const [activeCase, setActiveCase] = useState(null);
 
-  // Collect unique tech tags across all projects
+  // Unique tags list
   const allTags = ['All', ...Array.from(new Set(data.projects.flatMap(p => p.tech)))];
   const filtered = filter === 'All'
     ? data.projects
     : data.projects.filter(p => p.tech.includes(filter));
 
   return (
-    <section id="projects" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
+    <section id="projects" aria-label="Selected Projects Portfolio" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
       <div className="container">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -228,48 +250,79 @@ export default function Projects() {
             <span className="section-label">Portfolio</span>
           </div>
           <h2 className="section-title">Selected Projects</h2>
-          <p className="section-sub">Work across web, mobile, AI integration, and competition entries.</p>
+          <p className="section-sub">End-to-end engineering across AI, computer vision, fintech, real-time distributed systems, and mobile.</p>
         </motion.div>
 
-        {/* Tech filter */}
+        {/* Filter Tag Pill Track */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.1 }}
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '32px' }}
+          className="projects-filter-track"
         >
-          {allTags.map(tag => (
-            <button
-              key={tag}
-              onClick={() => setFilter(tag)}
-              style={{
-                fontFamily: 'JetBrains Mono', fontSize: '0.68rem',
-                letterSpacing: '0.04em', padding: '4px 12px',
-                borderRadius: '4px', border: '1px solid',
-                borderColor: filter === tag ? '#555' : '#1e1e1e',
-                background: filter === tag ? '#111' : 'transparent',
-                color: filter === tag ? '#f5f5f5' : '#3a3a3a',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e => { if (filter !== tag) { e.currentTarget.style.borderColor = '#333'; e.currentTarget.style.color = '#888'; } }}
-              onMouseLeave={e => { if (filter !== tag) { e.currentTarget.style.borderColor = '#1e1e1e'; e.currentTarget.style.color = '#3a3a3a'; } }}
-            >
-              {tag}
-            </button>
-          ))}
+          {allTags.map(tag => {
+            const count = tag === 'All'
+              ? data.projects.length
+              : data.projects.filter(p => p.tech.includes(tag)).length;
+            const isSelected = filter === tag;
+
+            return (
+              <button
+                key={tag}
+                onClick={() => setFilter(tag)}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.04em',
+                  padding: '5px 12px',
+                  borderRadius: '6px',
+                  border: '1px solid',
+                  borderColor: isSelected ? '#555555' : '#1e1e1e',
+                  background: isSelected ? '#161616' : 'transparent',
+                  color: isSelected ? '#ffffff' : '#707070',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={e => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = '#333333';
+                    e.currentTarget.style.color = '#cccccc';
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = '#1e1e1e';
+                    e.currentTarget.style.color = '#707070';
+                  }
+                }}
+              >
+                <span>{tag}</span>
+                <span style={{
+                  fontSize: '0.62rem',
+                  opacity: isSelected ? 1 : 0.6,
+                  color: isSelected ? '#ffffff' : '#666666',
+                }}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </motion.div>
 
-        {/* Project list */}
-        <div style={{ borderTop: '1px solid #111' }}>
+        {/* Project List */}
+        <div style={{ borderTop: '1px solid #181818' }}>
           <AnimatePresence mode="wait">
             {filtered.length === 0 ? (
               <motion.p
                 key="empty"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ padding: '32px 0', color: '#6a6a6a', fontFamily: 'JetBrains Mono', fontSize: '0.75rem' }}
+                style={{ padding: '36px 0', color: '#888888', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}
               >
-                No projects with {filter} yet.
+                No projects found for {filter}.
               </motion.p>
             ) : (
               <motion.div key={filter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
@@ -281,30 +334,50 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
-        {/* Live GitHub activity (replaces the old static CTA) */}
+        {/* Live GitHub activity component */}
         <GitHubActivity />
       </div>
 
-      {/* Case-study modal */}
+      {/* Case Study Modal */}
       <CaseStudyModal project={activeCase} onClose={() => setActiveCase(null)} />
 
       <style>{`
+        .projects-filter-track {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 32px;
+          overflow-x: auto;
+          padding-bottom: 4px;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .project-expanded-body {
+          padding-bottom: 32px;
+          padding-left: clamp(16px, 4vw, 48px);
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+
         .project-preview-frame {
           position: relative;
           display: block;
           width: 100%;
-          max-width: 580px;
+          max-width: 620px;
           aspect-ratio: 16 / 10;
           padding: 0;
-          border: 1px solid #1a1a1a;
-          border-radius: 10px;
+          border: 1px solid #202020;
+          border-radius: 12px;
           overflow: hidden;
-          background: #0a0a0a;
-          box-shadow: 0 18px 44px -24px rgba(0,0,0,0.85);
+          background: #080808;
+          box-shadow: 0 16px 40px -20px rgba(0,0,0,0.9);
         }
         .project-preview-img {
-          width: 100%; height: 100%;
-          object-fit: cover; object-position: top;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top;
           display: block;
           filter: grayscale(100%) contrast(1.02);
           transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
@@ -315,39 +388,57 @@ export default function Projects() {
         }
         .project-preview-badge {
           position: absolute;
-          left: 12px; bottom: 12px;
-          display: inline-flex; align-items: center; gap: 6px;
-          padding: 5px 11px;
-          border-radius: 5px;
-          background: rgba(0,0,0,0.62);
-          border: 1px solid #2a2a2a;
-          backdrop-filter: blur(6px);
-          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.04em;
-          color: #e4e4e4;
+          left: 12px;
+          bottom: 12px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          background: rgba(0, 0, 0, 0.72);
+          border: 1px solid #333333;
+          backdrop-filter: blur(8px);
+          font-family: var(--font-mono);
+          font-size: 0.68rem;
+          letter-spacing: 0.04em;
+          color: #ffffff;
           opacity: 0;
           transform: translateY(4px);
           transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
         }
         .project-preview-frame:hover .project-preview-badge,
         .project-preview-frame:focus-visible .project-preview-badge {
-          opacity: 1; transform: translateY(0);
+          opacity: 1;
+          transform: translateY(0);
         }
+
+        .project-action-links {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          flex-wrap: wrap;
+          padding-top: 4px;
+        }
+
         @media (pointer: coarse) {
-          .project-preview-badge { opacity: 1; transform: translateY(0); }
+          .project-preview-badge {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @media (min-width: 768px) {
           .project-context { display: block !important; }
           .project-subtitle { display: block !important; }
         }
         @media (max-width: 640px) {
-          button[id^="project-card"] { padding: 18px 0; transition: padding-left 0.2s; }
-          .project-expanded { padding-left: 20px !important; }
+          .project-expanded-body { padding-left: 12px !important; }
+          .project-action-links .btn { flex: 1 1 calc(50% - 6px); }
         }
         @media (max-width: 360px) {
-          button[id^="project-card"] { padding: 14px 0; gap: 12px !important; }
-          .project-expanded { padding-left: 12px !important; padding-bottom: 20px !important; }
+          .project-action-links .btn { flex: 1 1 100%; }
         }
       `}</style>
     </section>
   );
 }
+
