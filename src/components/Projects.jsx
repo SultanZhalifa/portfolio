@@ -224,17 +224,23 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
   );
 }
 
+const CATEGORIES = [
+  { id: 'All', label: 'All', match: () => true },
+  { id: 'AI & Vision', label: 'AI & Vision', match: (p) => p.tech.some(t => /AI|YOLO|Claude|Gemini|Vision|OpenCV/i.test(t)) || /AI|Vision|Hoax/i.test(p.title) },
+  { id: 'Web & Full-Stack', label: 'Web & Full-Stack', match: (p) => p.tech.some(t => /Next\.js|React|Node\.js|Express|FastAPI|HTML5|Vite/i.test(t)) },
+  { id: 'Mobile', label: 'Mobile Apps', match: (p) => p.tech.some(t => /Kotlin|Flutter|Android|Dart/i.test(t)) },
+  { id: 'TypeScript', label: 'TypeScript', match: (p) => p.tech.some(t => /TypeScript/i.test(t)) },
+  { id: 'Python', label: 'Python', match: (p) => p.tech.some(t => /Python/i.test(t)) },
+];
+
 export default function Projects() {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [filter, setFilter] = useState('All');
   const [activeCase, setActiveCase] = useState(null);
 
-  // Unique tags list
-  const allTags = ['All', ...Array.from(new Set(data.projects.flatMap(p => p.tech)))];
-  const filtered = filter === 'All'
-    ? data.projects
-    : data.projects.filter(p => p.tech.includes(filter));
+  const activeCategory = CATEGORIES.find(c => c.id === filter) || CATEGORIES[0];
+  const filtered = data.projects.filter(activeCategory.match);
 
   return (
     <section id="projects" aria-label="Selected Projects Portfolio" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
@@ -260,26 +266,24 @@ export default function Projects() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="projects-filter-track"
         >
-          {allTags.map(tag => {
-            const count = tag === 'All'
-              ? data.projects.length
-              : data.projects.filter(p => p.tech.includes(tag)).length;
-            const isSelected = filter === tag;
+          {CATEGORIES.map(({ id, label, match }) => {
+            const count = data.projects.filter(match).length;
+            const isSelected = filter === id;
 
             return (
               <button
-                key={tag}
-                onClick={() => setFilter(tag)}
+                key={id}
+                onClick={() => setFilter(id)}
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.72rem',
                   letterSpacing: '0.04em',
-                  padding: '5px 12px',
+                  padding: '6px 14px',
                   borderRadius: '6px',
                   border: '1px solid',
                   borderColor: isSelected ? '#555555' : '#1e1e1e',
                   background: isSelected ? '#161616' : 'transparent',
-                  color: isSelected ? '#ffffff' : '#707070',
+                  color: isSelected ? '#ffffff' : '#787878',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   display: 'inline-flex',
@@ -296,11 +300,11 @@ export default function Projects() {
                 onMouseLeave={e => {
                   if (!isSelected) {
                     e.currentTarget.style.borderColor = '#1e1e1e';
-                    e.currentTarget.style.color = '#707070';
+                    e.currentTarget.style.color = '#787878';
                   }
                 }}
               >
-                <span>{tag}</span>
+                <span>{label}</span>
                 <span style={{
                   fontSize: '0.62rem',
                   opacity: isSelected ? 1 : 0.6,
