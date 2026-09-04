@@ -9,12 +9,12 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const contacts = [
-  { Icon: FiMail,          label: 'Email',    value: data.email,                     href: `mailto:${data.email}`,                     copyable: true  },
-  { Icon: FiMessageSquare, label: 'WhatsApp', value: `${data.phone} (Direct Chat)`,  href: 'https://wa.me/6285694229552',              copyable: true  },
-  { Icon: FiPhone,         label: 'Phone',    value: data.phone,                     href: `tel:${data.phone.replace(/\s+/g, '')}`,    copyable: true  },
-  { Icon: FiGithub,        label: 'GitHub',   value: 'github.com/SultanZhalifa',     href: data.github,                                copyable: false },
-  { Icon: FiLinkedin,      label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa', href: data.linkedin,                              copyable: false },
-  { Icon: FiMapPin,        label: 'Location', value: data.location,                  href: null,                                       copyable: false },
+  { Icon: FiMail,          label: 'Email',    value: data.email,                     href: `mailto:${data.email}`,                              copyable: true  },
+  { Icon: FiMessageSquare, label: 'WhatsApp', value: `${data.phone} (Direct Chat)`,  href: `https://wa.me/${data.phone.replace(/\D/g, '')}`,    copyable: true  },
+  { Icon: FiPhone,         label: 'Phone',    value: data.phone,                     href: `tel:${data.phone.replace(/\s+/g, '')}`,             copyable: true  },
+  { Icon: FiGithub,        label: 'GitHub',   value: 'github.com/SultanZhalifa',     href: data.github,                                         copyable: false },
+  { Icon: FiLinkedin,      label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa', href: data.linkedin,                                       copyable: false },
+  { Icon: FiMapPin,        label: 'Location', value: data.location,                  href: null,                                                copyable: false },
 ];
 
 export default function Contact() {
