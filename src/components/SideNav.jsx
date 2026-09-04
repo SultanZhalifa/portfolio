@@ -7,7 +7,16 @@ export default function SideNav() {
   const active = useActiveSection(0.3);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 280);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setVisible(window.scrollY > 280);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
