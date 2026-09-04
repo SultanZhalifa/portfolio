@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiChevronDown, FiLayers } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiChevronDown, FiLayers, FiSearch, FiX } from 'react-icons/fi';
 import { data } from '../data';
 import GitHubActivity from './GitHubActivity';
 import CaseStudyModal from './CaseStudyModal';
@@ -237,10 +237,25 @@ export default function Projects() {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [filter, setFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [activeCase, setActiveCase] = useState(null);
 
   const activeCategory = CATEGORIES.find(c => c.id === filter) || CATEGORIES[0];
-  const filtered = data.projects.filter(activeCategory.match);
+  const query = searchQuery.trim().toLowerCase();
+
+  const filtered = data.projects.filter(p => {
+    const matchesCategory = activeCategory.match(p);
+    if (!query) return matchesCategory;
+
+    const matchesSearch =
+      p.title.toLowerCase().includes(query) ||
+      p.subtitle.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query) ||
+      p.tech.some(t => t.toLowerCase().includes(query)) ||
+      p.context.toLowerCase().includes(query);
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section id="projects" aria-label="Selected Projects Portfolio" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
@@ -259,77 +274,102 @@ export default function Projects() {
           <p className="section-sub">End-to-end engineering across AI, computer vision, fintech, real-time distributed systems, and mobile.</p>
         </motion.div>
 
-        {/* Filter Tag Pill Track */}
+        {/* Controls: Filter Pills & Search Input */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="projects-filter-track"
+          className="projects-toolbar"
         >
-          {CATEGORIES.map(({ id, label, match }) => {
-            const count = data.projects.filter(match).length;
-            const isSelected = filter === id;
+          {/* Category Pills Track */}
+          <div className="projects-filter-track">
+            {CATEGORIES.map(({ id, label, match }) => {
+              const count = data.projects.filter(match).length;
+              const isSelected = filter === id;
 
-            return (
+              return (
+                <button
+                  key={id}
+                  onClick={() => setFilter(id)}
+                  className="projects-filter-btn"
+                  style={{
+                    borderColor: isSelected ? '#555555' : '#1e1e1e',
+                    background: isSelected ? '#161616' : 'transparent',
+                    color: isSelected ? '#ffffff' : '#787878',
+                  }}
+                  onMouseEnter={e => {
+                    if (!isSelected) {
+                      e.currentTarget.style.borderColor = '#333333';
+                      e.currentTarget.style.color = '#cccccc';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!isSelected) {
+                      e.currentTarget.style.borderColor = '#1e1e1e';
+                      e.currentTarget.style.color = '#787878';
+                    }
+                  }}
+                >
+                  <span>{label}</span>
+                  <span style={{
+                    fontSize: '0.62rem',
+                    opacity: isSelected ? 1 : 0.6,
+                    color: isSelected ? '#ffffff' : '#666666',
+                  }}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search Box */}
+          <div className="projects-search-box">
+            <FiSearch size={13} style={{ color: '#666666', flexShrink: 0 }} />
+            <input
+              type="text"
+              placeholder="Search tech, title, or keywords…"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="projects-search-input"
+              aria-label="Search projects by technology, keyword, or title"
+            />
+            {searchQuery && (
               <button
-                key={id}
-                onClick={() => setFilter(id)}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.72rem',
-                  letterSpacing: '0.04em',
-                  padding: '6px 14px',
-                  borderRadius: '6px',
-                  border: '1px solid',
-                  borderColor: isSelected ? '#555555' : '#1e1e1e',
-                  background: isSelected ? '#161616' : 'transparent',
-                  color: isSelected ? '#ffffff' : '#787878',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  flexShrink: 0,
-                }}
-                onMouseEnter={e => {
-                  if (!isSelected) {
-                    e.currentTarget.style.borderColor = '#333333';
-                    e.currentTarget.style.color = '#cccccc';
-                  }
-                }}
-                onMouseLeave={e => {
-                  if (!isSelected) {
-                    e.currentTarget.style.borderColor = '#1e1e1e';
-                    e.currentTarget.style.color = '#787878';
-                  }
-                }}
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="projects-search-clear-btn"
+                aria-label="Clear search input"
               >
-                <span>{label}</span>
-                <span style={{
-                  fontSize: '0.62rem',
-                  opacity: isSelected ? 1 : 0.6,
-                  color: isSelected ? '#ffffff' : '#666666',
-                }}>
-                  {count}
-                </span>
+                <FiX size={12} />
               </button>
-            );
-          })}
+            )}
+          </div>
         </motion.div>
 
         {/* Project List */}
         <div style={{ borderTop: '1px solid #181818' }}>
           <AnimatePresence mode="wait">
             {filtered.length === 0 ? (
-              <motion.p
+              <motion.div
                 key="empty"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ padding: '36px 0', color: '#888888', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}
+                style={{ padding: '48px 0', textAlign: 'center' }}
               >
-                No projects found for {filter}.
-              </motion.p>
+                <p style={{ color: '#888888', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', marginBottom: '12px' }}>
+                  No projects found matching your criteria.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => { setFilter('All'); setSearchQuery(''); }}
+                  className="btn btn-ghost"
+                  style={{ padding: '6px 14px', fontSize: '0.74rem' }}
+                >
+                  Reset filters & search
+                </button>
+              </motion.div>
             ) : (
-              <motion.div key={filter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <motion.div key={`${filter}-${searchQuery}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                 {filtered.map((project, i) => (
                   <ProjectRow key={project.id} project={project} index={i} inView={inView} onOpenCase={setActiveCase} />
                 ))}
@@ -346,14 +386,81 @@ export default function Projects() {
       <CaseStudyModal project={activeCase} onClose={() => setActiveCase(null)} />
 
       <style>{`
+        .projects-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          margin-bottom: 32px;
+          flex-wrap: wrap;
+        }
+
         .projects-filter-track {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
-          margin-bottom: 32px;
           overflow-x: auto;
-          padding-bottom: 4px;
+          padding-bottom: 2px;
           -webkit-overflow-scrolling: touch;
+        }
+
+        .projects-filter-btn {
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          padding: 6px 14px;
+          border-radius: 6px;
+          border: 1px solid;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          flex-shrink: 0;
+        }
+
+        .projects-search-box {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #090909;
+          border: 1px solid #1e1e1e;
+          border-radius: 6px;
+          padding: 6px 12px;
+          min-width: 240px;
+          transition: border-color 0.2s;
+        }
+        .projects-search-box:focus-within {
+          border-color: #444444;
+          background: #0d0d0d;
+        }
+
+        .projects-search-input {
+          background: transparent;
+          border: none;
+          outline: none;
+          color: #ffffff;
+          font-family: var(--font-mono);
+          font-size: 0.74rem;
+          width: 100%;
+        }
+        .projects-search-input::placeholder {
+          color: #606060;
+        }
+
+        .projects-search-clear-btn {
+          background: transparent;
+          border: none;
+          color: #777777;
+          cursor: pointer;
+          padding: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.15s;
+        }
+        .projects-search-clear-btn:hover {
+          color: #ffffff;
         }
 
         .project-expanded-body {
@@ -433,6 +540,17 @@ export default function Projects() {
         @media (min-width: 768px) {
           .project-context { display: block !important; }
           .project-subtitle { display: block !important; }
+        }
+        @media (max-width: 768px) {
+          .projects-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+          }
+          .projects-search-box {
+            width: 100%;
+            min-width: 100%;
+          }
         }
         @media (max-width: 640px) {
           .project-expanded-body { padding-left: 12px !important; }

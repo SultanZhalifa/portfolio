@@ -1,20 +1,29 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiGithub } from 'react-icons/fi';
+import { FiMenu, FiX, FiGithub, FiSearch } from 'react-icons/fi';
 import { data } from '../data';
 import { sections, useActiveSection } from '../hooks/useActiveSection';
+import CommandPalette from './CommandPalette';
 
 const links = sections.map(({ id, label }) => ({ label, href: `#${id}`, id }));
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
   const activeSection = useActiveSection(0.25);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Listen to open-command-palette event from shortcuts
+  useEffect(() => {
+    const handleOpenCmd = () => setCmdOpen(true);
+    window.addEventListener('open-command-palette', handleOpenCmd);
+    return () => window.removeEventListener('open-command-palette', handleOpenCmd);
   }, []);
 
   // Close mobile drawer on Escape key
@@ -100,6 +109,19 @@ export default function Navbar() {
             );
           })}
           <li>
+            <button
+              type="button"
+              onClick={() => setCmdOpen(true)}
+              className="nav-cmd-trigger"
+              title="Quick Actions & Search (Cmd+K)"
+              aria-label="Open Command Palette"
+            >
+              <FiSearch size={12} />
+              <span className="nav-cmd-text">Quick Actions</span>
+              <kbd className="nav-cmd-kbd">⌘K</kbd>
+            </button>
+          </li>
+          <li>
             <a
               href={data.github}
               target="_blank"
@@ -114,28 +136,27 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          id="mobile-menu-btn"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu-drawer"
-          style={{
-            background: 'none',
-            border: '1px solid #222222',
-            borderRadius: '6px',
-            color: '#f5f5f5',
-            cursor: 'pointer',
-            display: 'none',
-            padding: '8px',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          className="mobile-menu-btn"
-        >
-          {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
-        </button>
+        {/* Mobile Actions (Search + Hamburger) */}
+        <div className="mobile-nav-actions">
+          <button
+            type="button"
+            onClick={() => setCmdOpen(true)}
+            aria-label="Open search and actions"
+            className="mobile-search-btn"
+          >
+            <FiSearch size={16} />
+          </button>
+          <button
+            id="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu-drawer"
+            className="mobile-menu-btn"
+          >
+            {menuOpen ? <FiX size={19} /> : <FiMenu size={19} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
@@ -190,16 +211,24 @@ export default function Navbar() {
                     </a>
                   );
                 })}
-                <div style={{ paddingTop: '8px', marginTop: '6px', borderTop: '1px solid #161616' }}>
+                <div style={{ paddingTop: '8px', marginTop: '6px', borderTop: '1px solid #161616', display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setMenuOpen(false); setCmdOpen(true); }}
+                    className="btn btn-ghost"
+                    style={{ flex: 1, justifyContent: 'center', padding: '10px', fontSize: '0.78rem', gap: '6px' }}
+                  >
+                    <FiSearch size={13} /> Quick Actions
+                  </button>
                   <a
                     href={data.github}
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-ghost"
-                    style={{ width: '100%', justifyContent: 'center', padding: '10px' }}
+                    style={{ flex: 1, justifyContent: 'center', padding: '10px', fontSize: '0.78rem', gap: '6px' }}
                     onClick={() => setMenuOpen(false)}
                   >
-                    <FiGithub size={14} /> Visit GitHub Profile
+                    <FiGithub size={13} /> GitHub
                   </a>
                 </div>
               </div>
@@ -208,10 +237,63 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
+      {/* Command Palette Modal */}
+      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
+
       <style>{`
+        .nav-cmd-trigger {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #090909;
+          border: 1px solid #1e1e1e;
+          border-radius: 6px;
+          padding: 6px 11px;
+          color: #888888;
+          font-family: var(--font-mono);
+          font-size: 0.74rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .nav-cmd-trigger:hover {
+          border-color: #383838;
+          color: #ffffff;
+          background: #111111;
+        }
+        .nav-cmd-kbd {
+          background: #161616;
+          border: 1px solid #282828;
+          border-radius: 4px;
+          padding: 1px 5px;
+          font-size: 0.62rem;
+          color: #aaaaaa;
+        }
+
+        .mobile-nav-actions {
+          display: none;
+        }
+        .mobile-search-btn,
+        .mobile-menu-btn {
+          background: #090909;
+          border: 1px solid #222222;
+          border-radius: 6px;
+          color: #f5f5f5;
+          cursor: pointer;
+          padding: 8px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: border-color 0.2s, background 0.2s;
+        }
+        .mobile-search-btn:hover,
+        .mobile-menu-btn:hover {
+          border-color: #444444;
+          background: #141414;
+        }
+
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: inline-flex !important; }
+          .mobile-nav-actions { display: inline-flex !important; }
         }
       `}</style>
     </motion.nav>
