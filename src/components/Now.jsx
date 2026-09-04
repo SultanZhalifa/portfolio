@@ -1,12 +1,35 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiArrowUpRight } from 'react-icons/fi';
+import { FiArrowUpRight, FiClock } from 'react-icons/fi';
 import { data } from '../data';
 
 /**
- * Slim "Currently Building" status band — sits between Hero and Skills.
+ * Slim "Currently Building" status band with live local time indicator.
  */
 export default function Now() {
   const items = data.now || [];
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const formatted = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Jakarta',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        }).format(new Date());
+        setTime(`${formatted} WIB`);
+      } catch {
+        setTime('');
+      }
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   if (items.length === 0) return null;
 
   return (
@@ -25,10 +48,19 @@ export default function Now() {
     >
       <div className="container">
         <div className="now-band">
-          {/* Label */}
-          <div className="now-label">
-            <span className="now-dot" />
-            <span>Now</span>
+          {/* Label & Location Clock */}
+          <div className="now-left-group">
+            <div className="now-label">
+              <span className="now-dot" />
+              <span>Now</span>
+            </div>
+
+            {time && (
+              <div className="now-time-pill" title="Current Local Time in Bekasi / Jakarta (UTC+7)">
+                <FiClock size={11} style={{ color: '#777777' }} />
+                <span>Bekasi, ID · {time}</span>
+              </div>
+            )}
           </div>
 
           {/* Focus items */}
@@ -59,6 +91,13 @@ export default function Now() {
           gap: clamp(16px, 3vw, 28px);
           padding: 16px 0;
         }
+        .now-left-group {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+          flex-wrap: wrap;
+        }
         .now-label {
           display: inline-flex;
           align-items: center;
@@ -74,6 +113,20 @@ export default function Now() {
           border-radius: 4px;
           background: #0d0d0d;
           border: 1px solid #202020;
+        }
+        .now-time-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-mono);
+          font-size: 0.68rem;
+          color: #888888;
+          letter-spacing: 0.04em;
+          background: #080808;
+          border: 1px solid #1c1c1c;
+          padding: 4px 9px;
+          border-radius: 4px;
+          white-space: nowrap;
         }
         .now-dot {
           width: 6px;
