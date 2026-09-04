@@ -2,7 +2,7 @@ export const data = {
   name: "Sultan Zhalifunnas Musyaffa",
   nameShort: "Sultan",
   location: "Bekasi, Indonesia",
-  phone: "+62 856 9422 9552",
+  phone: "+62 851 1051 1140",
   title: "AI Full-Stack Engineer",
   subtitle: "AI Full-Stack Engineer · Software Developer",
   summary:
