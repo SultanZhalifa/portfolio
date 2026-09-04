@@ -97,7 +97,7 @@ export default function CommandPalette({ isOpen, onClose }) {
         Icon: FiMessageSquare,
         action: () => {
           onClose();
-          window.open('https://wa.me/6285694229552', '_blank');
+          window.open(`https://wa.me/${data.phone.replace(/\D/g, '')}`, '_blank');
         },
       },
       {
