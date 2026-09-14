@@ -28,7 +28,6 @@ export default function Certifications() {
           transition={{ duration: 0.5 }}
         >
           <div className="section-eyebrow">
-            <span className="section-number">05</span>
             <span className="section-label">Credentials</span>
           </div>
           <h2 className="section-title">Certifications</h2>

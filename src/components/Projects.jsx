@@ -267,7 +267,6 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
         >
           <div className="section-eyebrow">
-            <span className="section-number">03</span>
             <span className="section-label">Portfolio</span>
           </div>
           <h2 className="section-title">Selected Projects</h2>
