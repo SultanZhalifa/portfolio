@@ -23,7 +23,7 @@ export const data = {
       period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "5th semester, GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
+        "7th semester, GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
         "Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
       ],
     },
@@ -297,7 +297,7 @@ export const data = {
     {
       company: "Kementerian PANRB",
       role: "Software Engineer Intern",
-      period: "Jul 2026 — Present",
+      period: "Jul 2026 — Jan 2027 (Expected)",
       location: "Jakarta, DKI Jakarta (Government Digital Transformation)",
       points: [
         "Supporting the development and enhancement of internal web-based applications for Government Digital Transformation initiatives at Kementerian PANRB.",

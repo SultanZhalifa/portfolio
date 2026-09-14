@@ -59,9 +59,9 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         padding: scrolled ? '12px 0' : '20px 0',
-        background: scrolled ? 'rgba(4, 4, 4, 0.88)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
+        background: scrolled ? 'rgba(4, 4, 4, 0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(8px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(8px)' : 'none',
         borderBottom: scrolled ? '1px solid #1a1a1a' : '1px solid transparent',
         transition: 'padding 0.3s var(--ease-out), background 0.3s var(--ease-out), border-color 0.3s var(--ease-out)',
       }}
