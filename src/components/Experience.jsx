@@ -127,7 +127,6 @@ export default function Experience() {
           transition={{ duration: 0.5 }}
         >
           <div className="section-eyebrow">
-            <span className="section-number">04</span>
             <span className="section-label">Background</span>
           </div>
           <h2 className="section-title">Experience & Education</h2>
