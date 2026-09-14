@@ -93,7 +93,6 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
         >
           <div className="section-eyebrow">
-            <span className="section-number">06</span>
             <span className="section-label">Get In Touch</span>
           </div>
           <h2 className="section-title">Let's Connect</h2>
