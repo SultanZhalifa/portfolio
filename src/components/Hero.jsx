@@ -108,7 +108,7 @@ export default function Hero() {
               >
                 <span className="hero-status-pill">
                   <span className="hero-status-dot" />
-                  Available for Internship
+                  Open to Opportunities from Feb 2027
                 </span>
               </motion.div>
 
