@@ -38,7 +38,9 @@ async function fetchGitHub() {
   const owned = repos.filter(r => !r.fork);
   const totalStars = owned.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
   const recent = owned
-    .slice()
+    // Exclude the GitHub-profile README repo (same name as the username) —
+    // it's account config, not a project.
+    .filter(r => r.name.toLowerCase() !== GH_USER.toLowerCase())
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, 3)
     .map(r => ({
