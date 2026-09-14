@@ -385,7 +385,7 @@ export const data = {
       title: "Kindness Community for Knowledge",
       role: "IT Support Division & Event Operations",
       org: "Cikarang, Bekasi",
-      date: "Oct 2024 — Present",
+      date: "Semester 1–2 (2024–2025)",
       points: [
         "Assisted in digital and technical support activities, documentation, data organization, and basic troubleshooting during events and community programs.",
       ],
