@@ -12,8 +12,8 @@ export const data = {
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
 
   now: [
-    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation)",
-    "Open to Software Engineering & AI internship opportunities",
+    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation), through Jan 2027",
+    "Open to Software Engineering & AI opportunities starting Feb 2027",
   ],
 
   education: [

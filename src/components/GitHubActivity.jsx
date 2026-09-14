@@ -7,6 +7,13 @@ const GH_USER = 'SultanZhalifa';
 const CACHE_KEY = 'gh-activity-v1';
 const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 
+// Repos to keep out of the public "recently pushed" spotlight even though
+// they're public on GitHub — scratch/testing repos, internal experiments,
+// anything not meant to represent finished work. Lowercase, exact repo name.
+const EXCLUDED_REPOS = new Set([
+  'testingmenpanrb',
+]);
+
 // Language colors (subtle accents fitting monochrome dark aesthetic)
 const LANG_COLORS = {
   TypeScript: '#7a9cc6', JavaScript: '#c6b86a', Python: '#6a93c6',
@@ -38,9 +45,12 @@ async function fetchGitHub() {
   const owned = repos.filter(r => !r.fork);
   const totalStars = owned.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
   const recent = owned
-    // Exclude the GitHub-profile README repo (same name as the username) —
-    // it's account config, not a project.
-    .filter(r => r.name.toLowerCase() !== GH_USER.toLowerCase())
+    .filter(r => {
+      const name = r.name.toLowerCase();
+      // Skip the GitHub-profile README repo (same name as the username) —
+      // it's account config, not a project — and anything explicitly excluded.
+      return name !== GH_USER.toLowerCase() && !EXCLUDED_REPOS.has(name);
+    })
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, 3)
     .map(r => ({
