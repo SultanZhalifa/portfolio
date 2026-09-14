@@ -2,18 +2,18 @@
 
 > Personal portfolio website built with React + Framer Motion. Monochrome, modern, fully responsive.
 
-**Live:** [sultanzhalifunnas.vercel.app](https://sultanzhalifunnas.vercel.app) &nbsp;|&nbsp; **CV:** Available on request
+**Live:** [sultanzhalifunnas.vercel.app](https://sultanzhalifunnas.vercel.app) &nbsp;|&nbsp; **CV:** [Download PDF](https://sultanzhalifunnas.vercel.app/Sultan_CV.pdf)
 
 ---
 
 ## Sections
 
-- **Hero** — Introduction, animated stats, tech marquee, social links
+- **Hero** — Introduction, animated stats, social links
 - **Now** — Currently-building status band
 - **Skills** — Languages & Web, Mobile & Testing, AI & Data, Tools & Security
 - **Projects** — Filterable list with expandable rows, previews & case-study modals
 - **Experience & Education** — Timeline layout with activities
-- **Certifications** — Google, IBM, Adobe, Dicoding, RevoU credentials
+- **Certifications** — Google, IBM, Dicoding, RevoU, and other verified credentials
 - **Contact** — EmailJS form + live GitHub activity + direct contact links
 
 ## Tech Stack
