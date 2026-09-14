@@ -31,7 +31,7 @@ const allTech = [
 const marqueeItems = [...allTech, ...allTech];
 
 const stats = [
-  { value: 5,    suffix: 'th', label: 'Semester'           },
+  { value: 7,    suffix: 'th', label: 'Semester'           },
   { value: 12,   suffix: '+',  label: 'Projects Built'     },
   { value: 4,    suffix: '+',  label: 'AI-Integrated Apps' },
   { value: 19,   suffix: '+',  label: 'Certifications'     },
