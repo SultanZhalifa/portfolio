@@ -21,15 +21,6 @@ function useCountUp(target, inView, duration = 1400) {
   return count;
 }
 
-const allTech = [
-  'Python', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
-  'FastAPI', 'PostgreSQL', 'MongoDB', 'Docker', 'YOLOv11', 'Gemini AI',
-  'Kotlin', 'Android', 'Flutter', 'Dart', 'GitHub Actions', 'JUnit 4',
-  'MockK', 'Turbine', 'MVVM', 'REST API', 'Linux', 'PWA',
-];
-
-const marqueeItems = [...allTech, ...allTech];
-
 const stats = [
   { value: 7,    suffix: 'th', label: 'Semester'           },
   { value: 12,   suffix: '+',  label: 'Projects Built'     },
@@ -300,32 +291,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Marquee Tech Strip with Left/Right Gradient Masks */}
-      <motion.div
-        aria-hidden="true"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
-        className="hero-marquee-wrapper"
-      >
-        <div className="marquee-track">
-          {marqueeItems.map((tech, i) => (
-            <span key={i} translate="no" style={{ display: 'inline-flex', alignItems: 'center', gap: '22px', paddingRight: '22px' }}>
-              <span style={{
-                fontFamily: 'JetBrains Mono',
-                fontSize: '0.72rem',
-                color: '#848484',
-                letterSpacing: '0.06em',
-                whiteSpace: 'nowrap',
-              }}>
-                {tech}
-              </span>
-              <span style={{ color: '#383838', fontSize: '0.55rem' }}>+</span>
-            </span>
-          ))}
-        </div>
-      </motion.div>
-
       <style>{`
         .hero-name { font-size: clamp(2.6rem, 6vw, 5.8rem); }
         .hero-main-grid {
@@ -464,17 +429,6 @@ export default function Hero() {
           border-right: none;
         }
 
-        /* Marquee Wrapper with Edge Masks */
-        .hero-marquee-wrapper {
-          overflow: hidden;
-          border-bottom: 1px solid #181818;
-          background: #020202;
-          padding: 13px 0;
-          position: relative;
-          z-index: 1;
-          -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent 100%);
-        }
 
         @media (max-width: 860px) {
           .hero-photo-col {

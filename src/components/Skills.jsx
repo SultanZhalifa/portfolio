@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { data } from '../data';
 
-const categoryIcons = ['01', '02', '03', '04'];
-
 export default function Skills() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
@@ -30,7 +28,6 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
         >
           <div className="section-eyebrow">
-            <span className="section-number">02</span>
             <span className="section-label">Technical Skills</span>
           </div>
           <h2 className="section-title">What I Work With</h2>
@@ -49,9 +46,6 @@ export default function Skills() {
             >
               {/* Category Column */}
               <div className="skill-label-col">
-                <span className="skill-num">
-                  {categoryIcons[i]}
-                </span>
                 <span className="skill-cat-name">
                   {group.category}
                 </span>
@@ -74,9 +68,6 @@ export default function Skills() {
             className="skill-row"
           >
             <div className="skill-label-col">
-              <span className="skill-num">
-                05
-              </span>
               <span className="skill-cat-name">
                 Languages
               </span>
@@ -107,17 +98,6 @@ export default function Skills() {
           min-width: 220px;
           flex-shrink: 0;
           padding-top: 3px;
-        }
-        .skill-num {
-          font-family: var(--font-mono);
-          font-size: 0.68rem;
-          color: #707070;
-          letter-spacing: 0.08em;
-          margin-right: 12px;
-          padding: 2px 6px;
-          border-radius: 3px;
-          background: #090909;
-          border: 1px solid #1c1c1c;
         }
         .skill-cat-name {
           font-family: var(--font-mono);
