@@ -6,7 +6,7 @@ export const data = {
   title: "AI Full-Stack Engineer",
   subtitle: "AI Full-Stack Engineer · Software Developer",
   summary:
-    "AI-focused full-stack software engineer. I architect and ship production-grade products end to end — across computer vision, real-time systems, fintech, and mobile — independently, from system design to deployment. Proficient in TypeScript, Python, and Kotlin with modern AI APIs (Anthropic Claude, Gemini, YOLO11). Recently delivered a real-time computer-vision pest-detection platform for PT Kawan Lama Group (YOLO11 + a Gemini RAG assistant) and enterprise full-stack solutions.",
+    "AI-focused full-stack developer. I build complete products end to end — web, mobile, and AI — mostly solo, from system design through deployment and testing. Comfortable in TypeScript, Python, and Kotlin, and working with AI APIs (Anthropic Claude, Gemini, YOLO11) when a project calls for them. Most recently built a real-time computer-vision pest-detection system that was selected for PT Kawan Lama Group's AI Open Innovation Challenge 2026, alongside freelance web, mobile, and AI work.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
@@ -19,11 +19,11 @@ export const data = {
   education: [
     {
       school: "President University",
-      degree: "Bachelor of Informatics",
+      degree: "Bachelor of Informatics — Cyber Security Concentration",
       period: "2024 — 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "6th semester. Recipient of the Jababeka Scholarship.",
+        "5th semester, GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
         "Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
       ],
     },
@@ -65,7 +65,7 @@ export const data = {
     {
       id: 1,
       title: "Obsidian",
-      subtitle: "Enterprise-Grade Real-Time Crypto Trading Terminal",
+      subtitle: "Real-Time Crypto Trading Terminal",
       description:
         "Built a professional trading terminal as a full-stack TypeScript monorepo — a single durable WebSocket connection to Binance's live market feed, server-side technical indicator computation (RSI, MACD, Bollinger Bands — validated against canonical reference series), a paper-trading P&L engine with average-cost tracking across open/add/partial-close/flip/fee scenarios, and real-time price alerts evaluated server-side. Auth uses Argon2id + session tokens (SHA-256 hashed, sliding expiry), with RBAC, CSRF origin checks, rate limiting, and an append-only audit log. Designed a deliberate monochrome design system with graded grayscale and hand-built SVG glyphs, WCAG AA compliant. Tested with Vitest (indicator + P&L unit tests) and Playwright (full e2e flows on desktop + mobile).",
       tech: ["Next.js 15", "TypeScript", "PostgreSQL", "TimescaleDB", "Drizzle ORM", "WebSocket", "TanStack Query", "Zustand", "Vitest", "Playwright", "Docker"],
@@ -140,7 +140,7 @@ export const data = {
       title: "SRMAudit",
       subtitle: "GRC & Security Audit Platform — OCTAVE Allegro",
       description:
-        "Built an enterprise GRC and security-audit platform implementing the OCTAVE Allegro risk-assessment methodology — a small, fast, fully-typed SPA with a clean layered architecture (core → data → services → UI). Features dual-mode persistence: cloud mode with Supabase auth, per-user RLS, and storage, or a fully-functional local mode via IndexedDB — no mocks, no fake state. Designed a warm, minimal, accessible UI with light/dark themes, zero emoji (every glyph is an inline SVG), and strict quality gates: strict TypeScript, ESLint, Prettier, Vitest, and CI.",
+        "Built a GRC and security-audit tool implementing the OCTAVE Allegro risk-assessment methodology — a small, fast, fully-typed SPA with a clean layered architecture (core → data → services → UI). Supports dual-mode persistence: cloud mode with Supabase auth and per-user RLS, or a fully offline mode via IndexedDB — no mocks, no fake state. Designed a warm, minimal, accessible UI with light/dark themes, zero emoji (every glyph is an inline SVG), and strict quality gates: strict TypeScript, ESLint, Prettier, Vitest, and CI.",
       tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
       demo: null,
@@ -188,22 +188,22 @@ export const data = {
       title: "PestGuard AI",
       subtitle: "Real-Time Warehouse Pest & Bio-Hazard Detection",
       description:
-        "Engineered a 24/7 computer-vision surveillance platform that detects snakes, cats, and geckos across up to four camera zones with sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech — with risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO), each mapped to its own SOP. Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing, and added a Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting. Estimated to cut pest-control cost from ~Rp 15–30M to ~Rp 3M per month — an estimated Rp 144–324 million annual saving per warehouse, breaking even in 4–6 months.",
+        "Built a computer-vision monitoring system that detects snakes, cats, and geckos across up to four camera zones, with sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech — plus risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO), each mapped to its own SOP. Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing, and added a Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting. The challenge submission projected a drop in monthly pest-control spend from an estimated Rp 15–30M to ~Rp 3M per warehouse — a pre-deployment estimate, not a measured result.",
       tech: ["Python", "FastAPI", "React", "YOLO11", "OpenCV", "Gemini AI", "WebSocket", "SQLite", "Docker"],
       github: "https://github.com/SultanZhalifa/PestGuard-AI",
       demo: "https://pestguard-ai.vercel.app/login",
       featured: true,
       context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group (Logistics)",
       caseStudy: {
-        problem: "Warehouse pest control is reactive and expensive — damage is found after the fact, and manual monitoring can't run 24/7.",
+        problem: "Warehouse pest control is typically reactive — damage is found after the fact, and manual monitoring can't run around the clock.",
         approach: [
           "Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing across up to four camera zones.",
           "Sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech, with risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO) each mapped to its own SOP.",
           "A Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting; fully Dockerized.",
         ],
         result: [
-          "Estimated Rp 144–324 million annual saving per warehouse, breaking even in 4–6 months.",
-          "Built for PT Kawan Lama Group's AI Open Innovation Challenge 2026.",
+          "Selected project for PT Kawan Lama Group's AI Open Innovation Challenge 2026.",
+          "Submission projected a payback of 4–6 months per warehouse based on estimated pest-control cost reduction — not yet field-validated.",
         ],
       },
     },
@@ -248,7 +248,7 @@ export const data = {
       title: "SaringSini",
       subtitle: "AI Misinformation Checker for Family Chats",
       description:
-        "Built a mobile-first PWA that analyzes text, screenshots, and URLs for hoaxes using multimodal Gemini, then generates calm, family-friendly responses in four Indonesian regional languages (Javanese Krama, Sundanese, Minangkabau, Batak) so you can correct a relative without damaging silaturahmi. Features a 'Bahasa Mama' coaching mode, a debounced tone slider, a generative Hoax DNA fingerprint, and Indonesian voice input. Production-hardened with rate limiting (6 req/min), CSP / anti-XSS headers, a non-root multi-stage Docker build, and WCAG 2.1 AA — deployed on Google Cloud Run.",
+        "Built a mobile-first PWA that analyzes text, screenshots, and URLs for hoaxes using multimodal Gemini, then generates calm, family-friendly responses in four Indonesian regional languages (Javanese Krama, Sundanese, Minangkabau, Batak) so you can correct a relative without damaging silaturahmi. Features a 'Bahasa Mama' coaching mode, a debounced tone slider, a generative Hoax DNA fingerprint, and Indonesian voice input. Hardened with rate limiting (6 req/min), CSP / anti-XSS headers, a non-root multi-stage Docker build, and WCAG 2.1 AA — deployed on Google Cloud Run.",
       tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
@@ -260,7 +260,7 @@ export const data = {
       title: "FounderIQ",
       subtitle: "AI Co-Founder Platform",
       description:
-        "Validate startup ideas, generate business models, craft investor pitches, and analyze markets in real-time. Streams structured Claude AI responses through the Vercel AI SDK. Features Idea Validator (VC-grade score 0–100 with strengths, weaknesses, opportunities, and actionable next steps), Business Canvas (auto-generate a full 9-box Business Model Canvas in seconds), Pitch Crafter (punchy tagline, 30-second elevator pitch, and investor narrative), and Market Intel (TAM/SAM/SOM, top competitors, and go-to-market strategy). Deployed on Vercel.",
+        "Solo-built an AI co-founder tool that streams structured Claude responses through the Vercel AI SDK to help early-stage founders move faster. Four tools: Idea Validator (a 0–100 score with strengths, weaknesses, and next steps), Business Canvas (generates a 9-box Business Model Canvas), Pitch Crafter (tagline, elevator pitch, investor narrative), and Market Intel (TAM/SAM/SOM, competitors, go-to-market). Deployed on Vercel.",
       tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude"],
       github: "https://github.com/SultanZhalifa/FounderIQ",
       demo: "https://founderiq.vercel.app",
@@ -269,13 +269,13 @@ export const data = {
       caseStudy: {
         problem: "First-time founders juggle idea validation, business modeling, pitching, and market research across a dozen disconnected tools — losing momentum before they start.",
         approach: [
-          "One platform with four specialized AI tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the early-founder journey end to end.",
+          "One app with four focused AI tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the early-founder workflow end to end.",
           "Real-time streaming via the Vercel AI SDK + Anthropic Claude API, with structured output rendered progressively to cut perceived latency.",
           "A dual AI-provider abstraction layer (Anthropic + OpenRouter) for runtime model switching and cost-flexible scaling.",
         ],
         result: [
-          "Live SaaS at founderiq.vercel.app, shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
-          "VC-grade idea scoring (0–100), a full 9-box Business Model Canvas, investor pitch, and TAM/SAM/SOM market intel in one click.",
+          "Live at founderiq.vercel.app, shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
+          "Idea scoring (0–100), a full 9-box Business Model Canvas, an investor pitch, and TAM/SAM/SOM market intel in one flow.",
         ],
       },
     },
@@ -329,7 +329,7 @@ export const data = {
     {
       issuer: "Google for Education",
       date: "May 2026 · valid to 2029",
-      items: ["Gemini Certified Educator", "Gemini Certified Faculty", "Gemini Certified Student"],
+      items: ["Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
       issuer: "IBM (SkillsBuild & Coursera)",
@@ -351,7 +351,7 @@ export const data = {
         "Memulai Pemrograman dengan Java",
         "Memulai Pemrograman dengan C",
         "Memulai Pemrograman dengan Haskell",
-        "Belajar Dasar Manajemen Proyek (x Google Developers)",
+        "Belajar Dasar Manajemen Proyek",
       ],
     },
     {
