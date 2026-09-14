@@ -12,8 +12,8 @@ export const data = {
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
 
   now: [
-    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation)",
-    "Open to Software Engineering & AI internship opportunities",
+    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation), through Jan 2027",
+    "Open to Software Engineering & AI opportunities starting Feb 2027",
   ],
 
   education: [
@@ -253,7 +253,7 @@ export const data = {
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
       featured: true,
-      context: "Competition Entry, #JuaraVibeCoding 2026",
+      context: "Competition Entry — #JuaraVibeCoding 2026",
     },
     {
       id: 11,
@@ -261,7 +261,7 @@ export const data = {
       subtitle: "AI Co-Founder Platform",
       description:
         "Solo-built an AI co-founder tool that streams structured Claude responses through the Vercel AI SDK to help early-stage founders move faster. Four tools: Idea Validator (a 0–100 score with strengths, weaknesses, and next steps), Business Canvas (generates a 9-box Business Model Canvas), Pitch Crafter (tagline, elevator pitch, investor narrative), and Market Intel (TAM/SAM/SOM, competitors, go-to-market). Deployed on Vercel.",
-      tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude"],
+      tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude", "OpenRouter"],
       github: "https://github.com/SultanZhalifa/FounderIQ",
       demo: "https://founderiq.vercel.app",
       featured: true,
