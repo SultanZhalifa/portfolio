@@ -10,11 +10,13 @@ import Contact        from './components/Contact';
 import Footer         from './components/Footer';
 import SideNav        from './components/SideNav';
 import BackToTop      from './components/BackToTop';
+import ScrollProgress from './components/ScrollProgress';
 
 export default function App() {
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to content</a>
+      <ScrollProgress />
       <SideNav />
       <BackToTop />
       <Navbar />
