@@ -108,7 +108,7 @@ export default function Hero() {
               >
                 <span className="hero-status-pill">
                   <span className="hero-status-dot" />
-                  Available for Internship
+                  Open to Opportunities from Feb 2027
                 </span>
               </motion.div>
 
@@ -125,7 +125,7 @@ export default function Hero() {
                   className="hero-mobile-avatar-img"
                   width="60"
                   height="60"
-                  loading="eager"
+                  loading="lazy"
                 />
               </motion.div>
             </div>
@@ -137,6 +137,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="hero-name"
               translate="no"
+              aria-label="Sultan Zhalifunnas Musyaffa"
               style={{
                 fontFamily: 'Space Grotesk',
                 fontWeight: 800,
