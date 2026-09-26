@@ -13,14 +13,14 @@ export const data = {
 
   now: [
     "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation), through Jan 2027",
-    "Open to Software Engineering & AI opportunities starting Feb 2027",
+    "Open to part-time & remote Software Engineering / AI roles now, full-time from Feb 2027",
   ],
 
   education: [
     {
       school: "President University",
       degree: "Bachelor of Informatics — Cyber Security Concentration",
-      period: "2024 — 2027 (Expected)",
+      period: "2024 — Dec 2027 (Expected)",
       location: "Cikarang, Indonesia",
       points: [
         "7th semester, GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
@@ -311,8 +311,8 @@ export const data = {
       period: "Jan 2025 — Present",
       location: "Remote",
       points: [
-        "Delivered custom production-grade software across modern web (React, Next.js), cross-platform mobile (Flutter, Kotlin), and AI/Python integrations.",
-        "Owned client requirements, architecture, testing, and cloud deployment end-to-end under tight deadlines.",
+        "Built web (React, Next.js), mobile (Flutter, Kotlin) and small AI/Python projects for friends and people in my campus and school network.",
+        "Handled each project end to end: figuring out what they needed, building it, deploying it and fixing things after launch.",
       ],
     },
   ],
