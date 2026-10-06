@@ -1,3 +1,4 @@
+import { MotionConfig } from 'framer-motion';
 import './index.css';
 import Navbar         from './components/Navbar';
 import Hero           from './components/Hero';
@@ -13,7 +14,8 @@ import BackToTop      from './components/BackToTop';
 
 export default function App() {
   return (
-    <>
+    // reducedMotion="user": skip transform/layout animations for people who ask the OS for less motion
+    <MotionConfig reducedMotion="user">
       <a href="#main-content" className="skip-link">Skip to content</a>
       <SideNav />
       <BackToTop />
@@ -28,6 +30,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }

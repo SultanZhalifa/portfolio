@@ -18,7 +18,7 @@ export default function Footer() {
     >
       <div className="container">
         {/* Large Signature Typography Watermark */}
-        <div style={{
+        <div aria-hidden="true" style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 800,
           fontSize: 'clamp(1.6rem, 4.5vw, 3.2rem)',
@@ -44,7 +44,7 @@ export default function Footer() {
           <span style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.68rem',
-            color: '#707070',
+            color: '#808080',
             letterSpacing: '0.06em',
           }}>
             &copy; {year} Sultan Zhalifunnas Musyaffa · Built with React 19 + Framer Motion

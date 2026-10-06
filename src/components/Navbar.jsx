@@ -61,7 +61,7 @@ export default function Navbar() {
         {/* Brand Logo */}
         <a href="#hero" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
           <span style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.1rem', color: '#ffffff', letterSpacing: '-0.03em' }}>
-            Sultan<span style={{ color: '#555555' }}>.</span>
+            Sultan<span style={{ color: '#808080' }}>.</span>
           </span>
         </a>
 

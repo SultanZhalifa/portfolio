@@ -9,7 +9,7 @@ export default function Certifications() {
   return (
     <section
       id="certifications"
-      aria-label="Verified Credentials and Certifications"
+      aria-label="Certifications"
       className="section"
       ref={ref}
       style={{
@@ -31,7 +31,7 @@ export default function Certifications() {
             <span className="section-label">Credentials</span>
           </div>
           <h2 className="section-title">Certifications</h2>
-          <p className="section-sub">Verified credentials from industry-recognized platforms and academic programs.</p>
+          <p className="section-sub">Courses and certificates I have completed.</p>
         </motion.div>
 
         {/* Credentials Table / List */}
@@ -59,7 +59,7 @@ export default function Certifications() {
                 <div style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.64rem',
-                  color: '#707070',
+                  color: '#808080',
                   letterSpacing: '0.06em',
                 }}>
                   {cert.date}
@@ -78,7 +78,7 @@ export default function Certifications() {
                     <span style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.65rem',
-                      color: '#555555',
+                      color: '#808080',
                       flexShrink: 0,
                     }}>
                       —
