@@ -1,13 +1,13 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { data } from '../data';
 
-function useCountUp(target, inView, duration = 1400) {
+function useCountUp(target, inView, reduced, duration = 1400) {
   const isNum = typeof target === 'number';
-  const [count, setCount] = useState(isNum ? 0 : target);
+  const [count, setCount] = useState(0);
   useEffect(() => {
-    if (!inView || !isNum) return;
+    if (!inView || !isNum || reduced) return;
     let rafId;
     const startTime = performance.now();
     const tick = (now) => {
@@ -17,35 +17,40 @@ function useCountUp(target, inView, duration = 1400) {
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [inView, target, duration, isNum]);
+  }, [inView, target, duration, isNum, reduced]);
   return count;
 }
 
+// Computed from the data so they can't drift from the project and certificate lists.
 const stats = [
-  { value: 7,    suffix: 'th', label: 'Semester'           },
-  { value: 12,   suffix: '+',  label: 'Projects Built'     },
-  { value: 4,    suffix: '+',  label: 'AI-Integrated Apps' },
-  { value: 19,   suffix: '+',  label: 'Certifications'     },
+  { value: 'Dec 2027', label: 'Graduation (expected)' },
+  { value: data.projects.length, label: 'Projects Built' },
+  { value: data.projects.filter(p => p.ai).length, label: 'AI-Integrated Apps' },
+  { value: data.certifications.reduce((n, c) => n + c.items.length, 0), label: 'Certifications' },
 ];
 
-function StatItem({ value, suffix, label, inView }) {
-  const counted = useCountUp(value, inView);
+function StatItem({ value, label, inView, reduced }) {
+  const counted = useCountUp(value, inView, reduced);
+  const isNum = typeof value === 'number';
+  const shown = !isNum ? value : reduced ? value : inView ? counted : 0;
   return (
     <div className="hero-stat-cell">
+      <span className="sr-only">{value} {label}</span>
       <div
         translate="no"
+        aria-hidden="true"
         style={{
           fontFamily: 'Space Grotesk',
-          fontSize: 'clamp(1.75rem, 3.2vw, 2.5rem)',
+          fontSize: isNum ? 'clamp(1.75rem, 3.2vw, 2.5rem)' : 'clamp(1.35rem, 2.6vw, 2rem)',
           fontWeight: 800,
           color: '#ffffff',
           letterSpacing: '-0.035em',
-          lineHeight: 1,
+          lineHeight: isNum ? 1 : 1.25,
         }}
       >
-        {inView ? counted : 0}{suffix}
+        {shown}
       </div>
-      <div style={{
+      <div aria-hidden="true" style={{
         fontFamily: 'JetBrains Mono',
         fontSize: '0.66rem',
         color: '#888888',
@@ -61,7 +66,8 @@ function StatItem({ value, suffix, label, inView }) {
 
 export default function Hero() {
   const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: '0px', threshold: 0.1 });
+  const statsInView = useInView(statsRef, { once: true, amount: 0.1 });
+  const reducedMotion = useReducedMotion();
 
   return (
     <section
@@ -108,7 +114,7 @@ export default function Hero() {
               >
                 <span className="hero-status-pill">
                   <span className="hero-status-dot" />
-                  Open to part-time & remote roles now
+                  {data.availability}
                 </span>
               </motion.div>
 
@@ -168,7 +174,7 @@ export default function Hero() {
               <div className="hero-role-badge">
                 <div style={{
                   fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
-                  color: '#707070', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
+                  color: '#808080', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   Role
                 </div>
@@ -179,7 +185,7 @@ export default function Hero() {
               <div className="hero-role-desc">
                 <div style={{
                   fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
-                  color: '#707070', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
+                  color: '#808080', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   About
                 </div>
@@ -279,13 +285,13 @@ export default function Hero() {
       >
         <div className="container">
           <div className="hero-stats-grid">
-            {stats.map(({ value, suffix, label }) => (
+            {stats.map(({ value, label }) => (
               <StatItem
                 key={label}
                 value={value}
-                suffix={suffix}
                 label={label}
                 inView={statsInView}
+                reduced={reducedMotion}
               />
             ))}
           </div>

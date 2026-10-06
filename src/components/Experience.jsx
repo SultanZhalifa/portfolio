@@ -65,7 +65,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             <div style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.68rem',
-              color: '#707070',
+              color: '#808080',
               letterSpacing: '0.04em',
               marginBottom: '2px',
             }}>
@@ -74,7 +74,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             <div style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.62rem',
-              color: '#555555',
+              color: '#808080',
               letterSpacing: '0.02em',
             }}>
               {item.location}
@@ -92,7 +92,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
         }}>
           {(item.points || []).map((pt, pi) => (
             <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.85rem', color: '#9a9a9a', lineHeight: 1.75 }}>
-              <span style={{ color: '#555555', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
+              <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
               <span className="text-break">{pt}</span>
             </li>
           ))}
@@ -130,7 +130,7 @@ export default function Experience() {
             <span className="section-label">Background</span>
           </div>
           <h2 className="section-title">Experience & Education</h2>
-          <p className="section-sub">My professional roles, academic foundation, and community leadership behind how I build production-grade systems.</p>
+          <p className="section-sub">Where I work, where I study, and what I help out with.</p>
         </motion.div>
 
         <div className="exp-grid">
@@ -261,7 +261,7 @@ export default function Experience() {
                       <div style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.68rem',
-                        color: '#707070',
+                        color: '#808080',
                         letterSpacing: '0.04em',
                       }}>
                         {act.date}
@@ -278,7 +278,7 @@ export default function Experience() {
                   }}>
                     {(act.points || []).map((pt, pi) => (
                       <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.85rem', color: '#9a9a9a', lineHeight: 1.75 }}>
-                        <span style={{ color: '#555555', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
+                        <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
                         <span className="text-break">{pt}</span>
                       </li>
                     ))}

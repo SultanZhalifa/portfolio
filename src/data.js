@@ -1,318 +1,336 @@
 export const data = {
   name: "Sultan Zhalifunnas Musyaffa",
   nameShort: "Sultan",
-  location: "Bekasi, Indonesia",
+  location: "Kab. Bekasi, Jawa Barat",
   phone: "+62 851 1051 1140",
-  title: "AI Full-Stack Engineer",
-  subtitle: "AI Full-Stack Engineer · Software Developer",
+  title: "Full-Stack & AI Developer",
+  subtitle: "Software Engineer Intern · Full-Stack & AI Developer",
+  availability: "Open to part-time & remote roles",
   summary:
-    "AI-focused full-stack developer. I build complete products end to end — web, mobile, and AI — mostly solo, from system design through deployment and testing. Comfortable in TypeScript, Python, and Kotlin, and working with AI APIs (Anthropic Claude, Gemini, YOLO11) when a project calls for them. Most recently built a real-time computer-vision pest-detection system that was selected for PT Kawan Lama Group's AI Open Innovation Challenge 2026, alongside freelance web, mobile, and AI work.",
+    "Informatics student (Cyber Security concentration) and Software Engineer Intern at Kementerian PANRB. I mostly build web, mobile, and AI projects on my own, from planning to deployment. Open to part-time or remote roles.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
 
   now: [
-    "Software Engineer Intern at Kementerian PANRB (Government Digital Transformation), through Jan 2027",
-    "Open to part-time & remote Software Engineering / AI roles now, full-time from Feb 2027",
+    "Software Engineer Intern at Kementerian PANRB, Government Digital Transformation (Jul 2026 — Jan 2027, expected)",
+    "Open to part-time and remote roles now. Full-time after I graduate (Dec 2027).",
   ],
 
   education: [
     {
       school: "President University",
-      degree: "Bachelor of Informatics — Cyber Security Concentration",
-      period: "2024 — Dec 2027 (Expected)",
+      degree: "Bachelor of Informatics (S.Kom.), Cyber Security Concentration",
+      period: "Sep 2024 — Dec 2027 (expected)",
       location: "Cikarang, Indonesia",
       points: [
-        "7th semester, GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
-        "Coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
+        "GPA 3.23 / 4.00. Jababeka Scholarship recipient (Aug 2024 — present).",
+        "Relevant coursework: Algorithms, Data Structures, Database Systems, Software Engineering, Computer Networks.",
       ],
     },
   ],
 
   skills: [
     {
-      category: "Languages & Web",
+      category: "Programming",
+      items: ["TypeScript", "JavaScript", "Python", "Kotlin", "Dart", "Java", "SQL", "C", "Haskell"],
+    },
+    {
+      category: "Web & Mobile",
       items: [
-        "Python", "JavaScript", "TypeScript", "Java", "Kotlin", "Dart", "C", "Haskell", "SQL",
-        "React", "Next.js", "Node.js", "Express", "FastAPI", "Flask", "Tailwind CSS",
+        "React", "Next.js", "Node.js", "Express", "FastAPI", "Tailwind CSS", "REST API",
+        "Android (MVVM, Room, Coroutines)", "Flutter", "PWA",
       ],
     },
     {
-      category: "Mobile & Testing",
+      category: "AI & Database",
       items: [
-        "Android (Kotlin)", "Flutter", "MVVM", "Room", "Coroutines", "Provider",
-        "JUnit 4", "MockK", "Turbine", "Vitest", "GitHub Actions CI", "Manual Testing",
+        "Gemini API", "Claude API", "Vercel AI SDK", "YOLO11", "OpenCV", "RAG",
+        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Prisma", "Supabase",
       ],
     },
     {
-      category: "AI & Data",
-      items: [
-        "Anthropic Claude", "Gemini AI", "Vercel AI SDK", "Prompt Engineering",
-        "YOLOv8", "YOLOv11", "Chart.js", "Recharts",
-        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Prisma ORM", "Room ORM",
-      ],
+      category: "Tools & Testing",
+      items: ["Git", "GitHub Actions", "Docker", "Linux", "Vitest", "Playwright", "JUnit", "MockK"],
     },
     {
-      category: "Tools & Security",
-      items: [
-        "Git", "GitHub", "Docker", "Linux", "REST API", "Android Studio", "PWA",
-        "Vulnerability Assessment", "Penetration Testing", "Digital Forensics", "Network Security",
-      ],
+      category: "Security",
+      items: ["Vulnerability assessment", "Network security", "Risk assessment (OCTAVE Allegro)"],
     },
   ],
 
+  languages: ["Indonesian (native)", "English (professional working)"],
+
+  // Order matters: strongest projects first. `ai: true` means the app calls an
+  // AI model or API; the hero stat and the "AI & Vision" filter both read it.
   projects: [
-    {
-      id: 1,
-      title: "Obsidian",
-      subtitle: "Real-Time Crypto Trading Terminal",
-      description:
-        "Built a professional trading terminal as a full-stack TypeScript monorepo — a single durable WebSocket connection to Binance's live market feed, server-side technical indicator computation (RSI, MACD, Bollinger Bands — validated against canonical reference series), a paper-trading P&L engine with average-cost tracking across open/add/partial-close/flip/fee scenarios, and real-time price alerts evaluated server-side. Auth uses Argon2id + session tokens (SHA-256 hashed, sliding expiry), with RBAC, CSRF origin checks, rate limiting, and an append-only audit log. Designed a deliberate monochrome design system with graded grayscale and hand-built SVG glyphs, WCAG AA compliant. Tested with Vitest (indicator + P&L unit tests) and Playwright (full e2e flows on desktop + mobile).",
-      tech: ["Next.js 15", "TypeScript", "PostgreSQL", "TimescaleDB", "Drizzle ORM", "WebSocket", "TanStack Query", "Zustand", "Vitest", "Playwright", "Docker"],
-      github: "https://github.com/SultanZhalifa/Obsidian",
-      demo: null,
-      featured: true,
-      context: "Personal Project",
-      caseStudy: {
-        problem: "Retail crypto tools either hide their math or can't be trusted with real money — indicators differ between platforms and paper-trading P&L quietly drifts.",
-        approach: [
-          "A single durable WebSocket to Binance's live feed; technical indicators (RSI, MACD, Bollinger Bands) computed server-side and validated against canonical reference series.",
-          "A paper-trading P&L engine tracking average cost across open / add / partial-close / flip / fee scenarios, with price alerts evaluated server-side.",
-          "Hardened auth — Argon2id + SHA-256 session tokens, RBAC, CSRF origin checks, rate limiting, and an append-only audit log.",
-        ],
-        result: [
-          "Deterministic, reference-validated indicators and P&L — no client-side guessing.",
-          "Covered by Vitest unit tests (indicators + P&L) and Playwright e2e flows on desktop + mobile.",
-          "WCAG-AA monochrome design system with hand-built SVG glyphs.",
-        ],
-      },
-    },
-    {
-      id: 2,
-      title: "Naik Kelas",
-      subtitle: "AstraPay Micro-Merchant Credit Scoring Prototype",
-      description:
-        "Built a working fintech prototype for the AstraPay Hackathon 2026 (Tim Andalusia) — transforms motor-based micro-merchant QRIS transaction trails into AstraScore, a transparent, deterministic alternative credit score with explainable factor breakdowns. Features Modal Jalan (micro working capital) with auto-deducting 20% QRIS repayments in real time, a tiered loyalty loop (score rises → plafon grows → fee drops via AstraPoints redemption), and a full audit view letting merchants verify every calculation. Covered by 20 unit tests (score engine + 5-persona tier verification), plus API edge-case and headless UI flow tests with screenshots.",
-      tech: ["Next.js", "TypeScript", "Vitest", "QRIS"],
-      github: "https://github.com/SultanZhalifa/naik-kelas",
-      demo: null,
-      featured: true,
-      context: "Hackathon — AstraPay 2026",
-      caseStudy: {
-        problem: "Motor-based micro-merchants are invisible to traditional credit scoring despite a steady QRIS cash flow.",
-        approach: [
-          "Transforms QRIS transaction trails into AstraScore — a transparent, deterministic alternative credit score with explainable factor breakdowns.",
-          "Modal Jalan micro working-capital with auto-deducting 20% QRIS repayments in real time, and a tiered loyalty loop (score rises → plafon grows → fee drops).",
-          "A full audit view letting merchants verify every calculation.",
-        ],
-        result: [
-          "20 unit tests (score engine + 5-persona tier verification), plus API edge-case and headless UI flow tests with screenshots.",
-          "Built for the AstraPay Hackathon 2026 (Tim Andalusia).",
-        ],
-      },
-    },
-    {
-      id: 3,
-      title: "DevLog",
-      subtitle: "Developer Progress Tracking Platform",
-      description:
-        "Developed a fullstack accountability platform on the Next.js 16 App Router (server components, type-safe data access) where developers log daily learning with tags and mood, visualize a GitHub-style streak heatmap, share public profiles, and browse a discovery feed — built on GitHub OAuth (Auth.js v5) and a relational follow schema. The trickiest piece, calculateStreak, is covered by 8 edge-case unit tests (empty logs, gaps, deduplication); GitHub Actions runs typecheck, lint, and tests on every push.",
-      tech: ["Next.js 16", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "Auth.js", "Tailwind CSS", "shadcn/ui", "Recharts", "Vitest"],
-      github: "https://github.com/SultanZhalifa/devlog",
-      demo: "https://devlog-sultanzhalifa.vercel.app",
-      featured: true,
-      context: "Personal Project",
-      caseStudy: {
-        problem: "Developers lose momentum because daily learning is invisible and accountability is hard to sustain.",
-        approach: [
-          "Next.js 16 App Router (server components, type-safe data access) with GitHub OAuth via Auth.js v5.",
-          "A GitHub-style streak heatmap, public shareable profiles, and a discovery feed on a relational follow schema.",
-          "The tricky calculateStreak logic isolated and covered by 8 edge-case unit tests (empty logs, gaps, deduplication).",
-        ],
-        result: [
-          "Live product at devlog-sultanzhalifa.vercel.app.",
-          "GitHub Actions runs typecheck, lint, and tests on every push.",
-        ],
-      },
-    },
-    {
-      id: 4,
-      title: "SRMAudit",
-      subtitle: "GRC & Security Audit Platform — OCTAVE Allegro",
-      description:
-        "Built a GRC and security-audit tool implementing the OCTAVE Allegro risk-assessment methodology — a small, fast, fully-typed SPA with a clean layered architecture (core → data → services → UI). Supports dual-mode persistence: cloud mode with Supabase auth and per-user RLS, or a fully offline mode via IndexedDB — no mocks, no fake state. Designed a warm, minimal, accessible UI with light/dark themes, zero emoji (every glyph is an inline SVG), and strict quality gates: strict TypeScript, ESLint, Prettier, Vitest, and CI.",
-      tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
-      github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
-      demo: null,
-      featured: true,
-      context: "Mini Project — Security Risk Management",
-    },
-    {
-      id: 5,
-      title: "FinTrack.ai",
-      subtitle: "Local-First Finance App with a Health Score",
-      description:
-        "Built a 100% local-first personal finance app (React 19 + Vite) — no backend, no account, fully private. Computes a financial health score (0–100) across savings rate, budget adherence, expense stability, and emergency buffer, with YNAB-style safe-to-spend and month-end forecasts. Includes multi-account tracking, recurring transactions, a Ctrl/Cmd-K command palette, CSV/JSON backup, and optional Gemini insights — honest by design: with no API key it says one is required rather than faking advice. Installable as an offline PWA.",
-      tech: ["React 19", "Vite", "Chart.js", "Framer Motion", "Gemini AI", "PWA"],
-      github: "https://github.com/SultanZhalifa/fintrack-ai",
-      demo: "https://financetrackersultan.vercel.app/",
-      featured: true,
-      context: "Personal Project",
-      caseStudy: {
-        problem: "Most finance apps require an account and upload your data to a server — and some fake 'AI advice' even with no model configured.",
-        approach: [
-          "100% local-first (React 19 + Vite) — no backend, no account, fully private in the browser.",
-          "A financial health score (0–100) across savings rate, budget adherence, expense stability, and emergency buffer, with YNAB-style safe-to-spend and month-end forecasts.",
-          "Multi-account tracking, recurring transactions, a Ctrl/Cmd-K command palette, CSV/JSON backup, and optional Gemini insights.",
-        ],
-        result: [
-          "Installable offline PWA; live at financetrackersultan.vercel.app.",
-          "Honest by design — with no API key it asks for one instead of faking advice.",
-        ],
-      },
-    },
-    {
-      id: 6,
-      title: "MiniBookLibrary",
-      subtitle: "Offline-First Android App with 51 Automated Tests",
-      description:
-        "Built a Kotlin book-management app (MVVM, Room, Coroutines, Flow) with reading-progress tracking, ISBN auto-fill via the Google Books API, PDF/JSON export, and salted SHA-256 account security. Wrote 51 unit tests (JUnit 4, MockK, Turbine) covering authentication, CRUD, ViewModel state, and API parsing — run automatically alongside debug-APK builds through GitHub Actions CI on every push.",
-      tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
-      github: "https://github.com/SultanZhalifa/MiniBookLibrary",
-      demo: null,
-      featured: true,
-      context: "Personal Project",
-    },
     {
       id: 7,
       title: "PestGuard AI",
-      subtitle: "Real-Time Warehouse Pest & Bio-Hazard Detection",
-      description:
-        "Built a computer-vision monitoring system that detects snakes, cats, and geckos across up to four camera zones, with sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech — plus risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO), each mapped to its own SOP. Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing, and added a Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting. The challenge submission projected a drop in monthly pest-control spend from an estimated Rp 15–30M to ~Rp 3M per warehouse — a pre-deployment estimate, not a measured result.",
+      subtitle: "Real-Time Warehouse Pest Detection",
+      role: "AI & Backend Developer",
+      period: "Apr — Jun 2026",
+      context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group",
+      summary:
+        "Warehouse pest detection with a custom-trained YOLO11 model. It sends WebSocket alerts in under 1 second, handles low-light footage with CLAHE, and has a Gemini-based RAG assistant.",
+      result: "Selected project in the AI Open Innovation Challenge 2026 (PT Kawan Lama Group).",
       tech: ["Python", "FastAPI", "React", "YOLO11", "OpenCV", "Gemini AI", "WebSocket", "SQLite", "Docker"],
       github: "https://github.com/SultanZhalifa/PestGuard-AI",
       demo: "https://pestguard-ai.vercel.app/login",
-      featured: true,
-      context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group (Logistics)",
+      ai: true,
       caseStudy: {
-        problem: "Warehouse pest control is typically reactive — damage is found after the fact, and manual monitoring can't run around the clock.",
+        problem: "Warehouse pest control is usually reactive: damage is found after the fact, and manual monitoring can't run around the clock.",
         approach: [
-          "Custom-trained a YOLO11-Nano model (5.2 MB, CPU-fast) with CLAHE low-light preprocessing across up to four camera zones.",
-          "Sub-second alerts via WebSocket, browser audio, Telegram, and Indonesian text-to-speech, with risk tiering (Snake/DANGER, Cat/WARNING, Gecko/INFO) each mapped to its own SOP.",
-          "A Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reporting; fully Dockerized.",
+          "Custom-trained a YOLO11-Nano model (5.2 MB, runs on CPU) with CLAHE low-light preprocessing across up to four camera zones.",
+          "Alerts in under a second through WebSocket, browser audio, Telegram, and Indonesian text-to-speech. Snake is DANGER, cat is WARNING, gecko is INFO, and each level maps to its own SOP.",
+          "A Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reports. Runs in Docker.",
         ],
         result: [
           "Selected project for PT Kawan Lama Group's AI Open Innovation Challenge 2026.",
-          "Submission projected a payback of 4–6 months per warehouse based on estimated pest-control cost reduction — not yet field-validated.",
-        ],
-      },
-    },
-    {
-      id: 8,
-      title: "TaskFlow",
-      subtitle: "Zero-Dependency Task Manager in Vanilla JS",
-      description:
-        "Built a task manager with vanilla HTML, CSS, and JavaScript — no frameworks, no build step, zero runtime dependencies — as a deliberate exercise in clean, testable code. Features task CRUD, priority levels, due dates with overdue indicators, drag-and-drop reordering, real-time search with highlighting, and JSON import/export. Pure logic is isolated in taskUtils.js and covered with Vitest; GitHub Actions runs lint, format, and tests on every push.",
-      tech: ["HTML5", "CSS3", "JavaScript (ES6+)", "Vitest", "ESLint", "GitHub Actions"],
-      github: "https://github.com/SultanZhalifa/TaskFlow",
-      demo: null,
-      featured: false,
-      context: "Personal Project",
-    },
-    {
-      id: 9,
-      title: "Duitku",
-      subtitle: "Cross-Platform Personal Finance Tracker",
-      description:
-        "Created an offline-first Flutter finance app running identical code on Android and web, backed by 17 automated tests with zero flutter analyze issues. Models transfers as linked dual-leg pairs (kept out of spending totals for accuracy) and a recurring engine with idempotent catch-up — exactly one transaction per missed occurrence. Features multi-wallet/multi-currency with user-defined exchange rates, category budgets with over-budget alerts, donut and 6-month trend charts, biometric lock, and versioned JSON backup/restore.",
-      tech: ["Flutter", "Dart", "Provider", "fl_chart", "Material 3", "local_auth"],
-      github: "https://github.com/SultanZhalifa/Duitku",
-      demo: "https://sultanzhalifa.github.io/Duitku/",
-      featured: true,
-      context: "Personal Project",
-      caseStudy: {
-        problem: "Cross-platform finance apps often miscount transfers as spending and double-post missed recurring transactions.",
-        approach: [
-          "Offline-first Flutter running identical code on Android and web; transfers modeled as linked dual-leg pairs kept out of spending totals.",
-          "A recurring engine with idempotent catch-up — exactly one transaction per missed occurrence.",
-          "Multi-wallet / multi-currency with user-defined rates, category budgets with over-budget alerts, donut + 6-month trend charts, biometric lock, and versioned JSON backup/restore.",
-        ],
-        result: [
-          "17 automated tests with zero flutter analyze issues.",
-          "Live at sultanzhalifa.github.io/Duitku.",
+          "The submission estimated monthly pest-control spend falling from about Rp 15–30M to about Rp 3M per warehouse, with payback in 4–6 months. These are estimates from the submission, not measured results.",
         ],
       },
     },
     {
       id: 10,
       title: "SaringSini",
-      subtitle: "AI Misinformation Checker for Family Chats",
-      description:
-        "Built a mobile-first PWA that analyzes text, screenshots, and URLs for hoaxes using multimodal Gemini, then generates calm, family-friendly responses in four Indonesian regional languages (Javanese Krama, Sundanese, Minangkabau, Batak) so you can correct a relative without damaging silaturahmi. Features a 'Bahasa Mama' coaching mode, a debounced tone slider, a generative Hoax DNA fingerprint, and Indonesian voice input. Hardened with rate limiting (6 req/min), CSP / anti-XSS headers, a non-root multi-stage Docker build, and WCAG 2.1 AA — deployed on Google Cloud Run.",
+      subtitle: "Hoax Checker for Family Group Chats",
+      period: "May — Jul 2026",
+      context: "Competition Entry — #JuaraVibeCoding 2026",
+      summary:
+        "PWA that checks text, screenshots, and links for hoaxes with Gemini, then drafts polite replies in 4 regional languages (Javanese, Sundanese, Minangkabau, Batak) for family group chats.",
+      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker build. Deployed on Google Cloud Run.",
       tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
-      featured: true,
-      context: "Competition Entry — #JuaraVibeCoding 2026",
+      ai: true,
     },
     {
-      id: 11,
-      title: "FounderIQ",
-      subtitle: "AI Co-Founder Platform",
-      description:
-        "Solo-built an AI co-founder tool that streams structured Claude responses through the Vercel AI SDK to help early-stage founders move faster. Four tools: Idea Validator (a 0–100 score with strengths, weaknesses, and next steps), Business Canvas (generates a 9-box Business Model Canvas), Pitch Crafter (tagline, elevator pitch, investor narrative), and Market Intel (TAM/SAM/SOM, competitors, go-to-market). Deployed on Vercel.",
-      tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude", "OpenRouter"],
-      github: "https://github.com/SultanZhalifa/FounderIQ",
-      demo: "https://founderiq.vercel.app",
-      featured: true,
-      context: "AI Startup Platform",
+      id: 2,
+      title: "Naik Kelas",
+      subtitle: "Credit Scoring for Small Merchants",
+      role: "Full-Stack Developer",
+      period: "Jun 2026",
+      context: "Hackathon — AstraPay 2026",
+      summary:
+        "Explainable credit-scoring prototype that turns QRIS transaction history into a score (AstraScore) and tiered micro-loans for small merchants, repaid automatically from sales.",
+      result: "41 unit and edge-case tests (20 unit, 21 edge-case) across 5 test personas.",
+      tech: ["Next.js", "TypeScript", "Vitest", "QRIS"],
+      github: "https://github.com/SultanZhalifa/naik-kelas",
+      demo: null,
       caseStudy: {
-        problem: "First-time founders juggle idea validation, business modeling, pitching, and market research across a dozen disconnected tools — losing momentum before they start.",
+        problem: "Small merchants who ride motorbikes are invisible to traditional credit scoring, even with steady QRIS income.",
         approach: [
-          "One app with four focused AI tools — Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel — covering the early-founder workflow end to end.",
-          "Real-time streaming via the Vercel AI SDK + Anthropic Claude API, with structured output rendered progressively to cut perceived latency.",
-          "A dual AI-provider abstraction layer (Anthropic + OpenRouter) for runtime model switching and cost-flexible scaling.",
+          "Turns QRIS transaction history into AstraScore, a deterministic score that shows how each factor contributes.",
+          "Modal Jalan micro working capital with 20% of each QRIS sale auto-deducted for repayment, plus a tier system (higher score, bigger limit, lower fee through AstraPoints).",
+          "An audit view where merchants can check every calculation.",
         ],
         result: [
-          "Live at founderiq.vercel.app, shipped on Next.js 15 + TypeScript with Husky + lint-staged CI quality gates.",
-          "Idea scoring (0–100), a full 9-box Business Model Canvas, an investor pitch, and TAM/SAM/SOM market intel in one flow.",
+          "41 tests: 20 unit tests (score engine and 5-persona tier checks) and 21 edge-case tests (API and headless UI flows).",
+          "Built for the AstraPay Hackathon 2026 (Tim Andalusia).",
         ],
       },
     },
     {
       id: 12,
       title: "AstraPayNK",
-      subtitle: "AstraPay Micro-Merchant Credit Scoring Mobile App",
-      description:
-        "Developed a Flutter mobile companion app for the AstraPay Hackathon 2026 (Naik Kelas project) — 'Mesin Skor & Modal Produktif untuk Pelaku Usaha Mikro Berbasis Motor'. Allows micro-merchants to monitor alternative credit scores (AstraScore), manage active working capital (Modal Jalan), and redeem loyalty points to lower interest fees. Features a modern dashboard with real-time score indicators, interactive financial charts, smooth onboarding flows, and a comprehensive profile audit logs.",
+      subtitle: "Naik Kelas Companion Mobile App",
+      context: "Hackathon — AstraPay 2026",
+      summary:
+        "Flutter companion app for Naik Kelas. Merchants can see their AstraScore, manage working capital (Modal Jalan), and redeem points to lower fees, with charts and an audit log.",
       tech: ["Flutter", "Dart", "fl_chart", "google_fonts", "smooth_page_indicator", "flutter_svg"],
       github: "https://github.com/SultanZhalifa/AstraPayNK",
       demo: null,
-      featured: true,
-      context: "Hackathon Companion — AstraPay 2026",
+    },
+    {
+      id: 6,
+      title: "MiniBookLibrary",
+      subtitle: "Offline-First Android Book App",
+      period: "Dec 2025 — Present",
+      context: "Android app",
+      summary:
+        "Offline-first book management app with reading progress, ISBN auto-fill from the Google Books API, and PDF/JSON export.",
+      result: "51 unit tests (JUnit 4, MockK, Turbine) run on GitHub Actions on every push.",
+      tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
+      github: "https://github.com/SultanZhalifa/MiniBookLibrary",
+      demo: null,
+    },
+    {
+      id: 4,
+      title: "SRMAudit",
+      subtitle: "OCTAVE Allegro Risk Assessment Tool",
+      role: "Full-Stack Developer",
+      period: "Jun 2026 — Present",
+      context: "Security Risk Management mini project",
+      summary:
+        "Web platform for running OCTAVE Allegro risk assessments step by step. Works in cloud mode (Supabase auth with row-level security) or fully offline (IndexedDB).",
+      result: "CI runs typecheck, lint, tests, and build.",
+      tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
+      github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
+      demo: null,
+    },
+    {
+      id: 1,
+      title: "Obsidian",
+      subtitle: "Crypto Trading Terminal",
+      role: "Full-Stack Developer",
+      period: "Jun 2026 — Present",
+      context: "Personal project",
+      summary:
+        "Crypto trading terminal in full-stack TypeScript: live Binance data over WebSocket, 7 technical indicators computed on the server, a paper-trading engine with average-cost P&L, and price alerts. Login uses sessions with role-based access and an audit log. No mock data.",
+      result: "Indicators and P&L are covered by Vitest. Playwright tests cover the main flows on desktop and mobile.",
+      tech: ["Next.js 15", "TypeScript", "PostgreSQL", "TimescaleDB", "Drizzle ORM", "WebSocket", "TanStack Query", "Zustand", "Vitest", "Playwright", "Docker"],
+      github: "https://github.com/SultanZhalifa/Obsidian",
+      demo: null,
+      caseStudy: {
+        problem: "Retail crypto tools either hide their math or can't be trusted with real money. Indicators differ between platforms and paper-trading P&L quietly drifts.",
+        approach: [
+          "One long-lived WebSocket to Binance's live feed. Indicators (RSI, MACD, Bollinger Bands and others) are computed on the server and checked against reference series.",
+          "A paper-trading engine that tracks average cost across open, add, partial close, flip, and fee cases. Price alerts are evaluated on the server.",
+          "Login with Argon2id and hashed session tokens, role-based access, CSRF origin checks, rate limiting, and an append-only audit log.",
+        ],
+        result: [
+          "Indicators and P&L are deterministic and checked against reference values.",
+          "Vitest unit tests (indicators and P&L) and Playwright end-to-end flows on desktop and mobile.",
+          "A monochrome design system with hand-built SVG icons, checked for WCAG AA contrast.",
+        ],
+      },
+    },
+    {
+      id: 11,
+      title: "FounderIQ",
+      subtitle: "AI Co-Founder Tool",
+      role: "Full-Stack Developer",
+      period: "Jun 2026",
+      context: "Personal project",
+      summary:
+        "Solo-built AI co-founder tool (Next.js 15, TypeScript, Claude) with 4 tools: a 0–100 idea score, a business model canvas generator, a pitch crafter, and market research. Answers stream in real time.",
+      result: "Live on Vercel. Husky and lint-staged run checks before each commit.",
+      tech: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Framer Motion", "Vercel AI SDK", "Anthropic Claude", "OpenRouter"],
+      github: "https://github.com/SultanZhalifa/FounderIQ",
+      demo: "https://founderiq.vercel.app",
+      ai: true,
+      caseStudy: {
+        problem: "First-time founders juggle idea validation, business modeling, pitching, and market research across many separate tools.",
+        approach: [
+          "One app with four tools: Idea Validator, Business Model Canvas, Pitch Crafter, and Market Intel.",
+          "Streaming through the Vercel AI SDK and the Anthropic Claude API, with structured output rendered as it arrives to cut perceived latency.",
+          "A small provider layer (Anthropic and OpenRouter) so the model can be switched at runtime.",
+        ],
+        result: [
+          "Live at founderiq.vercel.app, built with Next.js 15 and TypeScript, with Husky and lint-staged pre-commit checks.",
+          "Gives an idea score (0–100), a 9-box Business Model Canvas, a pitch, and TAM/SAM/SOM market numbers in one flow.",
+        ],
+      },
+    },
+    {
+      id: 3,
+      title: "DevLog",
+      subtitle: "Developer Progress Tracker",
+      role: "Full-Stack Developer",
+      period: "May — Jun 2026",
+      context: "Personal project",
+      summary:
+        "Progress tracker (Next.js 16, Prisma, PostgreSQL on Supabase, GitHub login with Auth.js) with daily entries, a GitHub-style streak heatmap, an analytics dashboard, and public profiles.",
+      result: "8 unit tests on the streak logic. GitHub Actions runs typecheck, lint, and tests on every push.",
+      tech: ["Next.js 16", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "Auth.js", "Tailwind CSS", "shadcn/ui", "Recharts", "Vitest"],
+      github: "https://github.com/SultanZhalifa/devlog",
+      demo: "https://devlog-sultanzhalifa.vercel.app",
+      caseStudy: {
+        problem: "It's hard to stay consistent when your daily learning isn't visible to anyone, including you.",
+        approach: [
+          "Next.js 16 App Router with server components, and GitHub login through Auth.js v5.",
+          "A GitHub-style streak heatmap, public profiles, and a discovery feed on a follow schema.",
+          "The streak calculation is kept in one function with 8 edge-case tests (empty logs, gaps, duplicates).",
+        ],
+        result: [
+          "Live at devlog-sultanzhalifa.vercel.app.",
+          "GitHub Actions runs typecheck, lint, and tests on every push.",
+        ],
+      },
+    },
+    {
+      id: 5,
+      title: "FinTrack.ai",
+      subtitle: "Local-First Finance App",
+      context: "Personal project",
+      summary:
+        "Personal finance app that runs fully in the browser, with no backend or account. It gives a 0–100 financial health score, safe-to-spend and month-end forecasts, and optional Gemini insights.",
+      result: "Installable offline PWA. Without an API key it says so instead of faking advice.",
+      tech: ["React 19", "Vite", "Chart.js", "Framer Motion", "Gemini AI", "PWA"],
+      github: "https://github.com/SultanZhalifa/fintrack-ai",
+      demo: "https://financetrackersultan.vercel.app/",
+      ai: true,
+      caseStudy: {
+        problem: "Most finance apps need an account and upload your data to a server, and some show fake \"AI advice\" even when no model is set up.",
+        approach: [
+          "Everything runs in the browser (React 19 and Vite). No backend, no account.",
+          "A health score (0–100) from savings rate, budget adherence, expense stability, and emergency buffer, plus safe-to-spend and month-end forecasts.",
+          "Multiple accounts, recurring transactions, CSV/JSON backup, and optional Gemini insights.",
+        ],
+        result: [
+          "Installable offline PWA, live at financetrackersultan.vercel.app.",
+          "Without an API key it asks for one instead of faking advice.",
+        ],
+      },
+    },
+    {
+      id: 9,
+      title: "Duitku",
+      subtitle: "Cross-Platform Finance Tracker",
+      context: "Personal project",
+      summary:
+        "Offline-first Flutter finance app that runs the same code on Android and web. It handles multiple wallets and currencies, budgets, recurring transactions, and JSON backup.",
+      result: "17 automated tests and no flutter analyze issues.",
+      tech: ["Flutter", "Dart", "Provider", "fl_chart", "Material 3", "local_auth"],
+      github: "https://github.com/SultanZhalifa/Duitku",
+      demo: "https://sultanzhalifa.github.io/Duitku/",
+      caseStudy: {
+        problem: "Finance apps often count transfers as spending and double-post recurring transactions that were missed.",
+        approach: [
+          "Offline-first Flutter with the same code on Android and web. A transfer is stored as two linked entries and kept out of spending totals.",
+          "A recurring engine that catches up safely: exactly one transaction per missed occurrence.",
+          "Multiple wallets and currencies with your own exchange rates, category budgets with alerts, charts, biometric lock, and JSON backup/restore.",
+        ],
+        result: [
+          "17 automated tests and no flutter analyze issues.",
+          "Live at sultanzhalifa.github.io/Duitku.",
+        ],
+      },
+    },
+    {
+      id: 8,
+      title: "TaskFlow",
+      subtitle: "Task Manager in Vanilla JS",
+      context: "Personal project",
+      summary:
+        "Task manager in plain HTML, CSS, and JavaScript, with no frameworks or build step. It has priorities, due dates, drag-and-drop, search, and JSON import/export.",
+      result: "Core logic is covered by Vitest. GitHub Actions runs lint, format, and tests.",
+      tech: ["HTML5", "CSS3", "JavaScript (ES6+)", "Vitest", "ESLint", "GitHub Actions"],
+      github: "https://github.com/SultanZhalifa/TaskFlow",
+      demo: null,
     },
   ],
 
   experience: [
     {
       company: "Kementerian PANRB",
-      role: "Software Engineer Intern",
-      period: "Jul 2026 — Jan 2027 (Expected)",
-      location: "Jakarta, DKI Jakarta (Government Digital Transformation)",
+      role: "Software Engineer Intern, Government Digital Transformation Division",
+      period: "Jul 2026 — Jan 2027 (expected)",
+      location: "Jakarta",
       points: [
-        "Supporting the development and enhancement of internal web-based applications for Government Digital Transformation initiatives at Kementerian PANRB.",
-        "Contributing across frontend and backend development, database schema design, and RESTful API integration.",
-        "Executing application testing, debugging, system maintenance, and continuous improvement for digital government evaluation and monitoring systems.",
+        "Help develop and maintain internal web apps used to evaluate and monitor government digital transformation.",
+        "Work on frontend and backend, database design, REST API integration, and testing and bug fixing on existing systems.",
       ],
     },
     {
-      company: "Freelance — Independent IT Projects",
-      role: "Freelance Software Developer",
+      company: "Freelance",
+      role: "Freelance Software Developer, independent projects (web, mobile, AI)",
       period: "Jan 2025 — Present",
       location: "Remote",
       points: [
-        "Built web (React, Next.js), mobile (Flutter, Kotlin) and small AI/Python projects for friends and people in my campus and school network.",
-        "Handled each project end to end: figuring out what they needed, building it, deploying it and fixing things after launch.",
+        "Build websites (React, Next.js), mobile apps (Flutter, Kotlin), and small AI tools for clients from my campus and school.",
+        "Handle each project from figuring out what the client needs to deployment and fixes after launch.",
       ],
     },
   ],
@@ -328,17 +346,18 @@ export const data = {
     },
     {
       issuer: "Google for Education",
-      date: "May 2026 · valid to 2029",
+      date: "2026",
       items: ["Gemini Certified Faculty", "Gemini Certified Student"],
     },
     {
-      issuer: "IBM (SkillsBuild & Coursera)",
+      issuer: "IBM",
       date: "2025 — 2026",
       items: [
         "Build an AI Agent",
+        "Introduction to Large Language Models",
         "Team Essentials for Designing AI Solutions",
-        "Introduction to Large Language Models (LLMs)",
-        "Data Literacy & Sensemaking with Data",
+        "Data Literacy",
+        "Sensemaking with Data",
         "Getting Started with Git and GitHub",
       ],
     },
@@ -346,7 +365,6 @@ export const data = {
       issuer: "Dicoding Indonesia",
       date: "2026",
       items: [
-        "Akselerasi Karier dan Produktivitas dengan Gemini",
         "Belajar Prinsip Pemrograman SOLID",
         "Memulai Pemrograman dengan Java",
         "Memulai Pemrograman dengan C",
@@ -359,38 +377,26 @@ export const data = {
       date: "2024 — 2026",
       items: ["Coding Camp: Intro to Software Engineering", "Intro to Data Analytics"],
     },
-    {
-      issuer: "Dibimbing",
-      date: "May 2026",
-      items: ["Certificate of Appreciation: Cyber Security Online Event"],
-    },
-    {
-      issuer: "SMK N 1 Cikarang Utara",
-      date: "Mar 2022",
-      items: ["Vocational Competency Certificate in Light Vehicle Automotive Engineering"],
-    },
   ],
 
   activities: [
     {
-      title: "HACKSPHERE 2025 — National 48-Hour Hackathon",
+      title: "HACKSPHERE 2025, National 48-Hour Hackathon",
       role: "Event Committee",
       org: "President University",
       date: "Oct 2025",
       points: [
-        "Served on the organizing committee for a 48-hour national hackathon uniting university students, high-schoolers, and industry professionals in teams of three, supporting participant operations and event logistics throughout.",
+        "Part of the organizing committee for a 48-hour national hackathon with university students, high-schoolers, and industry professionals in teams of three. Helped with participant operations and event logistics.",
       ],
     },
     {
       title: "Kindness Community for Knowledge",
-      role: "IT Support Division & Event Operations",
-      org: "Cikarang, Bekasi",
-      date: "Semester 1–2 (2024–2025)",
+      role: "IT Support & Event Operations",
+      org: "Cikarang",
+      date: "2024 — 2025",
       points: [
-        "Assisted in digital and technical support activities, documentation, data organization, and basic troubleshooting during events and community programs.",
+        "Helped with technical support, documentation, data organization, and basic troubleshooting at community events.",
       ],
     },
   ],
 };
-
-
