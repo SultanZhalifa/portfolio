@@ -4,7 +4,7 @@ import { FiGithub, FiStar, FiArrowUpRight } from 'react-icons/fi';
 import { data } from '../data';
 
 const GH_USER = 'SultanZhalifa';
-const CACHE_KEY = 'gh-activity-v1';
+const CACHE_KEY = 'gh-activity-v2';
 const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 
 // Repos to keep out of the public "recently pushed" spotlight even though
@@ -42,15 +42,15 @@ async function fetchGitHub() {
   const repos = await reposRes.json();
   if (!Array.isArray(repos)) throw new Error('Unexpected repos payload');
 
-  const owned = repos.filter(r => !r.fork);
+  // Skip forks, the GitHub-profile README repo (same name as the username,
+  // it's account config, not a project), and anything explicitly excluded.
+  const owned = repos.filter(r => {
+    const name = r.name.toLowerCase();
+    return !r.fork && name !== GH_USER.toLowerCase() && !EXCLUDED_REPOS.has(name);
+  });
   const totalStars = owned.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
   const recent = owned
-    .filter(r => {
-      const name = r.name.toLowerCase();
-      // Skip the GitHub-profile README repo (same name as the username) —
-      // it's account config, not a project — and anything explicitly excluded.
-      return name !== GH_USER.toLowerCase() && !EXCLUDED_REPOS.has(name);
-    })
+    .slice()
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, 3)
     .map(r => ({
@@ -62,7 +62,7 @@ async function fetchGitHub() {
     }));
 
   return {
-    repos: user.public_repos || owned.length,
+    repos: owned.length,
     followers: user.followers || 0,
     totalStars,
     recent,
@@ -110,12 +110,16 @@ export default function GitHubActivity() {
         <a href={data.github} target="_blank" rel="noreferrer" className="gh-plain-link">
           <FiGithub size={13} /> github.com/{GH_USER} <FiArrowUpRight size={11} />
         </a>
+        <p className="gh-summary-text" style={{ marginTop: '8px' }}>
+          Live GitHub stats aren't available right now (GitHub limits anonymous requests). Open the profile to see my latest work.
+        </p>
       </div>
     );
   }
 
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const summary = stats
-    ? `${stats.repos} repos · ${stats.totalStars} stars · ${stats.followers} followers`
+    ? `${plural(stats.repos, 'repo')} · ${plural(stats.totalStars, 'star')} · ${plural(stats.followers, 'follower')}`
     : 'Loading…';
 
   return (
@@ -156,7 +160,7 @@ export default function GitHubActivity() {
                     <FiStar size={10} /> {repo.stars}
                   </span>
                 )}
-                <span style={{ color: '#666666' }}>{timeAgo(repo.pushed_at)}</span>
+                <span style={{ color: '#808080' }}>{timeAgo(repo.pushed_at)}</span>
               </span>
             </a>
           ))}
@@ -188,7 +192,7 @@ export default function GitHubActivity() {
         .gh-summary-text {
           font-family: var(--font-mono);
           font-size: 0.72rem;
-          color: #666666;
+          color: #808080;
           letter-spacing: 0.02em;
         }
         .gh-recent-list {
