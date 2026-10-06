@@ -44,7 +44,7 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
         <span style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '0.72rem',
-          color: '#6e6e6e',
+          color: '#808080',
           letterSpacing: '0.06em',
           flexShrink: 0,
           minWidth: '24px',
@@ -69,25 +69,27 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
           {project.context.split(',')[0]}
         </span>
 
-        {/* Project Title */}
-        <h3 style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
-          color: open ? '#ffffff' : '#a0a0a0',
-          transition: 'color 0.2s',
-          flex: 1,
-        }}>
-          {project.title}
-        </h3>
+        {/* Project Title (+ subtitle underneath on phones, where the side column is hidden) */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h3 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            color: open ? '#ffffff' : '#a0a0a0',
+            transition: 'color 0.2s',
+          }}>
+            {project.title}
+          </h3>
+          <span className="project-subtitle-sm">{project.subtitle}</span>
+        </div>
 
         {/* Subtitle preview (Tablet/Desktop) */}
         <span
           className="project-subtitle"
           style={{
             fontSize: '0.82rem',
-            color: '#707070',
+            color: '#808080',
             flex: 1,
             maxWidth: '300px',
             display: 'none',
@@ -135,7 +137,7 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
                 >
                   <img
                     src={`/previews/${slugOf(project)}.webp`}
-                    alt={`${project.title} screenshot preview`}
+                    alt={`Screenshot of ${project.title}: ${project.subtitle}`}
                     loading="lazy"
                     className="project-preview-img"
                     onError={() => setImgOk(false)}
@@ -148,9 +150,9 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
                 </button>
               )}
 
-              {/* Context + Description */}
+              {/* Context, role and date, what it is, key result */}
               <div>
-                <div style={{
+                <div className="project-context-body" style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.66rem',
                   color: '#808080',
@@ -158,16 +160,48 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
                   textTransform: 'uppercase',
                   marginBottom: '8px',
                 }}>
-                  {project.context} · {project.subtitle}
+                  {project.context}
                 </div>
+                {(project.role || project.period) && (
+                  <div style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.74rem',
+                    color: '#a0a0a0',
+                    letterSpacing: '0.02em',
+                    marginBottom: '10px',
+                  }}>
+                    {[project.role, project.period].filter(Boolean).join(' · ')}
+                  </div>
+                )}
                 <p style={{
-                  color: '#9a9a9a',
-                  fontSize: '0.88rem',
-                  lineHeight: 1.8,
+                  color: '#a8a8a8',
+                  fontSize: '0.9rem',
+                  lineHeight: 1.75,
                   maxWidth: '680px',
                 }}>
-                  {project.description}
+                  {project.summary}
                 </p>
+                {project.result && (
+                  <p style={{
+                    color: '#a8a8a8',
+                    fontSize: '0.9rem',
+                    lineHeight: 1.75,
+                    maxWidth: '680px',
+                    marginTop: '10px',
+                  }}>
+                    <span style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.66rem',
+                      color: '#808080',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      marginRight: '10px',
+                    }}>
+                      Result
+                    </span>
+                    {project.result}
+                  </p>
+                )}
               </div>
 
               {/* Tech stack badges */}
@@ -226,7 +260,7 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
 
 const CATEGORIES = [
   { id: 'All', label: 'All', match: () => true },
-  { id: 'AI & Vision', label: 'AI & Vision', match: (p) => p.tech.some(t => /AI|YOLO|Claude|Gemini|Vision|OpenCV/i.test(t)) || /AI|Vision|Hoax/i.test(p.title) },
+  { id: 'AI & Vision', label: 'AI & Vision', match: (p) => Boolean(p.ai) },
   { id: 'Web & Full-Stack', label: 'Web & Full-Stack', match: (p) => p.tech.some(t => /Next\.js|React|Node\.js|Express|FastAPI|HTML5|Vite/i.test(t)) },
   { id: 'Mobile', label: 'Mobile Apps', match: (p) => p.tech.some(t => /Kotlin|Flutter|Android|Dart/i.test(t)) },
   { id: 'TypeScript', label: 'TypeScript', match: (p) => p.tech.some(t => /TypeScript/i.test(t)) },
@@ -250,7 +284,9 @@ export default function Projects() {
     const matchesSearch =
       p.title.toLowerCase().includes(query) ||
       p.subtitle.toLowerCase().includes(query) ||
-      p.description.toLowerCase().includes(query) ||
+      p.summary.toLowerCase().includes(query) ||
+      (p.result || '').toLowerCase().includes(query) ||
+      (p.role || '').toLowerCase().includes(query) ||
       p.tech.some(t => t.toLowerCase().includes(query)) ||
       p.context.toLowerCase().includes(query);
 
@@ -270,7 +306,7 @@ export default function Projects() {
             <span className="section-label">Portfolio</span>
           </div>
           <h2 className="section-title">Selected Projects</h2>
-          <p className="section-sub">End-to-end engineering across AI, computer vision, fintech, real-time distributed systems, and mobile.</p>
+          <p className="section-sub">AI, fintech, web, and mobile projects, from hackathons and competitions to personal builds.</p>
         </motion.div>
 
         {/* Controls: Filter Pills & Search Input */}
@@ -290,6 +326,7 @@ export default function Projects() {
                 <button
                   key={id}
                   onClick={() => setFilter(id)}
+                  aria-pressed={isSelected}
                   className="projects-filter-btn"
                   style={{
                     borderColor: isSelected ? '#555555' : '#1e1e1e',
@@ -324,7 +361,7 @@ export default function Projects() {
 
           {/* Search Box */}
           <div className="projects-search-box">
-            <FiSearch size={13} style={{ color: '#666666', flexShrink: 0 }} />
+            <FiSearch size={13} style={{ color: '#808080', flexShrink: 0 }} />
             <input
               type="text"
               placeholder="Search tech, title, or keywords…"
@@ -444,13 +481,13 @@ export default function Projects() {
           width: 100%;
         }
         .projects-search-input::placeholder {
-          color: #606060;
+          color: #808080;
         }
 
         .projects-search-clear-btn {
           background: transparent;
           border: none;
-          color: #777777;
+          color: #808080;
           cursor: pointer;
           padding: 2px;
           display: flex;
@@ -536,9 +573,18 @@ export default function Projects() {
             transform: translateY(0);
           }
         }
+        .project-subtitle-sm {
+          display: block;
+          font-size: 0.78rem;
+          color: #808080;
+          margin-top: 2px;
+          line-height: 1.4;
+        }
         @media (min-width: 768px) {
           .project-context { display: block !important; }
           .project-subtitle { display: block !important; }
+          .project-subtitle-sm { display: none; }
+          .project-context-body { display: none; }
         }
         @media (max-width: 768px) {
           .projects-toolbar {
