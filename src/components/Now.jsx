@@ -57,7 +57,7 @@ export default function Now() {
 
             {time && (
               <div className="now-time-pill" title="Current Local Time in Bekasi / Jakarta (UTC+7)">
-                <FiClock size={11} style={{ color: '#777777' }} />
+                <FiClock size={11} style={{ color: '#808080' }} />
                 <span>Bekasi, ID · {time}</span>
               </div>
             )}
@@ -156,7 +156,7 @@ export default function Now() {
           line-height: 1.5;
         }
         .now-bullet {
-          color: #555555;
+          color: #808080;
           flex-shrink: 0;
           font-family: var(--font-mono);
           font-size: 0.65rem;
