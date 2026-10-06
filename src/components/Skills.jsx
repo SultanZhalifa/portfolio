@@ -31,7 +31,7 @@ export default function Skills() {
             <span className="section-label">Technical Skills</span>
           </div>
           <h2 className="section-title">What I Work With</h2>
-          <p className="section-sub">Tools, frameworks, and technologies across web, mobile, AI systems, and security.</p>
+          <p className="section-sub">What I use for web, mobile, AI, and security work.</p>
         </motion.div>
 
         {/* Skill Rows */}
@@ -73,8 +73,7 @@ export default function Skills() {
               </span>
             </div>
             <div className="skill-tags-col">
-              <span className="tag">Bahasa Indonesia — Native</span>
-              <span className="tag">English — Professional Working</span>
+              {data.languages.map(l => <span key={l} className="tag">{l}</span>)}
             </div>
           </motion.div>
         </div>

@@ -13,7 +13,7 @@ function Block({ label, children }) {
       <div style={{
         fontFamily: 'var(--font-mono)',
         fontSize: '0.66rem',
-        color: '#7a7a7a',
+        color: '#808080',
         letterSpacing: '0.12em',
         textTransform: 'uppercase',
         marginBottom: '10px',
@@ -30,7 +30,7 @@ function Bullets({ items }) {
     <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
       {items.map((it, i) => (
         <li key={i} style={{ display: 'flex', gap: '12px', fontSize: '0.88rem', color: '#a0a0a0', lineHeight: 1.75 }}>
-          <span style={{ color: '#555555', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
+          <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
           <span>{it}</span>
         </li>
       ))}
@@ -111,7 +111,7 @@ export default function CaseStudyModal({ project, onClose }) {
             <div className="cs-hero-img">
               <img
                 src={`/previews/${slugOf(project)}.webp`}
-                alt={`${project.title} screenshot`}
+                alt={`Screenshot of ${project.title}: ${project.subtitle}`}
                 loading="eager"
                 onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
               />
@@ -123,7 +123,7 @@ export default function CaseStudyModal({ project, onClose }) {
               <div style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.66rem',
-                color: '#707070',
+                color: '#808080',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 marginBottom: '8px',
@@ -150,8 +150,8 @@ export default function CaseStudyModal({ project, onClose }) {
                 <Block label="The Problem">
                   <p style={{ fontSize: '0.9rem', color: '#a8a8a8', lineHeight: 1.8 }}>{cs.problem}</p>
                 </Block>
-                <Block label="Engineering Approach"><Bullets items={cs.approach} /></Block>
-                <Block label="Results & Impact"><Bullets items={cs.result} /></Block>
+                <Block label="What I Built"><Bullets items={cs.approach} /></Block>
+                <Block label="Results"><Bullets items={cs.result} /></Block>
 
                 {/* Tech Badges */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '4px' }}>

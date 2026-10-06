@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy, FiFileText, FiLoader, FiMessageSquare } from 'react-icons/fi';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import { data } from '../data';
 
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -20,7 +20,7 @@ const contacts = [
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-  const [form, setForm]       = useState({ name: '', email: '', message: '' });
+  const [form, setForm]       = useState({ name: '', email: '', message: '', website: '' });
   const [sent, setSent]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
@@ -44,16 +44,22 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
-    
+
+    // Honeypot: real visitors never see or fill this field. Bots do.
+    // Pretend it worked so they don't retry, but send nothing.
+    if (form.website) {
+      setSent(true);
+      return;
+    }
+
     setLoading(true);
     setError('');
 
-    // If EmailJS env credentials are not configured, fallback gracefully
+    // Without EmailJS credentials nothing can be delivered. Say so,
+    // instead of showing a fake "sent" screen and losing the message.
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      setTimeout(() => {
-        setSent(true);
-        setLoading(false);
-      }, 600);
+      setError(`The form isn't set up right now, so your message was not sent. Please email me directly at ${data.email}.`);
+      setLoading(false);
       return;
     }
 
@@ -62,11 +68,11 @@ export default function Contact() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         { name: form.name, email: form.email, message: form.message },
-        EMAILJS_PUBLIC_KEY,
+        { publicKey: EMAILJS_PUBLIC_KEY },
       );
       setSent(true);
     } catch {
-      setError('Message delivery failed. Please send an email directly to sultanzhalifunnasmusyaffa@gmail.com');
+      setError(`Your message was not sent. Please try again, or email me directly at ${data.email}.`);
     } finally {
       setLoading(false);
     }
@@ -96,7 +102,7 @@ export default function Contact() {
             <span className="section-label">Get In Touch</span>
           </div>
           <h2 className="section-title">Let's Connect</h2>
-          <p className="section-sub">Open to internship opportunities, full-stack & AI engineering roles, and technical collaborations.</p>
+          <p className="section-sub">Open to part-time and remote roles, and to working on projects together. Full-time after I graduate (Dec 2027).</p>
         </motion.div>
 
         <div className="contact-grid">
@@ -117,7 +123,7 @@ export default function Contact() {
             >
               <div className="contact-icon-box"><FiFileText size={14} /></div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#707070', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
                 <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: 600 }}>Download Sultan_CV.pdf</div>
               </div>
             </a>
@@ -137,7 +143,7 @@ export default function Contact() {
                     >
                       <div className="contact-icon-box"><Icon size={14} /></div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#666666', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                         <div style={{ fontSize: '0.84rem', color: '#b0b0b0', overflowWrap: 'break-word' }}>{value}</div>
                       </div>
                     </a>
@@ -163,7 +169,7 @@ export default function Contact() {
                   <div className="contact-item">
                     <div className="contact-icon-box"><Icon size={14} /></div>
                     <div>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#666666', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.84rem', color: '#888888' }}>{value}</div>
                     </div>
                   </div>
@@ -202,16 +208,16 @@ export default function Contact() {
                   marginBottom: '8px',
                   color: '#ffffff',
                 }}>
-                  Message Sent Successfully!
+                  Message sent
                 </h3>
                 <p style={{ color: '#888888', fontSize: '0.88rem', maxWidth: '320px', margin: '0 auto 24px', lineHeight: 1.6 }}>
-                  Thank you for reaching out. I'll get back to you as soon as possible.
+                  Thanks for writing. I'll reply as soon as I can.
                 </p>
                 <button
                   type="button"
                   onClick={() => {
                     setSent(false);
-                    setForm({ name: '', email: '', message: '' });
+                    setForm({ name: '', email: '', message: '', website: '' });
                   }}
                   className="btn btn-ghost"
                   style={{ padding: '8px 18px', fontSize: '0.78rem' }}
@@ -240,7 +246,7 @@ export default function Contact() {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Sultan Zhalifunnas"
+                    placeholder="Your name"
                     className="input-field"
                   />
                 </div>
@@ -287,15 +293,29 @@ export default function Contact() {
                     required
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="Let's discuss an internship opportunity or software project..."
+                    placeholder="Tell me about the role or project..."
                     rows={5}
                     className="input-field"
                     style={{ resize: 'vertical', minHeight: '110px' }}
                   />
                 </div>
 
+                {/* Honeypot (hidden from people and screen readers) */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                  <label htmlFor="contact-website">Leave this empty</label>
+                  <input
+                    id="contact-website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={handleChange}
+                  />
+                </div>
+
                 {error && (
-                  <p style={{ color: '#ff6b6b', fontSize: '0.8rem', marginBottom: '14px', fontFamily: 'var(--font-mono)', lineHeight: 1.5 }}>
+                  <p role="alert" style={{ color: '#ff6b6b', fontSize: '0.8rem', marginBottom: '14px', fontFamily: 'var(--font-mono)', lineHeight: 1.5 }}>
                     {error}
                   </p>
                 )}
