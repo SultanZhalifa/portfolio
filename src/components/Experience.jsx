@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiBriefcase, FiBook, FiUsers } from 'react-icons/fi';
+import { FiBriefcase, FiBook, FiUsers, FiExternalLink } from 'react-icons/fi';
 import { data } from '../data';
 
 function TimelineItem({ item, index, inView, type, isLast }) {
@@ -97,6 +97,23 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             </li>
           ))}
         </ul>
+
+        {item.links && item.links.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '14px' }}>
+            {item.links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-ghost"
+                style={{ padding: '8px 16px', fontSize: '0.78rem', gap: '6px' }}
+              >
+                <FiExternalLink size={13} /> {l.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </motion.div>
   );
