@@ -61,11 +61,16 @@ export const data = {
 
   languages: ["Indonesian (native)", "English (professional working)"],
 
-  // Order matters: strongest projects first. `ai: true` means the app calls an
-  // AI model or API; the hero stat and the "AI & Vision" filter both read it.
+  // Order matters. `featured: true` projects show as cards with a screenshot,
+  // the rest go in the compact list below them. `ai: true` means the app calls
+  // an AI model or API; the hero stat and the "AI & Vision" filter both read it.
+  // `image` overrides the default /previews/<github-repo-name>.webp screenshot;
+  // `screenshot: false` hides it (no real screenshot yet), and `highlight`
+  // shows a key number in its place on featured cards.
   projects: [
     {
       id: 7,
+      featured: true,
       title: "PestGuard AI",
       subtitle: "Real-Time Warehouse Pest Detection",
       role: "AI & Backend Developer",
@@ -93,6 +98,7 @@ export const data = {
     },
     {
       id: 10,
+      featured: true,
       title: "SaringSini",
       subtitle: "Hoax Checker for Family Group Chats",
       period: "May — Jul 2026",
@@ -107,6 +113,7 @@ export const data = {
     },
     {
       id: 2,
+      featured: true,
       title: "Naik Kelas",
       subtitle: "Credit Scoring for Small Merchants",
       role: "Full-Stack Developer",
@@ -132,18 +139,8 @@ export const data = {
       },
     },
     {
-      id: 12,
-      title: "AstraPayNK",
-      subtitle: "Naik Kelas Companion Mobile App",
-      context: "Hackathon — AstraPay 2026",
-      summary:
-        "Flutter companion app for Naik Kelas. Merchants can see their AstraScore, manage working capital (Modal Jalan), and redeem points to lower fees, with charts and an audit log.",
-      tech: ["Flutter", "Dart", "fl_chart", "google_fonts", "smooth_page_indicator", "flutter_svg"],
-      github: "https://github.com/SultanZhalifa/AstraPayNK",
-      demo: null,
-    },
-    {
       id: 6,
+      featured: true,
       title: "MiniBookLibrary",
       subtitle: "Offline-First Android Book App",
       period: "Dec 2025 — Present",
@@ -151,12 +148,15 @@ export const data = {
       summary:
         "Offline-first book management app with reading progress, ISBN auto-fill from the Google Books API, and PDF/JSON export.",
       result: "51 unit tests (JUnit 4, MockK, Turbine) run on GitHub Actions on every push.",
+      screenshot: false,
+      highlight: { value: "51", label: "unit tests on every push" },
       tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/MiniBookLibrary",
       demo: null,
     },
     {
       id: 4,
+      featured: true,
       title: "SRMAudit",
       subtitle: "OCTAVE Allegro Risk Assessment Tool",
       role: "Full-Stack Developer",
@@ -170,6 +170,20 @@ export const data = {
       demo: null,
     },
     {
+      id: 13,
+      title: "UMKM Order Pages",
+      subtitle: "WhatsApp Ordering Pages for Small Businesses",
+      period: "Oct 2026 — Present",
+      context: "Freelance service — Cikarang",
+      summary:
+        "One-page sites for small businesses that still take orders by chat. Customers see the prices and pick items or a time slot, and the page opens WhatsApp with one complete order message, total included. No app to install.",
+      result: "4 working demo pages: a food stall, a motorbike workshop, a laundry, and a boarding house. The business names are made up, but every order button works.",
+      tech: ["HTML", "CSS", "JavaScript", "WhatsApp click-to-chat", "Cloudflare Pages"],
+      github: null,
+      demo: "https://websultan.pages.dev/",
+      image: "/previews/umkm-wa-order.webp",
+    },
+    {
       id: 1,
       title: "Obsidian",
       subtitle: "Crypto Trading Terminal",
@@ -181,6 +195,7 @@ export const data = {
       result: "Indicators and P&L are covered by Vitest. Playwright tests cover the main flows on desktop and mobile.",
       tech: ["Next.js 15", "TypeScript", "PostgreSQL", "TimescaleDB", "Drizzle ORM", "WebSocket", "TanStack Query", "Zustand", "Vitest", "Playwright", "Docker"],
       github: "https://github.com/SultanZhalifa/Obsidian",
+      screenshot: false,
       demo: null,
       caseStudy: {
         problem: "Retail crypto tools either hide their math or can't be trusted with real money. Indicators differ between platforms and paper-trading P&L quietly drifts.",
@@ -248,6 +263,18 @@ export const data = {
           "GitHub Actions runs typecheck, lint, and tests on every push.",
         ],
       },
+    },
+    {
+      id: 12,
+      title: "AstraPayNK",
+      subtitle: "Naik Kelas Companion Mobile App",
+      context: "Hackathon — AstraPay 2026",
+      summary:
+        "Flutter companion app for Naik Kelas. Merchants can see their AstraScore, manage working capital (Modal Jalan), and redeem points to lower fees, with charts and an audit log.",
+      tech: ["Flutter", "Dart", "fl_chart", "google_fonts", "smooth_page_indicator", "flutter_svg"],
+      github: null, // repo is no longer public
+      screenshot: false,
+      demo: null,
     },
     {
       id: 5,

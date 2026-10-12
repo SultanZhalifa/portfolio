@@ -2,10 +2,7 @@ import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiGithub, FiExternalLink } from 'react-icons/fi';
-
-function slugOf(project) {
-  return project.github.split('/').pop().toLowerCase();
-}
+import { previewOf } from '../lib/preview';
 
 function Block({ label, children }) {
   return (
@@ -108,15 +105,17 @@ export default function CaseStudyModal({ project, onClose }) {
             </button>
 
             {/* Preview image */}
-            <div className="cs-hero-img">
-              <img
-                src={`/previews/${slugOf(project)}.webp`}
-                alt={`Screenshot of ${project.title}: ${project.subtitle}`}
-                loading="eager"
-                onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
-              />
-              <div className="cs-hero-overlay" />
-            </div>
+            {previewOf(project) && (
+              <div className="cs-hero-img">
+                <img
+                  src={previewOf(project)}
+                  alt={`Screenshot of ${project.title}: ${project.subtitle}`}
+                  loading="eager"
+                  onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                />
+                <div className="cs-hero-overlay" />
+              </div>
+            )}
 
             <div className="cs-body-content">
               {/* Title Header */}
@@ -160,15 +159,17 @@ export default function CaseStudyModal({ project, onClose }) {
 
                 {/* Direct Action Links */}
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '8px' }}>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-ghost"
-                    style={{ padding: '10px 18px', fontSize: '0.82rem' }}
-                  >
-                    <FiGithub size={14} /> Source Code
-                  </a>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-ghost"
+                      style={{ padding: '10px 18px', fontSize: '0.82rem' }}
+                    >
+                      <FiGithub size={14} /> Source Code
+                    </a>
+                  )}
                   {project.demo && (
                     <a
                       href={project.demo}

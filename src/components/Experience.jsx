@@ -61,7 +61,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
               {type === 'work' ? item.company : item.school}
             </div>
           </div>
-          <div style={{ textAlign: 'right', flexShrink: 0 }}>
+          <div className="exp-meta" style={{ textAlign: 'right', flexShrink: 0 }}>
             <div style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.68rem',
@@ -231,7 +231,7 @@ export default function Experience() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.45, delay: i * 0.1 }}
-                style={{ display: 'flex', gap: '18px' }}
+                style={{ display: 'flex', gap: '18px', marginBottom: i === data.activities.length - 1 ? 0 : '28px' }}
               >
                 <div style={{ flexShrink: 0 }}>
                   <div style={{
@@ -274,7 +274,7 @@ export default function Experience() {
                         {act.role}{act.org ? ` — ${act.org}` : ''}
                       </div>
                     </div>
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div className="exp-meta" style={{ textAlign: 'right', flexShrink: 0 }}>
                       <div style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.68rem',
@@ -315,6 +315,8 @@ export default function Experience() {
         }
         @media (max-width: 640px) {
           .exp-grid { gap: 36px; }
+          .exp-meta { text-align: left !important; flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 0 10px; }
+          .exp-meta > div { margin-bottom: 0 !important; }
         }
       `}</style>
     </section>

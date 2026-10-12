@@ -66,29 +66,12 @@ export default function Certifications() {
                 </div>
               </div>
 
-              {/* Items List Column */}
-              <div className="cert-right">
-                {cert.items.map((item, j) => (
-                  <div key={j} style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: '10px',
-                    paddingBottom: j < cert.items.length - 1 ? '8px' : '0',
-                  }}>
-                    <span style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.65rem',
-                      color: '#808080',
-                      flexShrink: 0,
-                    }}>
-                      —
-                    </span>
-                    <span style={{ fontSize: '0.86rem', color: '#9a9a9a', lineHeight: 1.6 }}>
-                      {item}
-                    </span>
-                  </div>
+              {/* Items, inline so 17 certificates don't take a whole screen */}
+              <ul className="cert-right">
+                {cert.items.map((item) => (
+                  <li key={item} className="cert-item">{item}</li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           ))}
         </div>
@@ -114,6 +97,21 @@ export default function Certifications() {
         .cert-right {
           flex: 1;
           min-width: 0;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .cert-item {
+          font-size: 0.84rem;
+          color: #b0b0b0;
+          line-height: 1.4;
+          padding: 5px 10px;
+          border: 1px solid #1e1e1e;
+          border-radius: 6px;
+          background: #080808;
         }
         @media (max-width: 680px) {
           .cert-row {
