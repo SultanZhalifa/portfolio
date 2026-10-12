@@ -8,12 +8,12 @@
 
 ## Sections
 
-- **Hero** — Introduction, animated stats, social links
-- **Now** — Currently-building status band
-- **Skills** — Languages & Web, Mobile & Testing, AI & Data, Tools & Security
-- **Projects** — Filterable list with expandable rows, previews & case-study modals
+- **Hero** — Introduction, stats, social links
+- **Now** — Current status band
+- **Projects** — Featured projects as cards with screenshots, the rest in a compact list; filters, search, case-study modals
 - **Experience & Education** — Timeline layout with activities
-- **Certifications** — Google, IBM, Dicoding, RevoU, and other verified credentials
+- **Skills** — Grouped tags in two columns
+- **Certifications** — Grouped by issuer
 - **Contact** — EmailJS form (with honeypot) + direct contact links; the Projects section ends with a small live GitHub block
 
 ## Tech Stack
@@ -29,7 +29,13 @@
 
 ## Content
 
-Almost everything on the page comes from `src/data.js`. The hero stats (project count, AI apps, certificates) are computed from it, so they stay in sync when you add a project (`ai: true` marks apps that call an AI model).
+Almost everything on the page comes from `src/data.js`. The hero stats (project count, AI apps, certificates) are computed from it, so they stay in sync when you add a project.
+
+Project fields worth knowing:
+- `featured: true` shows the project as a card with its screenshot; the rest go in the list below.
+- `ai: true` marks apps that call an AI model (hero stat and the AI & Vision filter).
+- Screenshots live in `public/previews/<github-repo-name>.webp` (1000×625). Use `image` for a custom path, or `screenshot: false` if there's no real screenshot yet. A featured card without one can show `highlight: { value, label }` instead.
+
 The resume is `public/Sultan_CV.pdf`; replace the file to update the download.
 
 ## Contact form setup
