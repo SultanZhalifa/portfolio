@@ -331,7 +331,9 @@ export const data = {
       points: [
         "Build websites (React, Next.js), mobile apps (Flutter, Kotlin), and small AI tools for clients from my campus and school.",
         "Handle each project from figuring out what the client needs to deployment and fixes after launch.",
+        "Since Oct 2026, offering landing pages to small businesses around Cikarang (food stalls, motorbike workshops, laundries, boarding houses). Customers pick items or a time slot, and the page sends a ready-to-read order to the owner's WhatsApp.",
       ],
+      links: [{ label: "Demo pages", href: "https://websultan.pages.dev/" }],
     },
   ],
 
