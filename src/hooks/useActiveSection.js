@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 // Single source of truth for page sections — used by Navbar and SideNav.
 export const sections = [
   { id: 'hero',           label: 'About'          },
-  { id: 'skills',         label: 'Skills'         },
   { id: 'projects',       label: 'Projects'       },
   { id: 'experience',     label: 'Experience'     },
+  { id: 'skills',         label: 'Skills'         },
   { id: 'certifications', label: 'Certifications' },
   { id: 'contact',        label: 'Contact'        },
 ];

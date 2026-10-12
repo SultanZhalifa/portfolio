@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCheck, FiCopy, FiFileText, FiLoader, FiMessageSquare } from 'react-icons/fi';
+import { FiSend, FiGithub, FiLinkedin, FiMail, FiCheck, FiCopy, FiFileText, FiLoader, FiMessageSquare } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
 import { data } from '../data';
 
@@ -8,13 +8,12 @@ const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+// WhatsApp and phone are the same number, so they share one row. Location is in the intro text.
 const contacts = [
-  { Icon: FiMail,          label: 'Email',    value: data.email,                     href: `mailto:${data.email}`,                              copyable: true  },
-  { Icon: FiMessageSquare, label: 'WhatsApp', value: `${data.phone} (Direct Chat)`,  href: `https://wa.me/${data.phone.replace(/\D/g, '')}`,    copyable: true  },
-  { Icon: FiPhone,         label: 'Phone',    value: data.phone,                     href: `tel:${data.phone.replace(/\s+/g, '')}`,             copyable: true  },
-  { Icon: FiGithub,        label: 'GitHub',   value: 'github.com/SultanZhalifa',     href: data.github,                                         copyable: false },
-  { Icon: FiLinkedin,      label: 'LinkedIn', value: 'in/sultanzhalifunnasmusyaffa', href: data.linkedin,                                       copyable: false },
-  { Icon: FiMapPin,        label: 'Location', value: data.location,                  href: null,                                                copyable: false },
+  { Icon: FiMail,          label: 'Email',            value: data.email,                     href: `mailto:${data.email}`,                           copy: data.email },
+  { Icon: FiMessageSquare, label: 'WhatsApp / Phone', value: data.phone,                     href: `https://wa.me/${data.phone.replace(/\D/g, '')}`, copy: data.phone },
+  { Icon: FiLinkedin,      label: 'LinkedIn',         value: 'in/sultanzhalifunnasmusyaffa', href: data.linkedin },
+  { Icon: FiGithub,        label: 'GitHub',           value: 'github.com/SultanZhalifa',     href: data.github },
 ];
 
 export default function Contact() {
@@ -102,7 +101,7 @@ export default function Contact() {
             <span className="section-label">Get In Touch</span>
           </div>
           <h2 className="section-title">Let's Connect</h2>
-          <p className="section-sub">Open to part-time and remote roles, and to working on projects together. Full-time after I graduate (Dec 2027).</p>
+          <p className="section-sub">Open to part-time and remote roles, and to working on projects together. Full-time after I graduate (Dec 2027). Based in Kab. Bekasi, Jawa Barat (UTC+7).</p>
         </motion.div>
 
         <div className="contact-grid">
@@ -129,7 +128,7 @@ export default function Contact() {
             </a>
 
             {/* Contacts list */}
-            {contacts.map(({ Icon, label, value, href, copyable }) => (
+            {contacts.map(({ Icon, label, value, href, copy }) => (
               <div key={label} style={{ position: 'relative' }}>
                 {href ? (
                   <>
@@ -139,7 +138,7 @@ export default function Contact() {
                       rel="noreferrer"
                       id={`contact-${label.toLowerCase()}-link`}
                       className="contact-item contact-item-link"
-                      style={copyable ? { paddingRight: '48px' } : undefined}
+                      style={copy ? { paddingRight: '48px' } : undefined}
                     >
                       <div className="contact-icon-box"><Icon size={14} /></div>
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -147,13 +146,13 @@ export default function Contact() {
                         <div style={{ fontSize: '0.84rem', color: '#b0b0b0', overflowWrap: 'break-word' }}>{value}</div>
                       </div>
                     </a>
-                    {copyable && (
+                    {copy && (
                       <button
-                        onClick={() => copyToClipboard(value, label)}
+                        onClick={() => copyToClipboard(copy, label)}
                         title={`Copy ${label} to clipboard`}
                         aria-label={`Copy ${label} to clipboard`}
                         className="contact-copy-btn"
-                        style={{ color: copied === label ? '#ffffff' : '#555555' }}
+                        style={{ color: copied === label ? '#ffffff' : '#a0a0a0' }}
                       >
                         {copied === label ? (
                           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: '#ffffff' }}>

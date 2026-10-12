@@ -23,9 +23,9 @@ export default function App() {
       <main id="main-content">
         <Hero />
         <Now />
-        <Skills />
         <Projects />
         <Experience />
+        <Skills />
         <Certifications />
         <Contact />
       </main>
