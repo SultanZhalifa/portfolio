@@ -83,16 +83,45 @@ export const data = {
       github: "https://github.com/SultanZhalifa/PestGuard-AI",
       demo: "https://pestguard-ai.vercel.app/login",
       ai: true,
+      // Case study sourced from the PestGuard-AI repo: README, backend/routes/camera.py,
+      // backend/config.py, backend/routes/chat.py, backend/routes/model_info.py,
+      // backend/scripts/train_custom_model.py.
       caseStudy: {
-        problem: "Warehouse pest control is usually reactive: damage is found after the fact, and manual monitoring can't run around the clock.",
-        approach: [
-          "Custom-trained a YOLO11-Nano model (5.2 MB, runs on CPU) with CLAHE low-light preprocessing across up to four camera zones.",
-          "Alerts in under a second through WebSocket, browser audio, Telegram, and Indonesian text-to-speech. Snake is DANGER, cat is WARNING, gecko is INFO, and each level maps to its own SOP.",
-          "A Gemini 2.0 Flash RAG assistant, role-based access, and analytics with PDF/CSV reports. Runs in Docker.",
+        problem: "Snakes, cats and geckos getting into a warehouse are a safety and contamination risk. Checking by hand doesn't scale to a large warehouse, and it can't run around the clock.",
+        team: "Team project with Team Andalusia. My role: AI & Backend Developer.",
+        flow: [
+          "Each camera zone (webcam, RTSP stream or video file) is read in its own thread at about 30 fps. If a stream drops, the worker reconnects on its own.",
+          "Every 3rd frame goes to a separate inference thread. That queue holds a single frame, so when the model is still busy the new frame is dropped instead of piling up.",
+          "Before inference, CLAHE brightens the lightness channel (clip limit 2.5, 8×8 tiles) so dark night footage is easier to read. YOLO11-Nano then runs at 320 px, in half precision when a GPU is available.",
+          "Detections above the confidence threshold (50% by default) are drawn onto the live stream. Each class has a 10-second cooldown per zone, so one gecko walking past doesn't fire a dozen alerts.",
+          "A new detection is saved to SQLite with a snapshot, pushed to the dashboard over WebSocket, sent to Telegram, and read out with Indonesian text-to-speech. Snake detections (DANGER) also sound a browser alarm.",
+          "The Gemini assistant gets a fresh snapshot of the warehouse data with every question, including the last 5 detections, and is told to answer only from that data. When Gemini isn't available, a rule-based fallback still answers common questions like the latest detection or the riskiest zone.",
         ],
+        decisions: [
+          { title: "Capture and inference run in separate threads", text: "The video loop never waits for the model. It keeps drawing the latest known boxes, so the stream stays smooth even when inference is slow." },
+          { title: "Drop frames instead of queueing them", text: "With a one-frame queue, an alert is always about what the camera sees now, not a frame from several seconds ago stuck in a backlog." },
+          { title: "A small model at a small input size", text: "YOLO11-Nano is about 5.2 MB and runs on CPU. It was trained at 640 px but runs at 320 px, which keeps inference fast enough for several zones at once." },
+          { title: "Report the weak class honestly", text: "The model page shows per-class numbers instead of one average, so Snake's lower recall is visible instead of hidden behind the stronger classes." },
+        ],
+        metrics: {
+          caption: "Validation split, final training run (YOLO11-Nano, trained at 640 px).",
+          columns: ["Class", "Risk", "Train images", "Precision", "Recall", "mAP50", "mAP50-95"],
+          rows: [
+            ["Snake", "Danger", "8,477", "82.6%", "76.5%", "83.4%", "57.5%"],
+            ["Cat", "Warning", "10,001", "91.6%", "89.3%", "94.3%", "76.7%"],
+            ["Gecko", "Info", "1,435", "99.5%", "99.8%", "99.3%", "93.1%"],
+            ["Lizard", "Info", "2,409", "97.5%", "99.3%", "99.2%", "78.2%"],
+          ],
+        },
         result: [
-          "Selected project for PT Kawan Lama Group's AI Open Innovation Challenge 2026.",
-          "The submission estimated monthly pest-control spend falling from about Rp 15–30M to about Rp 3M per warehouse, with payback in 4–6 months. These are estimates from the submission, not measured results.",
+          "Selected project in PT Kawan Lama Group's AI Open Innovation Challenge 2026 (Logistics).",
+          "Backend API tests (pytest on an isolated temporary database) plus frontend lint, unit tests and build run in GitHub Actions on every push.",
+          "Runs with one docker-compose command.",
+        ],
+        limits: [
+          "Snake is the class where a miss matters most, and it has the lowest recall: 76.5%, so about 1 in 4 snakes in the validation images was missed.",
+          "All model numbers come from the validation split (public Roboflow data plus custom footage), not from a camera in a real warehouse.",
+          "The cost figures in the submission (about Rp 3M a month against Rp 15–30M for manual pest control, payback in 4–6 months) are estimates, not measured results.",
         ],
       },
     },
