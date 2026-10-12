@@ -23,7 +23,7 @@ export default function Footer() {
           fontWeight: 800,
           fontSize: 'clamp(1.6rem, 4.5vw, 3.2rem)',
           letterSpacing: '-0.04em',
-          color: '#1a1a1a',
+          color: '#606060',
           marginBottom: 'clamp(20px, 3.5vw, 36px)',
           lineHeight: 1.05,
           userSelect: 'none',

@@ -126,7 +126,7 @@ export default function Hero() {
                 transition={{ duration: 0.45, delay: 0.15 }}
               >
                 <img
-                  src="/sultan-portrait.jpg"
+                  src="/sultan-avatar.webp"
                   alt="Sultan Zhalifunnas"
                   className="hero-mobile-avatar-img"
                   width="60"
