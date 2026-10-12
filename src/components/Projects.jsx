@@ -4,120 +4,159 @@ import { FiGithub, FiExternalLink, FiChevronDown, FiLayers, FiSearch, FiX } from
 import { data } from '../data';
 import GitHubActivity from './GitHubActivity';
 import CaseStudyModal from './CaseStudyModal';
+import { previewOf } from '../lib/preview';
 
-const slugOf = (project) => project.github.split('/').pop().toLowerCase();
+const MAX_CARD_TAGS = 5;
 
-function ProjectRow({ project, index, inView, onOpenCase }) {
+function ProjectLinks({ project, onOpenCase, size = 'md' }) {
+  const pad = size === 'sm' ? '7px 14px' : '8px 16px';
+  return (
+    <div className="project-action-links">
+      {project.demo && (
+        <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: pad, fontSize: '0.78rem', gap: '6px' }}>
+          <FiExternalLink size={13} /> Live demo
+        </a>
+      )}
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ padding: pad, fontSize: '0.78rem', gap: '6px' }}>
+          <FiGithub size={13} /> Source
+        </a>
+      )}
+      {project.caseStudy && (
+        <button type="button" onClick={() => onOpenCase(project)} className="btn btn-ghost" style={{ padding: pad, fontSize: '0.78rem', gap: '6px' }}>
+          <FiLayers size={13} /> Case study
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Preview({ project, onOpenCase, className, allowHighlight = false }) {
+  const [ok, setOk] = useState(true);
+  const src = previewOf(project);
+  if (!src || !ok) {
+    if (!allowHighlight || !project.highlight) return null;
+    return (
+      <div className={`project-preview-frame project-highlight ${className || ''}`} aria-hidden="true">
+        <span className="project-highlight-value">{project.highlight.value}</span>
+        <span className="project-highlight-label">{project.highlight.label}</span>
+        <span className="project-highlight-stack">{project.tech.slice(0, 4).join(' · ')}</span>
+      </div>
+    );
+  }
+  const img = (
+    <img
+      src={src}
+      alt={`Screenshot of ${project.title}: ${project.subtitle}`}
+      loading="lazy"
+      width="1000"
+      height="625"
+      className="project-preview-img"
+      onError={() => setOk(false)}
+    />
+  );
+  // Clicking the screenshot opens the case study when there is one, otherwise the live demo.
+  if (project.caseStudy) {
+    return (
+      <button type="button" onClick={() => onOpenCase(project)} className={`project-preview-frame ${className || ''}`} aria-label={`Open the ${project.title} case study`}>
+        {img}
+      </button>
+    );
+  }
+  if (project.demo) {
+    return (
+      <a href={project.demo} target="_blank" rel="noreferrer" className={`project-preview-frame ${className || ''}`} aria-label={`Open the ${project.title} live demo`}>
+        {img}
+      </a>
+    );
+  }
+  return <div className={`project-preview-frame ${className || ''}`}>{img}</div>;
+}
+
+function FeaturedCard({ project, index, lead, onOpenCase }) {
+  const extra = project.tech.length - MAX_CARD_TAGS;
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.45, delay: (index % 2) * 0.06 }}
+      className={`featured-card ${lead ? 'featured-card--lead' : ''}`}
+      aria-labelledby={`project-title-${project.id}`}
+    >
+      <Preview project={project} onOpenCase={onOpenCase} className="featured-preview" allowHighlight />
+
+      <div className="featured-body">
+        <div className="project-meta-line">
+          <span>{project.context}</span>
+          {project.period && <span className="project-period">{project.period}</span>}
+        </div>
+
+        <h3 id={`project-title-${project.id}`} className="featured-title">{project.title}</h3>
+        <p className="featured-subtitle">
+          {project.subtitle}
+          {project.role && <span className="featured-role"> · {project.role}</span>}
+        </p>
+
+        <p className="project-summary">{project.summary}</p>
+        {project.result && (
+          <p className="project-result">
+            <span className="project-result-label">Result</span>
+            {project.result}
+          </p>
+        )}
+
+        <div className="project-tags">
+          {project.tech.slice(0, MAX_CARD_TAGS).map(t => <span key={t} className="tag">{t}</span>)}
+          {extra > 0 && <span className="tag tag-more" title={project.tech.slice(MAX_CARD_TAGS).join(', ')}>+{extra}</span>}
+        </div>
+
+        <ProjectLinks project={project} onOpenCase={onOpenCase} size="sm" />
+      </div>
+    </motion.article>
+  );
+}
+
+function ProjectRow({ project, index, onOpenCase }) {
   const [open, setOpen] = useState(false);
-  const [imgOk, setImgOk] = useState(true);
   const num = String(index + 1).padStart(2, '0');
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      style={{ borderBottom: '1px solid #141414' }}
-    >
-      {/* Main Accordion Trigger Row */}
+    <div className="project-row">
+      <h3 className="project-row-heading">
       <button
         id={`project-card-${project.id}`}
+        type="button"
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
         aria-controls={`project-content-${project.id}`}
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'clamp(12px, 3vw, 24px)',
-          padding: 'clamp(16px, 2.5vw, 24px) 0',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          textAlign: 'left',
-          transition: 'padding-left 0.2s ease, background-color 0.2s',
-        }}
-        onMouseEnter={e => e.currentTarget.style.paddingLeft = '6px'}
-        onMouseLeave={e => e.currentTarget.style.paddingLeft = '0'}
+        className="project-row-trigger"
       >
-        {/* Number index */}
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.72rem',
-          color: '#808080',
-          letterSpacing: '0.06em',
-          flexShrink: 0,
-          minWidth: '24px',
-        }}>
-          {num}
+        <span className="project-row-num" aria-hidden="true">{num}</span>
+        <span className="project-row-main">
+          <span className="project-row-title" style={{ color: open ? '#ffffff' : '#c4c4c4' }}>{project.title}</span>
+          <span className="project-row-subtitle">{project.subtitle}</span>
         </span>
-
-        {/* Project Context Badge */}
-        <span
-          className="project-context"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.62rem',
-            color: '#8a8a8a',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            flexShrink: 0,
-            minWidth: '130px',
-            display: 'none',
-          }}
-        >
-          {project.context.split(',')[0]}
-        </span>
-
-        {/* Project Title (+ subtitle underneath on phones, where the side column is hidden) */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <h3 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            color: open ? '#ffffff' : '#a0a0a0',
-            transition: 'color 0.2s',
-          }}>
-            {project.title}
-          </h3>
-          <span className="project-subtitle-sm">{project.subtitle}</span>
-        </div>
-
-        {/* Subtitle preview (Tablet/Desktop) */}
-        <span
-          className="project-subtitle"
-          style={{
-            fontSize: '0.82rem',
-            color: '#808080',
-            flex: 1,
-            maxWidth: '300px',
-            display: 'none',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {project.subtitle}
-        </span>
-
-        {/* Expand / Collapse Chevron */}
+        <span className="project-row-period">{project.period || ''}</span>
         <FiChevronDown
           size={16}
+          aria-hidden="true"
           style={{
-            color: open ? '#ffffff' : '#555555',
+            color: open ? '#ffffff' : '#808080',
             transition: 'transform 0.25s var(--ease-out), color 0.2s',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
             flexShrink: 0,
           }}
         />
       </button>
+      </h3>
 
-      {/* Expanded Accordion Body */}
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
             id={`project-content-${project.id}`}
+            role="region"
+            aria-labelledby={`project-card-${project.id}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -125,147 +164,44 @@ function ProjectRow({ project, index, inView, onOpenCase }) {
             style={{ overflow: 'hidden' }}
           >
             <div className="project-expanded-body">
-              {/* Preview image */}
-              {imgOk && (
-                <button
-                  type="button"
-                  onClick={() => project.caseStudy && onOpenCase(project)}
-                  className="project-preview-frame"
-                  style={{ cursor: project.caseStudy ? 'pointer' : 'default' }}
-                  aria-label={project.caseStudy ? `Open ${project.title} case study modal` : `${project.title} preview`}
-                  tabIndex={project.caseStudy ? 0 : -1}
-                >
-                  <img
-                    src={`/previews/${slugOf(project)}.webp`}
-                    alt={`Screenshot of ${project.title}: ${project.subtitle}`}
-                    loading="lazy"
-                    className="project-preview-img"
-                    onError={() => setImgOk(false)}
-                  />
-                  {project.caseStudy && (
-                    <span className="project-preview-badge">
-                      <FiLayers size={12} /> View Detailed Case Study
-                    </span>
-                  )}
-                </button>
-              )}
-
-              {/* Context, role and date, what it is, key result */}
+              <Preview project={project} onOpenCase={onOpenCase} className="row-preview" />
               <div>
-                <div className="project-context-body" style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.66rem',
-                  color: '#808080',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  marginBottom: '8px',
-                }}>
-                  {project.context}
+                <div className="project-meta-line">
+                  <span>{[project.context, project.role].filter(Boolean).join(' · ')}</span>
                 </div>
-                {(project.role || project.period) && (
-                  <div style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.74rem',
-                    color: '#a0a0a0',
-                    letterSpacing: '0.02em',
-                    marginBottom: '10px',
-                  }}>
-                    {[project.role, project.period].filter(Boolean).join(' · ')}
-                  </div>
-                )}
-                <p style={{
-                  color: '#a8a8a8',
-                  fontSize: '0.9rem',
-                  lineHeight: 1.75,
-                  maxWidth: '680px',
-                }}>
-                  {project.summary}
-                </p>
+                <p className="project-summary">{project.summary}</p>
                 {project.result && (
-                  <p style={{
-                    color: '#a8a8a8',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.75,
-                    maxWidth: '680px',
-                    marginTop: '10px',
-                  }}>
-                    <span style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.66rem',
-                      color: '#808080',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      marginRight: '10px',
-                    }}>
-                      Result
-                    </span>
+                  <p className="project-result">
+                    <span className="project-result-label">Result</span>
                     {project.result}
                   </p>
                 )}
               </div>
-
-              {/* Tech stack badges */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              <div className="project-tags">
                 {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
               </div>
-
-              {/* Action buttons */}
-              <div className="project-action-links">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  id={`project-${project.id}-github`}
-                  className="btn btn-ghost"
-                  style={{ padding: '8px 16px', fontSize: '0.78rem', gap: '6px' }}
-                >
-                  <FiGithub size={13} /> Source Code
-                </a>
-                {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-primary"
-                    style={{ padding: '8px 16px', fontSize: '0.78rem', gap: '6px' }}
-                  >
-                    <FiExternalLink size={13} /> Live Demo
-                  </a>
-                )}
-                {project.caseStudy && (
-                  <button
-                    type="button"
-                    onClick={() => onOpenCase(project)}
-                    id={`project-${project.id}-casestudy`}
-                    className="btn btn-ghost"
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: '0.78rem',
-                      gap: '6px',
-                      borderColor: '#303030',
-                      color: '#ffffff',
-                    }}
-                  >
-                    <FiLayers size={13} /> Case Study →
-                  </button>
-                )}
-              </div>
+              <ProjectLinks project={project} onOpenCase={onOpenCase} />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 
 const CATEGORIES = [
   { id: 'All', label: 'All', match: () => true },
   { id: 'AI & Vision', label: 'AI & Vision', match: (p) => Boolean(p.ai) },
-  { id: 'Web & Full-Stack', label: 'Web & Full-Stack', match: (p) => p.tech.some(t => /Next\.js|React|Node\.js|Express|FastAPI|HTML5|Vite/i.test(t)) },
+  { id: 'Web & Full-Stack', label: 'Web & Full-Stack', match: (p) => p.tech.some(t => /Next\.js|React|Node\.js|Express|FastAPI|HTML|Vite/i.test(t)) },
   { id: 'Mobile', label: 'Mobile Apps', match: (p) => p.tech.some(t => /Kotlin|Flutter|Android|Dart/i.test(t)) },
   { id: 'TypeScript', label: 'TypeScript', match: (p) => p.tech.some(t => /TypeScript/i.test(t)) },
   { id: 'Python', label: 'Python', match: (p) => p.tech.some(t => /Python/i.test(t)) },
 ];
+
+const matchesQuery = (p, q) =>
+  [p.title, p.subtitle, p.summary, p.result, p.role, p.context, ...p.tech]
+    .filter(Boolean)
+    .some(s => s.toLowerCase().includes(q));
 
 export default function Projects() {
   const ref    = useRef(null);
@@ -276,27 +212,14 @@ export default function Projects() {
 
   const activeCategory = CATEGORIES.find(c => c.id === filter) || CATEGORIES[0];
   const query = searchQuery.trim().toLowerCase();
-
-  const filtered = data.projects.filter(p => {
-    const matchesCategory = activeCategory.match(p);
-    if (!query) return matchesCategory;
-
-    const matchesSearch =
-      p.title.toLowerCase().includes(query) ||
-      p.subtitle.toLowerCase().includes(query) ||
-      p.summary.toLowerCase().includes(query) ||
-      (p.result || '').toLowerCase().includes(query) ||
-      (p.role || '').toLowerCase().includes(query) ||
-      p.tech.some(t => t.toLowerCase().includes(query)) ||
-      p.context.toLowerCase().includes(query);
-
-    return matchesCategory && matchesSearch;
-  });
+  const visible = data.projects.filter(p => activeCategory.match(p) && (!query || matchesQuery(p, query)));
+  const featured = visible.filter(p => p.featured);
+  const others = visible.filter(p => !p.featured);
+  const filtering = filter !== 'All' || query !== '';
 
   return (
-    <section id="projects" aria-label="Selected Projects Portfolio" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
+    <section id="projects" aria-label="Projects" className="section" ref={ref} style={{ zIndex: 1, position: 'relative' }}>
       <div className="container">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -309,61 +232,36 @@ export default function Projects() {
           <p className="section-sub">AI, fintech, web, and mobile projects, from hackathons and competitions to personal builds.</p>
         </motion.div>
 
-        {/* Controls: Filter Pills & Search Input */}
+        {/* Filters + search apply to both the cards and the list */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.1 }}
           className="projects-toolbar"
         >
-          {/* Category Pills Track */}
-          <div className="projects-filter-track">
+          <div className="projects-filter-track" role="group" aria-label="Filter projects">
             {CATEGORIES.map(({ id, label, match }) => {
               const count = data.projects.filter(match).length;
               const isSelected = filter === id;
-
               return (
                 <button
                   key={id}
+                  type="button"
                   onClick={() => setFilter(id)}
                   aria-pressed={isSelected}
-                  className="projects-filter-btn"
-                  style={{
-                    borderColor: isSelected ? '#555555' : '#1e1e1e',
-                    background: isSelected ? '#161616' : 'transparent',
-                    color: isSelected ? '#ffffff' : '#787878',
-                  }}
-                  onMouseEnter={e => {
-                    if (!isSelected) {
-                      e.currentTarget.style.borderColor = '#333333';
-                      e.currentTarget.style.color = '#cccccc';
-                    }
-                  }}
-                  onMouseLeave={e => {
-                    if (!isSelected) {
-                      e.currentTarget.style.borderColor = '#1e1e1e';
-                      e.currentTarget.style.color = '#787878';
-                    }
-                  }}
+                  className={`projects-filter-btn ${isSelected ? 'is-selected' : ''}`}
                 >
                   <span>{label}</span>
-                  <span style={{
-                    fontSize: '0.62rem',
-                    opacity: isSelected ? 1 : 0.6,
-                    color: isSelected ? '#ffffff' : '#666666',
-                  }}>
-                    {count}
-                  </span>
+                  <span className="projects-filter-count">{count}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Search Box */}
           <div className="projects-search-box">
-            <FiSearch size={13} style={{ color: '#808080', flexShrink: 0 }} />
+            <FiSearch size={13} style={{ color: '#808080', flexShrink: 0 }} aria-hidden="true" />
             <input
-              type="text"
+              type="search"
               placeholder="Search tech, title, or keywords…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
@@ -371,54 +269,61 @@ export default function Projects() {
               aria-label="Search projects by technology, keyword, or title"
             />
             {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="projects-search-clear-btn"
-                aria-label="Clear search input"
-              >
+              <button type="button" onClick={() => setSearchQuery('')} className="projects-search-clear-btn" aria-label="Clear search">
                 <FiX size={12} />
               </button>
             )}
           </div>
         </motion.div>
 
-        {/* Project List */}
-        <div style={{ borderTop: '1px solid #181818' }}>
-          <AnimatePresence mode="wait">
-            {filtered.length === 0 ? (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ padding: '48px 0', textAlign: 'center' }}
-              >
-                <p style={{ color: '#888888', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', marginBottom: '12px' }}>
-                  No projects found matching your criteria.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => { setFilter('All'); setSearchQuery(''); }}
-                  className="btn btn-ghost"
-                  style={{ padding: '6px 14px', fontSize: '0.74rem' }}
-                >
-                  Reset filters & search
-                </button>
-              </motion.div>
-            ) : (
-              <motion.div key={`${filter}-${searchQuery}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-                {filtered.map((project, i) => (
-                  <ProjectRow key={project.id} project={project} index={i} inView={inView} onOpenCase={setActiveCase} />
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        <p className="sr-only" aria-live="polite">
+          {filtering ? `${visible.length} project${visible.length === 1 ? '' : 's'} shown` : ''}
+        </p>
 
-        {/* Live GitHub activity component */}
+        {visible.length === 0 && (
+          <div style={{ padding: '48px 0', textAlign: 'center', borderTop: '1px solid #181818' }}>
+            <p style={{ color: '#a0a0a0', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', marginBottom: '12px' }}>
+              No projects match that filter.
+            </p>
+            <button type="button" onClick={() => { setFilter('All'); setSearchQuery(''); }} className="btn btn-ghost" style={{ padding: '6px 14px', fontSize: '0.74rem' }}>
+              Reset filters and search
+            </button>
+          </div>
+        )}
+
+        {featured.length > 0 && (
+          <div className="featured-grid">
+            {featured.map((project, i) => (
+              <FeaturedCard
+                key={project.id}
+                project={project}
+                index={i}
+                lead={i === 0 && featured.length % 2 === 1}
+                onOpenCase={setActiveCase}
+              />
+            ))}
+          </div>
+        )}
+
+        {others.length > 0 && (
+          <div style={{ marginTop: featured.length > 0 ? 'clamp(40px, 6vw, 64px)' : 0 }}>
+            {featured.length > 0 && (
+              <div className="projects-subhead">
+                <span>More projects</span>
+                <span className="projects-subhead-line" />
+              </div>
+            )}
+            <div style={{ borderTop: '1px solid #181818' }}>
+              {others.map((project, i) => (
+                <ProjectRow key={project.id} project={project} index={i} onOpenCase={setActiveCase} />
+              ))}
+            </div>
+          </div>
+        )}
+
         <GitHubActivity />
       </div>
 
-      {/* Case Study Modal */}
       <CaseStudyModal project={activeCase} onClose={() => setActiveCase(null)} />
 
       <style>{`
@@ -427,50 +332,46 @@ export default function Projects() {
           align-items: center;
           justify-content: space-between;
           gap: 16px;
-          margin-bottom: 32px;
+          margin-bottom: 28px;
           flex-wrap: wrap;
         }
-
         .projects-filter-track {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
-          overflow-x: auto;
-          padding-bottom: 2px;
-          -webkit-overflow-scrolling: touch;
         }
-
         .projects-filter-btn {
           font-family: var(--font-mono);
           font-size: 0.72rem;
           letter-spacing: 0.04em;
           padding: 6px 14px;
           border-radius: 6px;
-          border: 1px solid;
+          border: 1px solid #262626;
+          background: transparent;
+          color: #a0a0a0;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: border-color 0.2s, color 0.2s, background 0.2s;
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          flex-shrink: 0;
         }
+        .projects-filter-btn:hover { border-color: #3a3a3a; color: #e0e0e0; }
+        .projects-filter-btn.is-selected { border-color: #5a5a5a; background: #161616; color: #ffffff; }
+        .projects-filter-count { font-size: 0.62rem; color: #808080; }
+        .projects-filter-btn.is-selected .projects-filter-count { color: #ffffff; }
 
         .projects-search-box {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           background: #090909;
-          border: 1px solid #1e1e1e;
+          border: 1px solid #262626;
           border-radius: 6px;
           padding: 6px 12px;
           min-width: 240px;
           transition: border-color 0.2s;
         }
-        .projects-search-box:focus-within {
-          border-color: #444444;
-          background: #0d0d0d;
-        }
-
+        .projects-search-box:focus-within { border-color: #5a5a5a; background: #0d0d0d; }
         .projects-search-input {
           background: transparent;
           border: none;
@@ -480,45 +381,145 @@ export default function Projects() {
           font-size: 0.74rem;
           width: 100%;
         }
-        .projects-search-input::placeholder {
-          color: #808080;
-        }
-
+        .projects-search-input::placeholder { color: #808080; }
+        .projects-search-input::-webkit-search-cancel-button { display: none; }
         .projects-search-clear-btn {
           background: transparent;
           border: none;
-          color: #808080;
+          color: #a0a0a0;
           cursor: pointer;
           padding: 2px;
           display: flex;
           align-items: center;
-          justify-content: center;
-          transition: color 0.15s;
         }
-        .projects-search-clear-btn:hover {
-          color: #ffffff;
-        }
+        .projects-search-clear-btn:hover { color: #ffffff; }
 
-        .project-expanded-body {
-          padding-bottom: 32px;
-          padding-left: clamp(16px, 4vw, 48px);
+        /* ── Featured cards ───────────────────────────── */
+        .featured-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: clamp(16px, 2.4vw, 24px);
+        }
+        .featured-card {
           display: flex;
           flex-direction: column;
-          gap: 22px;
+          background: #070707;
+          border: 1px solid #1c1c1c;
+          border-radius: 14px;
+          overflow: hidden;
+          transition: border-color 0.25s var(--ease-out);
         }
+        .featured-card:hover, .featured-card:focus-within { border-color: #333333; }
+        .featured-card .project-preview-frame {
+          border: none;
+          border-bottom: 1px solid #1c1c1c;
+          border-radius: 0;
+          max-width: none;
+          box-shadow: none;
+        }
+        .featured-body {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding: clamp(18px, 2.4vw, 26px);
+          flex: 1;
+        }
+        .featured-body .project-action-links { margin-top: auto; padding-top: 6px; }
+        .featured-title {
+          font-family: var(--font-display);
+          font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+          line-height: 1.15;
+        }
+        .featured-subtitle { font-size: 0.86rem; color: #a0a0a0; margin-top: -6px; }
+        .featured-role { color: #808080; }
+
+        /* Lead card: screenshot beside the text on wide screens */
+        .featured-card--lead { grid-column: 1 / -1; }
+        @media (min-width: 900px) {
+          .featured-card--lead { flex-direction: row; }
+          .featured-card--lead .project-preview-frame {
+            flex: 0 0 56%;
+            aspect-ratio: auto;
+            min-height: 100%;
+            border-bottom: none;
+            border-right: 1px solid #1c1c1c;
+          }
+          .featured-card--lead .featured-title { font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
+        }
+
+        /* ── Shared bits ─────────────────────────────── */
+        .project-meta-line {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          flex-wrap: wrap;
+          font-family: var(--font-mono);
+          font-size: 0.66rem;
+          color: #8a8a8a;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .project-period { color: #a0a0a0; white-space: nowrap; }
+        .project-summary { color: #b0b0b0; font-size: 0.9rem; line-height: 1.7; max-width: 680px; }
+        .project-result { color: #b0b0b0; font-size: 0.88rem; line-height: 1.7; max-width: 680px; }
+        .project-result-label {
+          font-family: var(--font-mono);
+          font-size: 0.64rem;
+          color: #8a8a8a;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-right: 10px;
+        }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag-more { color: #a0a0a0; }
 
         .project-preview-frame {
           position: relative;
           display: block;
           width: 100%;
-          max-width: 620px;
           aspect-ratio: 16 / 10;
           padding: 0;
           border: 1px solid #202020;
           border-radius: 12px;
           overflow: hidden;
-          background: #080808;
-          box-shadow: 0 16px 40px -20px rgba(0,0,0,0.9);
+          background: #0b0b0b;
+          cursor: pointer;
+        }
+        div.project-preview-frame { cursor: default; }
+        .project-highlight {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 6px;
+          padding: clamp(24px, 4vw, 40px);
+          background:
+            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 32px 32px,
+            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 32px 32px,
+            #0b0b0b;
+        }
+        .project-highlight-value {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-size: clamp(3.5rem, 8vw, 5.5rem);
+          line-height: 1;
+          letter-spacing: -0.04em;
+          color: #ffffff;
+        }
+        .project-highlight-label {
+          font-family: var(--font-mono);
+          font-size: 0.74rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #a0a0a0;
+        }
+        .project-highlight-stack {
+          margin-top: 14px;
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
+          color: #808080;
         }
         .project-preview-img {
           width: 100%;
@@ -529,77 +530,96 @@ export default function Projects() {
           filter: grayscale(100%) contrast(1.02);
           transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
         }
-        .project-preview-frame:hover .project-preview-img {
+        .featured-card:hover .project-preview-img,
+        .project-preview-frame:hover .project-preview-img,
+        .project-preview-frame:focus-visible .project-preview-img {
           filter: grayscale(0%) contrast(1);
-          transform: scale(1.025);
+          transform: scale(1.02);
         }
-        .project-preview-badge {
-          position: absolute;
-          left: 12px;
-          bottom: 12px;
-          display: inline-flex;
+        .project-preview-frame:focus-visible { outline: 2px solid #ffffff; outline-offset: -2px; }
+
+        .project-action-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+        /* ── Compact list ────────────────────────────── */
+        .projects-subhead {
+          display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 6px 12px;
-          border-radius: 6px;
-          background: rgba(0, 0, 0, 0.72);
-          border: 1px solid #333333;
-          backdrop-filter: blur(8px);
+          gap: 12px;
+          margin-bottom: 16px;
           font-family: var(--font-mono);
           font-size: 0.68rem;
-          letter-spacing: 0.04em;
-          color: #ffffff;
-          opacity: 0;
-          transform: translateY(4px);
-          transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+          color: #a0a0a0;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          font-weight: 600;
         }
-        .project-preview-frame:hover .project-preview-badge,
-        .project-preview-frame:focus-visible .project-preview-badge {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .project-action-links {
+        .projects-subhead-line { flex: 1; height: 1px; background: #181818; }
+        .project-row { border-bottom: 1px solid #141414; }
+        .project-row-heading { font: inherit; margin: 0; }
+        .project-row-trigger {
+          width: 100%;
           display: flex;
-          gap: 12px;
           align-items: center;
-          flex-wrap: wrap;
-          padding-top: 4px;
+          gap: clamp(12px, 3vw, 24px);
+          padding: clamp(14px, 2vw, 20px) 0;
+          background: none;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+          color: inherit;
         }
-
-        @media (pointer: coarse) {
-          .project-preview-badge {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .project-subtitle-sm {
-          display: block;
-          font-size: 0.78rem;
+        .project-row-trigger:hover .project-row-title { color: #ffffff !important; }
+        .project-row-num {
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
           color: #808080;
-          margin-top: 2px;
-          line-height: 1.4;
+          letter-spacing: 0.06em;
+          flex-shrink: 0;
+          min-width: 24px;
         }
-        @media (min-width: 768px) {
-          .project-context { display: block !important; }
-          .project-subtitle { display: block !important; }
-          .project-subtitle-sm { display: none; }
-          .project-context-body { display: none; }
+        .project-row-main {
+          flex: 1;
+          min-width: 0;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          align-items: baseline;
+          gap: 4px 24px;
+        }
+        .project-row-title {
+          font-family: var(--font-display);
+          font-size: clamp(1.02rem, 2vw, 1.2rem);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          transition: color 0.2s;
+        }
+        .project-row-subtitle { font-size: 0.84rem; color: #8a8a8a; }
+        .project-row-period {
+          font-family: var(--font-mono);
+          font-size: 0.68rem;
+          color: #8a8a8a;
+          white-space: nowrap;
+          flex: 0 0 9.5rem;
+          text-align: right;
+        }
+        .project-expanded-body {
+          padding: 4px 0 32px clamp(0px, 4vw, 48px);
+          display: grid;
+          gap: 18px;
+        }
+        .row-preview { max-width: 620px; }
+
+        @media (max-width: 899px) {
+          .featured-grid { grid-template-columns: minmax(0, 1fr); }
         }
         @media (max-width: 768px) {
-          .projects-toolbar {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 12px;
-          }
-          .projects-search-box {
-            width: 100%;
-            min-width: 100%;
-          }
+          .projects-toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
+          .projects-search-box { width: 100%; min-width: 0; }
+          .project-row-main { grid-template-columns: minmax(0, 1fr); }
+          .project-row-period { display: none; }
         }
         @media (max-width: 640px) {
-          .project-expanded-body { padding-left: 12px !important; }
-          .project-action-links .btn { flex: 1 1 calc(50% - 6px); }
+          .project-expanded-body { padding-left: 0; }
+          .project-action-links .btn { flex: 1 1 calc(50% - 5px); }
         }
         @media (max-width: 360px) {
           .project-action-links .btn { flex: 1 1 100%; }
@@ -608,4 +628,3 @@ export default function Projects() {
     </section>
   );
 }
-
