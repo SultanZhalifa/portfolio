@@ -2,7 +2,7 @@
 
 > Personal portfolio website built with React + Framer Motion. Monochrome, modern, fully responsive.
 
-**Live:** [sultanzhalifunnas.vercel.app](https://sultanzhalifunnas.vercel.app) &nbsp;|&nbsp; **CV:** [Download PDF](https://sultanzhalifunnas.vercel.app/Sultan_CV.pdf)
+**Live:** [sultanzhalifunnas.pages.dev](https://sultanzhalifunnas.pages.dev) &nbsp;|&nbsp; **CV:** [Download PDF](https://sultanzhalifunnas.pages.dev/Sultan_CV.pdf)
 
 ---
 
