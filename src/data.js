@@ -88,7 +88,7 @@ export const data = {
       // backend/scripts/train_custom_model.py.
       caseStudy: {
         problem: "Snakes, cats and geckos getting into a warehouse are a safety and contamination risk. Checking by hand doesn't scale to a large warehouse, and it can't run around the clock.",
-        team: "Team project with Team Andalusia. My role: AI & Backend Developer.",
+        team: "Team Andalusia",
         flow: [
           "Each camera zone (webcam, RTSP stream or video file) is read in its own thread at about 30 fps. If a stream drops, the worker reconnects on its own.",
           "Every 3rd frame goes to a separate inference thread. That queue holds a single frame, so when the model is still busy the new frame is dropped instead of piling up.",
