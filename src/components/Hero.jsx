@@ -1,4 +1,4 @@
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { data } from '../data';
@@ -106,25 +106,15 @@ export default function Hero() {
             {/* Top Status & Mobile Avatar Row */}
             <div className="hero-top-row">
               {/* Status badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45 }}
-                style={{ display: 'inline-flex', alignItems: 'center' }}
-              >
+              <div className="hero-rise" style={{ display: 'inline-flex', alignItems: 'center', '--rise': '8px' }}>
                 <span className="hero-status-pill">
                   <span className="hero-status-dot" />
                   {data.availability}
                 </span>
-              </motion.div>
+              </div>
 
               {/* Mobile-Only Avatar */}
-              <motion.div
-                className="hero-mobile-avatar-wrap"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.45, delay: 0.15 }}
-              >
+              <div className="hero-mobile-avatar-wrap">
                 <img
                   src="/sultan-avatar.webp"
                   alt="Sultan Zhalifunnas"
@@ -133,18 +123,17 @@ export default function Hero() {
                   height="60"
                   loading="lazy"
                 />
-              </motion.div>
+              </div>
             </div>
 
             {/* Main Name Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="hero-name"
+            <h1
+              className="hero-name hero-rise"
               translate="no"
               aria-label="Sultan Zhalifunnas Musyaffa"
               style={{
+                '--d': '0.05s',
+                '--rise': '18px',
                 fontFamily: 'Space Grotesk',
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
@@ -162,15 +151,10 @@ export default function Hero() {
               }}>
                 Musyaffa
               </span>
-            </motion.h1>
+            </h1>
 
             {/* Role & Bio Overview */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="hero-role-row"
-            >
+            <div className="hero-role-row hero-rise" style={{ '--d': '0.12s', '--rise': '14px' }}>
               <div className="hero-role-badge">
                 <div style={{
                   fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
@@ -193,15 +177,10 @@ export default function Hero() {
                   {data.summary}
                 </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Action Buttons & Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.35 }}
-              className="hero-actions"
-            >
+            <div className="hero-actions hero-rise" style={{ '--d': '0.2s', '--rise': '12px' }}>
               <a href="#projects" className="btn btn-primary" id="hero-view-projects-btn">
                 <span>View Projects</span> <FiArrowRight size={13} />
               </a>
@@ -241,16 +220,11 @@ export default function Hero() {
                   </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Desktop Right Portrait Column */}
-          <motion.div
-            className="hero-photo-col"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="hero-photo-col">
             <div className="hero-photo-frame">
               <picture>
                 <source srcSet="/sultan-portrait.webp" type="image/webp" />
@@ -265,16 +239,13 @@ export default function Hero() {
               </picture>
               <div className="hero-photo-overlay" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Stats Counter Strip */}
-      <motion.div
+      <div
         ref={statsRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.55, duration: 0.5 }}
         style={{
           borderTop: '1px solid #181818',
           borderBottom: '1px solid #181818',
@@ -296,9 +267,22 @@ export default function Hero() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <style>{`
+        /* Entrance moves text into place but never hides it, so the first paint already has the content. */
+        @keyframes hero-rise {
+          from { transform: translateY(var(--rise, 12px)); }
+          to { transform: none; }
+        }
+        .hero-rise {
+          animation: hero-rise 0.5s var(--ease-out) both;
+          animation-delay: var(--d, 0s);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-rise { animation: none; }
+        }
+
         .hero-name { font-size: clamp(2.6rem, 6vw, 5.8rem); }
         .hero-main-grid {
           display: flex;
@@ -465,6 +449,7 @@ export default function Hero() {
           .hero-actions .btn { flex: 1 1 calc(50% - 6px); }
           .hero-social-group { width: 100%; justify-content: flex-start; margin-top: 6px; }
           .hero-role-row { gap: 16px; margin-bottom: 24px; }
+          .hero-role-badge { flex: 1 1 100%; min-width: 0; }
           .hero-role-desc { min-width: 100%; }
         }
 
