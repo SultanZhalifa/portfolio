@@ -134,7 +134,7 @@ export const data = {
       context: "Competition Entry — #JuaraVibeCoding 2026",
       summary:
         "PWA that checks text, screenshots, and links for hoaxes with Gemini, then drafts polite replies in 4 regional languages (Javanese, Sundanese, Minangkabau, Batak) for family group chats.",
-      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker build. Deployed on Google Cloud Run.",
+      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker image set up for Google Cloud Run.",
       tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
