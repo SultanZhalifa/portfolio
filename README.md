@@ -10,7 +10,7 @@
 
 - **Hero** — Introduction, stats, social links
 - **Now** — Current status band
-- **Projects** — Featured projects as cards with screenshots, the rest in a compact list; filters, search, case-study modals
+- **Projects** — Featured projects as cards with screenshots, the rest in a compact list; filters, search, and a case-study page per project
 - **Experience & Education** — Timeline layout with activities
 - **Skills** — Grouped tags in two columns
 - **Certifications** — Grouped by issuer
@@ -34,6 +34,7 @@ Almost everything on the page comes from `src/data.js`. The hero stats (project 
 Project fields worth knowing:
 - `featured: true` shows the project as a card with its screenshot; the rest go in the list below.
 - `ai: true` marks apps that call an AI model (hero stat and the AI & Vision filter).
+- A project with a `caseStudy` gets its own page at `#/work/<slug>` (the slug is the title in lower case with dashes, e.g. `#/work/pestguard-ai`). It shows The Problem, then How It Works (`flow`) or What I Built (`approach`), then Decisions, Model Results (`metrics`), Results and Known Limits (`limits`), and skips any block the project doesn't have. Hash routes need no server rewrite rules.
 - Screenshots live in `public/previews/<github-repo-name>.webp` (1000×625). Use `image` for a custom path, or `screenshot: false` if there's no real screenshot yet. A featured card without one can show `highlight: { value, label }` instead.
 
 The resume is `public/Sultan_CV.pdf`; replace the file to update the download.

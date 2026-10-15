@@ -3,12 +3,12 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiChevronDown, FiLayers, FiSearch, FiX } from 'react-icons/fi';
 import { data } from '../data';
 import GitHubActivity from './GitHubActivity';
-import CaseStudyModal from './CaseStudyModal';
 import { previewOf } from '../lib/preview';
+import { caseHref, rememberOrigin } from '../lib/route';
 
 const MAX_CARD_TAGS = 5;
 
-function ProjectLinks({ project, onOpenCase, size = 'md' }) {
+function ProjectLinks({ project, size = 'md' }) {
   const pad = size === 'sm' ? '7px 14px' : '8px 16px';
   return (
     <div className="project-action-links">
@@ -23,15 +23,15 @@ function ProjectLinks({ project, onOpenCase, size = 'md' }) {
         </a>
       )}
       {project.caseStudy && (
-        <button type="button" onClick={() => onOpenCase(project)} className="btn btn-ghost" style={{ padding: pad, fontSize: '0.78rem', gap: '6px' }}>
+        <a href={caseHref(project)} onClick={rememberOrigin} className="btn btn-ghost" style={{ padding: pad, fontSize: '0.78rem', gap: '6px' }}>
           <FiLayers size={13} /> Case study
-        </button>
+        </a>
       )}
     </div>
   );
 }
 
-function Preview({ project, onOpenCase, className, allowHighlight = false }) {
+function Preview({ project, className, allowHighlight = false }) {
   const [ok, setOk] = useState(true);
   const src = previewOf(project);
   if (!src || !ok) {
@@ -58,9 +58,9 @@ function Preview({ project, onOpenCase, className, allowHighlight = false }) {
   // Clicking the screenshot opens the case study when there is one, otherwise the live demo.
   if (project.caseStudy) {
     return (
-      <button type="button" onClick={() => onOpenCase(project)} className={`project-preview-frame ${className || ''}`} aria-label={`Open the ${project.title} case study`}>
+      <a href={caseHref(project)} onClick={rememberOrigin} className={`project-preview-frame ${className || ''}`} aria-label={`Open the ${project.title} case study`}>
         {img}
-      </button>
+      </a>
     );
   }
   if (project.demo) {
@@ -73,7 +73,7 @@ function Preview({ project, onOpenCase, className, allowHighlight = false }) {
   return <div className={`project-preview-frame ${className || ''}`}>{img}</div>;
 }
 
-function FeaturedCard({ project, index, lead, onOpenCase }) {
+function FeaturedCard({ project, index, lead }) {
   const extra = project.tech.length - MAX_CARD_TAGS;
   return (
     <motion.article
@@ -84,7 +84,7 @@ function FeaturedCard({ project, index, lead, onOpenCase }) {
       className={`featured-card ${lead ? 'featured-card--lead' : ''}`}
       aria-labelledby={`project-title-${project.id}`}
     >
-      <Preview project={project} onOpenCase={onOpenCase} className="featured-preview" allowHighlight />
+      <Preview project={project} className="featured-preview" allowHighlight />
 
       <div className="featured-body">
         <div className="project-meta-line">
@@ -111,13 +111,13 @@ function FeaturedCard({ project, index, lead, onOpenCase }) {
           {extra > 0 && <span className="tag tag-more" title={project.tech.slice(MAX_CARD_TAGS).join(', ')}>+{extra}</span>}
         </div>
 
-        <ProjectLinks project={project} onOpenCase={onOpenCase} size="sm" />
+        <ProjectLinks project={project} size="sm" />
       </div>
     </motion.article>
   );
 }
 
-function ProjectRow({ project, index, onOpenCase }) {
+function ProjectRow({ project, index }) {
   const [open, setOpen] = useState(false);
   const num = String(index + 1).padStart(2, '0');
 
@@ -164,7 +164,7 @@ function ProjectRow({ project, index, onOpenCase }) {
             style={{ overflow: 'hidden' }}
           >
             <div className="project-expanded-body">
-              <Preview project={project} onOpenCase={onOpenCase} className="row-preview" />
+              <Preview project={project} className="row-preview" />
               <div>
                 <div className="project-meta-line">
                   <span>{[project.context, project.role].filter(Boolean).join(' · ')}</span>
@@ -180,7 +180,7 @@ function ProjectRow({ project, index, onOpenCase }) {
               <div className="project-tags">
                 {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
               </div>
-              <ProjectLinks project={project} onOpenCase={onOpenCase} />
+              <ProjectLinks project={project} />
             </div>
           </motion.div>
         )}
@@ -208,7 +208,6 @@ export default function Projects() {
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [filter, setFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCase, setActiveCase] = useState(null);
 
   const activeCategory = CATEGORIES.find(c => c.id === filter) || CATEGORIES[0];
   const query = searchQuery.trim().toLowerCase();
@@ -299,7 +298,6 @@ export default function Projects() {
                 project={project}
                 index={i}
                 lead={i === 0 && featured.length % 2 === 1}
-                onOpenCase={setActiveCase}
               />
             ))}
           </div>
@@ -315,7 +313,7 @@ export default function Projects() {
             )}
             <div style={{ borderTop: '1px solid #181818' }}>
               {others.map((project, i) => (
-                <ProjectRow key={project.id} project={project} index={i} onOpenCase={setActiveCase} />
+                <ProjectRow key={project.id} project={project} index={i} />
               ))}
             </div>
           </div>
@@ -323,8 +321,6 @@ export default function Projects() {
 
         <GitHubActivity />
       </div>
-
-      <CaseStudyModal project={activeCase} onClose={() => setActiveCase(null)} />
 
       <style>{`
         .projects-toolbar {

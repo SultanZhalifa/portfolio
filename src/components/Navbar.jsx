@@ -3,13 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiGithub } from 'react-icons/fi';
 import { data } from '../data';
 import { sections, useActiveSection } from '../hooks/useActiveSection';
+import { useCaseStudy } from '../lib/route';
 
 const links = sections.map(({ id, label }) => ({ label, href: `#${id}`, id }));
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const activeSection = useActiveSection(0.25);
+  const observed = useActiveSection(0.25);
+  // A case study belongs to Projects, and the hidden page list can't report a section.
+  const activeSection = useCaseStudy() ? 'projects' : observed;
 
   useEffect(() => {
     let ticking = false;
