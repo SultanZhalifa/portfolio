@@ -134,11 +134,65 @@ export const data = {
       context: "Competition Entry — #JuaraVibeCoding 2026",
       summary:
         "PWA that checks text, screenshots, and links for hoaxes with Gemini, then drafts polite replies in 4 regional languages (Javanese, Sundanese, Minangkabau, Batak) for family group chats.",
-      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker build. Deployed on Google Cloud Run.",
+      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker image set up for Google Cloud Run.",
       tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
       ai: true,
+      // Case study sourced from the SaringSini repo: README, CHANGELOG, metadata.json, Dockerfile,
+      // src/config.js, src/lib/analysis.js, src/lib/file-type.js, src/middleware/security.js,
+      // src/middleware/rate-limit.js, src/prompts/guard.js and the commit history (Oct 2026).
+      caseStudy: {
+        problem:
+          "Hoaxes travel through family WhatsApp groups, and correcting a parent or an uncle in front of everyone often turns into an argument. SaringSini checks a suspicious message and drafts a polite reply, so the family can talk about it without a fight.",
+        team: "Sultan & Misha",
+        flow: [
+          "You paste a message, upload a screenshot, image or video (up to 5 MB), or paste a link. Text can also be dictated with the browser's speech input.",
+          "The server checks the type and length of every field. It reads the first bytes of an upload to find the real file type instead of trusting what the browser says, and it never fetches a pasted link.",
+          "The input goes to Gemini inside tagged blocks, with a system prompt that says the content is data to analyse, not instructions.",
+          "Gemini's JSON answer is treated as untrusted. Each field is forced to the expected type and length, and if the risk label isn't one of the three allowed ones, it is worked out from the score (below 30 is safe, below 70 is a warning).",
+          "The result shows a risk score, each claim with a short explanation, and three reply drafts: polite, casual and humorous. A slider changes the tone, and a reply can be converted to Javanese Krama, Sundanese Halus, Minang or Batak. It can be exported as PNG or PDF, or shared to WhatsApp.",
+          "By default, a snippet of up to 110 characters is added to a demo community feed saved in a local JSON file, with phone numbers, emails and long digit runs masked on a best-effort basis. COMMUNITY_AUTO_PUBLISH=false turns this off.",
+        ],
+        decisions: [
+          {
+            title: "Treat the model's answer as untrusted",
+            text: "Gemini's output can be malformed, or steered by text inside the message it was given. Every field is coerced to a bounded plain-text value before it is stored or shown, and the user's message is wrapped as tagged data. The README says this only partly covers prompt injection.",
+          },
+          {
+            title: "Never fetch a pasted link",
+            text: "The link check is Gemini's opinion of the URL text, and the server never requests the address. A pasted link can't make the server call an internal address, at the cost of not looking at what is actually behind it.",
+          },
+          {
+            title: "Render everything as text",
+            text: "A hardening pass in October 2026 found that message text and AI output were stored and shown to every visitor as HTML, which made the community feed a stored XSS risk. All of it is now rendered with textContent, and the CSP has no inline scripts or styles (script-src 'self', style-src-attr 'none') as a second layer.",
+          },
+          {
+            title: "Count rate limits by the real client address",
+            text: "AI calls are limited to 6 a minute per IP because each one uses Gemini quota. Behind Cloud Run the app saw the proxy's address for everyone, so all visitors shared one limit. The Docker image now sets TRUST_PROXY=1 to read the real address.",
+          },
+          {
+            title: "Write the browser tests before splitting the script",
+            text: "The front end was one script of about 2,200 lines. Browser tests for every feature were added first, then the script was split into ES modules, so a broken split would show up in the tests.",
+          },
+        ],
+        result: [
+          "A practice mode: a chat simulator where Gemini plays a family member, then gives feedback on how you answered.",
+          "Installable as a PWA. The app shell works offline, while the AI features need a connection.",
+          "About 120 unit, integration and smoke tests (the integration tests use a fake Gemini, so they need no API key) and about 80 Playwright browser tests.",
+          "CI runs lint, the tests on Node 22 and 24, browser tests on Chromium, npm audit, a Docker build with a health check, and CodeQL.",
+          "The Docker image is built on Node 24 Alpine and runs as the unprivileged node user, with a health check.",
+          "Open source under MIT. One outside contributor's smoke test for the stats endpoint was merged.",
+        ],
+        limits: [
+          "No source search and no citations. The score is the model's own number, not a calibrated probability, and the deepfake and link checks are model guesses, not forensic or security scans.",
+          "The accuracy of the AI output hasn't been measured. The tests use a fake Gemini, so they cover the code around the model, not what the model says.",
+          "The community numbers, leaderboard, map and live activity are demo data, not real users.",
+          "The feed is a local JSON file and the rate limiter lives in memory, so both are per instance. On Cloud Run's temporary disk the feed can be lost, so this isn't ready for real traffic.",
+          "There is no public demo at the moment. The README says to run it locally with a Gemini API key.",
+          "Accessibility has not been audited against WCAG.",
+        ],
+      },
     },
     {
       id: 2,
