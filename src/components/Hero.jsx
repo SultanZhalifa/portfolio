@@ -449,6 +449,7 @@ export default function Hero() {
           .hero-actions .btn { flex: 1 1 calc(50% - 6px); }
           .hero-social-group { width: 100%; justify-content: flex-start; margin-top: 6px; }
           .hero-role-row { gap: 16px; margin-bottom: 24px; }
+          .hero-role-badge { flex: 1 1 100%; min-width: 0; }
           .hero-role-desc { min-width: 100%; }
         }
 
