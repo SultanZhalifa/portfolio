@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { FiArrowLeft, FiArrowRight, FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiArrowLeft, FiArrowRight, FiGithub, FiExternalLink, FiLink, FiCheck } from 'react-icons/fi';
 import { previewOf } from '../lib/preview';
-import { caseHref, caseProjects, leaveCase, replaceWith } from '../lib/route';
+import { caseHref, caseProjects, leaveCase, replaceWith, shareUrl } from '../lib/route';
 
 function Bullets({ items }) {
   return (
@@ -90,7 +90,23 @@ export default function CaseStudyPage({ project }) {
   const items = useMemo(() => outlineOf(cs), [cs]);
   const [active, setActive] = useState(items[0].id);
   const [imageOk, setImageOk] = useState(true);
+  const [copy, setCopy] = useState(null); // null, 'done' or 'failed'
+  const copyTimer = useRef(null);
   const src = previewOf(project);
+
+  useEffect(() => () => clearTimeout(copyTimer.current), []);
+
+  // The address bar shows the #/work/ form, which link previews can't read, so offer the /work/ one.
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl(project));
+      setCopy('done');
+    } catch {
+      setCopy('failed');
+    }
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopy(null), 2400);
+  };
 
   const index = caseProjects.findIndex((p) => p.id === project.id);
   const neighbours = caseProjects.length > 2
@@ -153,20 +169,22 @@ export default function CaseStudyPage({ project }) {
             {project.tech.map((t) => <span key={t} className="tag">{t}</span>)}
           </div>
 
-          {(project.github || project.demo) && (
-            <div className="cs-actions">
-              {project.demo && (
-                <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn-primary">
-                  <FiExternalLink size={14} /> Live demo
-                </a>
-              )}
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
-                  <FiGithub size={14} /> Source code
-                </a>
-              )}
-            </div>
-          )}
+          <div className="cs-actions">
+            {project.demo && (
+              <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn-primary">
+                <FiExternalLink size={14} /> Live demo
+              </a>
+            )}
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
+                <FiGithub size={14} /> Source code
+              </a>
+            )}
+            <button type="button" onClick={copyLink} className="btn btn-ghost" aria-live="polite">
+              {copy === 'done' ? <FiCheck size={14} /> : <FiLink size={14} />}
+              {copy === 'done' ? 'Link copied' : copy === 'failed' ? "Couldn't copy" : 'Copy link'}
+            </button>
+          </div>
         </header>
 
         {src && imageOk && (
