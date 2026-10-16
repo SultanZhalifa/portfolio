@@ -134,7 +134,7 @@ function ProjectRow({ project, index }) {
       >
         <span className="project-row-num" aria-hidden="true">{num}</span>
         <span className="project-row-main">
-          <span className="project-row-title" style={{ color: open ? '#ffffff' : '#c4c4c4' }}>{project.title}</span>
+          <span className="project-row-title" style={{ color: open ? '#ededed' : '#c4c4c4' }}>{project.title}</span>
           <span className="project-row-subtitle">{project.subtitle}</span>
         </span>
         <span className="project-row-period">{project.period || ''}</span>
@@ -142,7 +142,7 @@ function ProjectRow({ project, index }) {
           size={16}
           aria-hidden="true"
           style={{
-            color: open ? '#ffffff' : '#808080',
+            color: open ? '#ededed' : '#808080',
             transition: 'transform 0.25s var(--ease-out), color 0.2s',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
             flexShrink: 0,
@@ -280,7 +280,7 @@ export default function Projects() {
         </p>
 
         {visible.length === 0 && (
-          <div style={{ padding: '48px 0', textAlign: 'center', borderTop: '1px solid #181818' }}>
+          <div style={{ padding: '48px 0', textAlign: 'center', borderTop: '1px solid #212121' }}>
             <p style={{ color: '#a0a0a0', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', marginBottom: '12px' }}>
               No projects match that filter.
             </p>
@@ -311,7 +311,7 @@ export default function Projects() {
                 <span className="projects-subhead-line" />
               </div>
             )}
-            <div style={{ borderTop: '1px solid #181818' }}>
+            <div style={{ borderTop: '1px solid #212121' }}>
               {others.map((project, i) => (
                 <ProjectRow key={project.id} project={project} index={i} />
               ))}
@@ -342,7 +342,7 @@ export default function Projects() {
           letter-spacing: 0.04em;
           padding: 6px 14px;
           border-radius: 6px;
-          border: 1px solid #262626;
+          border: 1px solid #2e2e2e;
           background: transparent;
           color: #a0a0a0;
           cursor: pointer;
@@ -351,28 +351,28 @@ export default function Projects() {
           align-items: center;
           gap: 6px;
         }
-        .projects-filter-btn:hover { border-color: #3a3a3a; color: #e0e0e0; }
-        .projects-filter-btn.is-selected { border-color: #5a5a5a; background: #161616; color: #ffffff; }
-        .projects-filter-count { font-size: 0.62rem; color: #808080; }
-        .projects-filter-btn.is-selected .projects-filter-count { color: #ffffff; }
+        .projects-filter-btn:hover { border-color: #404040; color: #e0e0e0; }
+        .projects-filter-btn.is-selected { border-color: #5a5a5a; background: #1e1e1e; color: #ededed; }
+        .projects-filter-count { font-size: 0.72rem; color: #808080; }
+        .projects-filter-btn.is-selected .projects-filter-count { color: #ededed; }
 
         .projects-search-box {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: #090909;
-          border: 1px solid #262626;
+          background: #121212;
+          border: 1px solid #2e2e2e;
           border-radius: 6px;
           padding: 6px 12px;
           min-width: 240px;
           transition: border-color 0.2s;
         }
-        .projects-search-box:focus-within { border-color: #5a5a5a; background: #0d0d0d; }
+        .projects-search-box:focus-within { border-color: #5a5a5a; background: #161616; }
         .projects-search-input {
           background: transparent;
           border: none;
           outline: none;
-          color: #ffffff;
+          color: #ededed;
           font-family: var(--font-mono);
           font-size: 0.74rem;
           width: 100%;
@@ -388,7 +388,7 @@ export default function Projects() {
           display: flex;
           align-items: center;
         }
-        .projects-search-clear-btn:hover { color: #ffffff; }
+        .projects-search-clear-btn:hover { color: #ededed; }
 
         /* ── Featured cards ───────────────────────────── */
         .featured-grid {
@@ -399,16 +399,16 @@ export default function Projects() {
         .featured-card {
           display: flex;
           flex-direction: column;
-          background: #070707;
-          border: 1px solid #1c1c1c;
+          background: #101010;
+          border: 1px solid #252525;
           border-radius: 14px;
           overflow: hidden;
           transition: border-color 0.25s var(--ease-out);
         }
-        .featured-card:hover, .featured-card:focus-within { border-color: #333333; }
+        .featured-card:hover, .featured-card:focus-within { border-color: #3a3a3a; }
         .featured-card .project-preview-frame {
           border: none;
-          border-bottom: 1px solid #1c1c1c;
+          border-bottom: 1px solid #252525;
           border-radius: 0;
           max-width: none;
           box-shadow: none;
@@ -426,10 +426,10 @@ export default function Projects() {
           font-size: clamp(1.25rem, 2.2vw, 1.55rem);
           font-weight: 700;
           letter-spacing: -0.02em;
-          color: #ffffff;
+          color: #ededed;
           line-height: 1.15;
         }
-        .featured-subtitle { font-size: 0.86rem; color: #a0a0a0; margin-top: -6px; }
+        .featured-subtitle { font-size: 0.92rem; color: #a0a0a0; margin-top: -6px; }
         .featured-role { color: #808080; }
 
         /* Lead card: screenshot beside the text on wide screens */
@@ -441,7 +441,7 @@ export default function Projects() {
             aspect-ratio: auto;
             min-height: 100%;
             border-bottom: none;
-            border-right: 1px solid #1c1c1c;
+            border-right: 1px solid #252525;
           }
           /* Here the image is as tall as the text, so it gets cropped at the sides. Keep the left
              edge, where app screenshots usually have their logo and navigation. */
@@ -456,17 +456,17 @@ export default function Projects() {
           gap: 12px;
           flex-wrap: wrap;
           font-family: var(--font-mono);
-          font-size: 0.66rem;
+          font-size: 0.72rem;
           color: #8a8a8a;
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
         .project-period { color: #a0a0a0; white-space: nowrap; }
-        .project-summary { color: #b0b0b0; font-size: 0.9rem; line-height: 1.7; max-width: 680px; }
-        .project-result { color: #b0b0b0; font-size: 0.88rem; line-height: 1.7; max-width: 680px; }
+        .project-summary { color: #b0b0b0; font-size: 0.95rem; line-height: 1.7; max-width: 680px; }
+        .project-result { color: #b0b0b0; font-size: 0.94rem; line-height: 1.7; max-width: 680px; }
         .project-result-label {
           font-family: var(--font-mono);
-          font-size: 0.64rem;
+          font-size: 0.72rem;
           color: #8a8a8a;
           letter-spacing: 0.1em;
           text-transform: uppercase;
@@ -481,10 +481,10 @@ export default function Projects() {
           width: 100%;
           aspect-ratio: 16 / 10;
           padding: 0;
-          border: 1px solid #202020;
+          border: 1px solid #292929;
           border-radius: 12px;
           overflow: hidden;
-          background: #0b0b0b;
+          background: #141414;
           cursor: pointer;
         }
         div.project-preview-frame { cursor: default; }
@@ -494,10 +494,7 @@ export default function Projects() {
           justify-content: center;
           gap: 6px;
           padding: clamp(24px, 4vw, 40px);
-          background:
-            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 32px 32px,
-            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 32px 32px,
-            #0b0b0b;
+          background: #141414;
         }
         .project-highlight-value {
           font-family: var(--font-display);
@@ -505,7 +502,7 @@ export default function Projects() {
           font-size: clamp(3.5rem, 8vw, 5.5rem);
           line-height: 1;
           letter-spacing: -0.04em;
-          color: #ffffff;
+          color: #ededed;
         }
         .project-highlight-label {
           font-family: var(--font-mono);
@@ -535,7 +532,7 @@ export default function Projects() {
           filter: grayscale(0%) contrast(1);
           transform: scale(1.02);
         }
-        .project-preview-frame:focus-visible { outline: 2px solid #ffffff; outline-offset: -2px; }
+        .project-preview-frame:focus-visible { outline: 2px solid #ededed; outline-offset: -2px; }
 
         .project-action-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
@@ -546,14 +543,14 @@ export default function Projects() {
           gap: 12px;
           margin-bottom: 16px;
           font-family: var(--font-mono);
-          font-size: 0.68rem;
+          font-size: 0.72rem;
           color: #a0a0a0;
           letter-spacing: 0.12em;
           text-transform: uppercase;
           font-weight: 600;
         }
-        .projects-subhead-line { flex: 1; height: 1px; background: #181818; }
-        .project-row { border-bottom: 1px solid #141414; }
+        .projects-subhead-line { flex: 1; height: 1px; background: #212121; }
+        .project-row { border-bottom: 1px solid #1c1c1c; }
         .project-row-heading { font: inherit; margin: 0; }
         .project-row-trigger {
           width: 100%;
@@ -567,7 +564,7 @@ export default function Projects() {
           text-align: left;
           color: inherit;
         }
-        .project-row-trigger:hover .project-row-title { color: #ffffff !important; }
+        .project-row-trigger:hover .project-row-title { color: #ededed !important; }
         .project-row-num {
           font-family: var(--font-mono);
           font-size: 0.72rem;
@@ -591,10 +588,10 @@ export default function Projects() {
           letter-spacing: -0.02em;
           transition: color 0.2s;
         }
-        .project-row-subtitle { font-size: 0.84rem; color: #8a8a8a; }
+        .project-row-subtitle { font-size: 0.9rem; color: #8a8a8a; }
         .project-row-period {
           font-family: var(--font-mono);
-          font-size: 0.68rem;
+          font-size: 0.72rem;
           color: #8a8a8a;
           white-space: nowrap;
           flex: 0 0 9.5rem;

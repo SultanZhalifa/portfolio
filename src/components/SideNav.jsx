@@ -51,8 +51,8 @@ export default function SideNav() {
             {/* Hover Tooltip Label */}
             <div style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.62rem',
-              color: isActive ? '#ffffff' : '#888888',
+              fontSize: '0.72rem',
+              color: isActive ? '#ededed' : '#888888',
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
               opacity: hovered === id ? 1 : 0,
@@ -60,10 +60,10 @@ export default function SideNav() {
               transition: 'opacity 0.2s, transform 0.2s',
               pointerEvents: 'none',
               whiteSpace: 'nowrap',
-              background: '#111111',
+              background: '#191919',
               padding: '2px 8px',
               borderRadius: '4px',
-              border: '1px solid #222222',
+              border: '1px solid #2b2b2b',
             }}>
               {label}
             </div>
@@ -78,15 +78,15 @@ export default function SideNav() {
                 width: isActive ? '9px' : '5px',
                 height: isActive ? '9px' : '5px',
                 borderRadius: '50%',
-                background: isActive ? '#ffffff' : 'transparent',
-                border: isActive ? '1px solid #ffffff' : '1px solid #404040',
+                background: isActive ? '#ededed' : 'transparent',
+                border: isActive ? '1px solid #ededed' : '1px solid #464646',
                 display: 'block',
                 transition: 'all 0.25s var(--ease-out)',
                 flexShrink: 0,
                 boxShadow: isActive ? '0 0 8px rgba(255, 255, 255, 0.8)' : 'none',
               }}
-              onMouseEnter={e => { if (!isActive) e.currentTarget.style.borderColor = '#ffffff'; }}
-              onMouseLeave={e => { if (!isActive) e.currentTarget.style.borderColor = '#404040'; }}
+              onMouseEnter={e => { if (!isActive) e.currentTarget.style.borderColor = '#ededed'; }}
+              onMouseLeave={e => { if (!isActive) e.currentTarget.style.borderColor = '#464646'; }}
             />
           </div>
         );

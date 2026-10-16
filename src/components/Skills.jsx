@@ -56,7 +56,7 @@ export default function Skills() {
           column-gap: clamp(24px, 4vw, 48px);
         }
         .skill-group {
-          border-top: 1px solid #181818;
+          border-top: 1px solid #212121;
           padding: clamp(16px, 2vw, 20px) 0 clamp(18px, 2.4vw, 24px);
         }
         .skill-cat-name {

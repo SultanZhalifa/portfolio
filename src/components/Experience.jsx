@@ -18,8 +18,8 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           width: '34px',
           height: '34px',
           borderRadius: '8px',
-          border: '1px solid #202020',
-          background: '#080808',
+          border: '1px solid #292929',
+          background: '#111111',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -31,7 +31,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           <Icon size={13} />
         </div>
         {!isLast && (
-          <div style={{ width: '1px', flex: 1, background: '#181818', marginTop: '6px', minHeight: '24px' }} />
+          <div style={{ width: '1px', flex: 1, background: '#212121', marginTop: '6px', minHeight: '24px' }} />
         )}
       </div>
 
@@ -50,7 +50,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
               fontFamily: 'var(--font-display)',
               fontSize: '0.98rem',
               fontWeight: 700,
-              color: '#ffffff',
+              color: '#ededed',
               marginBottom: '2px',
               letterSpacing: '-0.01em',
               overflowWrap: 'break-word',
@@ -64,7 +64,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           <div className="exp-meta" style={{ textAlign: 'right', flexShrink: 0 }}>
             <div style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.68rem',
+              fontSize: '0.72rem',
               color: '#808080',
               letterSpacing: '0.04em',
               marginBottom: '2px',
@@ -73,7 +73,7 @@ function TimelineItem({ item, index, inView, type, isLast }) {
             </div>
             <div style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.62rem',
+              fontSize: '0.72rem',
               color: '#808080',
               letterSpacing: '0.02em',
             }}>
@@ -91,8 +91,8 @@ function TimelineItem({ item, index, inView, type, isLast }) {
           gap: '8px',
         }}>
           {(item.points || []).map((pt, pi) => (
-            <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.85rem', color: '#9a9a9a', lineHeight: 1.75 }}>
-              <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
+            <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.94rem', color: '#9a9a9a', lineHeight: 1.75 }}>
+              <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>—</span>
               <span className="text-break">{pt}</span>
             </li>
           ))}
@@ -130,9 +130,9 @@ export default function Experience() {
       className="section"
       ref={ref}
       style={{
-        borderTop: '1px solid #181818',
-        borderBottom: '1px solid #181818',
-        background: '#020202',
+        borderTop: '1px solid #212121',
+        borderBottom: '1px solid #212121',
+        background: '#0c0c0c',
         zIndex: 1,
         position: 'relative',
       }}
@@ -157,7 +157,7 @@ export default function Experience() {
               <FiBriefcase size={14} style={{ color: '#888888' }} />
               <span style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
+                fontSize: '0.72rem',
                 color: '#a0a0a0',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -165,7 +165,7 @@ export default function Experience() {
               }}>
                 Work Experience
               </span>
-              <div style={{ flex: 1, height: '1px', background: '#181818' }} />
+              <div style={{ flex: 1, height: '1px', background: '#212121' }} />
             </div>
             {data.experience.map((exp, i) => (
               <TimelineItem
@@ -185,7 +185,7 @@ export default function Experience() {
               <FiBook size={14} style={{ color: '#888888' }} />
               <span style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
+                fontSize: '0.72rem',
                 color: '#a0a0a0',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -193,7 +193,7 @@ export default function Experience() {
               }}>
                 Education
               </span>
-              <div style={{ flex: 1, height: '1px', background: '#181818' }} />
+              <div style={{ flex: 1, height: '1px', background: '#212121' }} />
             </div>
             {data.education.map((edu, i) => (
               <TimelineItem
@@ -215,7 +215,7 @@ export default function Experience() {
               <FiUsers size={14} style={{ color: '#888888' }} />
               <span style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
+                fontSize: '0.72rem',
                 color: '#a0a0a0',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -223,7 +223,7 @@ export default function Experience() {
               }}>
                 Organizations & Activities
               </span>
-              <div style={{ flex: 1, height: '1px', background: '#181818' }} />
+              <div style={{ flex: 1, height: '1px', background: '#212121' }} />
             </div>
             {data.activities.map((act, i) => (
               <motion.div
@@ -238,8 +238,8 @@ export default function Experience() {
                     width: '34px',
                     height: '34px',
                     borderRadius: '8px',
-                    border: '1px solid #202020',
-                    background: '#080808',
+                    border: '1px solid #292929',
+                    background: '#111111',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -263,7 +263,7 @@ export default function Experience() {
                         fontFamily: 'var(--font-display)',
                         fontSize: '0.98rem',
                         fontWeight: 700,
-                        color: '#ffffff',
+                        color: '#ededed',
                         marginBottom: '2px',
                         letterSpacing: '-0.01em',
                         overflowWrap: 'break-word',
@@ -277,7 +277,7 @@ export default function Experience() {
                     <div className="exp-meta" style={{ textAlign: 'right', flexShrink: 0 }}>
                       <div style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.68rem',
+                        fontSize: '0.72rem',
                         color: '#808080',
                         letterSpacing: '0.04em',
                       }}>
@@ -294,8 +294,8 @@ export default function Experience() {
                     gap: '8px',
                   }}>
                     {(act.points || []).map((pt, pi) => (
-                      <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.85rem', color: '#9a9a9a', lineHeight: 1.75 }}>
-                        <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.65rem' }}>—</span>
+                      <li key={pi} style={{ display: 'flex', gap: '10px', fontSize: '0.94rem', color: '#9a9a9a', lineHeight: 1.75 }}>
+                        <span style={{ color: '#808080', flexShrink: 0, marginTop: '3px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>—</span>
                         <span className="text-break">{pt}</span>
                       </li>
                     ))}
