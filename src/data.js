@@ -396,7 +396,7 @@ export const data = {
       tech: ["Flutter", "Dart", "fl_chart", "google_fonts", "smooth_page_indicator", "flutter_svg"],
       github: null, // repo is no longer public
       screenshot: false,
-      demo: null,
+      demo: "https://astrapay-naik-kelas.vercel.app",
     },
     {
       id: 5,
