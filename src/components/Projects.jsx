@@ -443,6 +443,9 @@ export default function Projects() {
             border-bottom: none;
             border-right: 1px solid #1c1c1c;
           }
+          /* Here the image is as tall as the text, so it gets cropped at the sides. Keep the left
+             edge, where app screenshots usually have their logo and navigation. */
+          .featured-card--lead .project-preview-img { object-position: left top; }
           .featured-card--lead .featured-title { font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
         }
 
