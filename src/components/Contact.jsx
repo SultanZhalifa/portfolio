@@ -8,6 +8,20 @@ const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+// One message per browser per minute, so a stuck key or a quick script can't burn the
+// free monthly quota. The public key is in the page, so this can't stop someone calling
+// the EmailJS API directly; it only slows down repeat sends from one browser.
+const RATE_LIMIT_ID = 'contact-form-last-sent';
+const RATE_LIMIT_MS = 60_000;
+
+// The SDK keeps the send time here. If the browser blocks storage, the form still sends
+// and the limit just doesn't apply.
+const limitStorage = {
+  get: async (key) => { try { return localStorage.getItem(key); } catch { return null; } },
+  set: async (key, value) => { try { localStorage.setItem(key, value); } catch { /* storage blocked */ } },
+  remove: async (key) => { try { localStorage.removeItem(key); } catch { /* storage blocked */ } },
+};
+
 // WhatsApp and phone are the same number, so they share one row. Location is in the intro text.
 const contacts = [
   { Icon: FiMail,          label: 'Email',            value: data.email,                     href: `mailto:${data.email}`,                           copy: data.email },
@@ -67,11 +81,22 @@ export default function Contact() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         { name: form.name, email: form.email, message: form.message },
-        { publicKey: EMAILJS_PUBLIC_KEY },
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+          blockHeadless: true,
+          limitRate: { id: RATE_LIMIT_ID, throttle: RATE_LIMIT_MS },
+          storageProvider: limitStorage,
+        },
       );
       setSent(true);
-    } catch {
-      setError(`Your message was not sent. Please try again, or email me directly at ${data.email}.`);
+    } catch (err) {
+      if (err?.status === 429) {
+        setError(`You just sent a message. Please wait a minute before sending another, or email me directly at ${data.email}.`);
+      } else {
+        // The SDK records the time before sending, so clear it: only a delivered message should count.
+        await limitStorage.remove(RATE_LIMIT_ID);
+        setError(`Your message was not sent. Please try again, or email me directly at ${data.email}.`);
+      }
     } finally {
       setLoading(false);
     }
