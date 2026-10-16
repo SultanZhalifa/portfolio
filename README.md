@@ -35,6 +35,8 @@ Project fields worth knowing:
 - `featured: true` shows the project as a card with its screenshot; the rest go in the list below.
 - `ai: true` marks apps that call an AI model (hero stat and the AI & Vision filter).
 - A project with a `caseStudy` gets its own page at `#/work/<slug>` (the slug is the title in lower case with dashes, e.g. `#/work/pestguard-ai`). It shows The Problem, then How It Works (`flow`) or What I Built (`approach`), then Decisions, Model Results (`metrics`), Results and Known Limits (`limits`), and skips any block the project doesn't have. Hash routes need no server rewrite rules.
+- Share links use `/work/<slug>` (the **Copy link** button on a case study gives this form). After `vite build`, `scripts/share-pages.mjs` writes `dist/work/<slug>/index.html` for every case study with that project's title, description and preview image, so LinkedIn and WhatsApp show the project instead of the home page, and adds those addresses to `sitemap.xml`. The app moves `/work/<slug>` into `#/work/<slug>` on load.
+- Preview images are `public/og/<slug>.jpg` (1200×630). They are not made during the build: after adding a case study or changing a title, subtitle or screenshot, run `npm run og-images` (uses the local Chrome; set `CHROME_PATH` if it isn't in the default macOS location) and commit the images. A case study without one falls back to `og-image.png`.
 - Screenshots live in `public/previews/<github-repo-name>.webp` (1000×625). Use `image` for a custom path, or `screenshot: false` if there's no real screenshot yet. A featured card without one can show `highlight: { value, label }` instead.
 
 The resume is `public/Sultan_CV.pdf`; replace the file to update the download.
