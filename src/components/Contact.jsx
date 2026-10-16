@@ -56,7 +56,16 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) return;
+    // The form is noValidate, so check here and say what's wrong instead of doing nothing.
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setError('Please fill in your name, email and message.');
+      return;
+    }
+    // The address becomes the Reply-To of the email, so a typo means I can't answer.
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setError("That email address doesn't look right. Please check it so I can reply.");
+      return;
+    }
 
     // Honeypot: real visitors never see or fill this field. Bots do.
     // Pretend it worked so they don't retry, but send nothing.
@@ -80,7 +89,7 @@ export default function Contact() {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        { name: form.name, email: form.email, message: form.message },
+        { name: form.name.trim(), email: form.email.trim(), message: form.message.trim() },
         {
           publicKey: EMAILJS_PUBLIC_KEY,
           blockHeadless: true,
