@@ -243,6 +243,7 @@ export default function Contact() {
                     type="text"
                     name="name"
                     required
+                    maxLength={100}
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Your name"
@@ -267,6 +268,7 @@ export default function Contact() {
                     type="email"
                     name="email"
                     required
+                    maxLength={254}
                     value={form.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
@@ -290,6 +292,7 @@ export default function Contact() {
                     id="contact-message"
                     name="message"
                     required
+                    maxLength={5000}
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell me about the role or project..."
