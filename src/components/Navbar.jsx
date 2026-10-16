@@ -53,17 +53,17 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         padding: scrolled ? '12px 0' : '20px 0',
-        background: scrolled ? 'rgba(4, 4, 4, 0.92)' : 'transparent',
+        background: scrolled ? 'rgba(11, 11, 11, 0.92)' : 'transparent',
         backdropFilter: scrolled ? 'blur(8px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(8px)' : 'none',
-        borderBottom: scrolled ? '1px solid #1a1a1a' : '1px solid transparent',
+        borderBottom: scrolled ? '1px solid #232323' : '1px solid transparent',
         transition: 'padding 0.3s var(--ease-out), background 0.3s var(--ease-out), border-color 0.3s var(--ease-out)',
       }}
     >
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
         {/* Brand Logo */}
         <a href="#hero" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-          <span style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.1rem', color: '#ffffff', letterSpacing: '-0.03em' }}>
+          <span style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.1rem', color: '#ededed', letterSpacing: '-0.03em' }}>
             Sultan<span style={{ color: '#808080' }}>.</span>
           </span>
         </a>
@@ -77,7 +77,7 @@ export default function Navbar() {
                 <a
                   href={href}
                   style={{
-                    color: isActive ? '#ffffff' : '#888888',
+                    color: isActive ? '#ededed' : '#888888',
                     textDecoration: 'none',
                     fontSize: '0.8rem',
                     fontFamily: 'var(--font-mono)',
@@ -88,8 +88,8 @@ export default function Navbar() {
                     padding: '6px 2px',
                     display: 'inline-block',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
-                  onMouseLeave={e => e.currentTarget.style.color = isActive ? '#ffffff' : '#888888'}
+                  onMouseEnter={e => e.currentTarget.style.color = '#ededed'}
+                  onMouseLeave={e => e.currentTarget.style.color = isActive ? '#ededed' : '#888888'}
                 >
                   {label}
                   {isActive && (
@@ -101,7 +101,7 @@ export default function Navbar() {
                         left: 0,
                         right: 0,
                         height: '2px',
-                        background: '#ffffff',
+                        background: '#ededed',
                         borderRadius: '2px',
                       }}
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -151,9 +151,9 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              background: '#070707',
-              borderTop: '1px solid #1a1a1a',
-              borderBottom: '1px solid #1a1a1a',
+              background: '#101010',
+              borderTop: '1px solid #232323',
+              borderBottom: '1px solid #232323',
               overflow: 'hidden',
             }}
           >
@@ -171,29 +171,29 @@ export default function Navbar() {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '12px 14px',
-                        color: isActive ? '#ffffff' : '#9a9a9a',
+                        color: isActive ? '#ededed' : '#9a9a9a',
                         textDecoration: 'none',
                         borderRadius: '6px',
-                        background: isActive ? '#141414' : 'transparent',
+                        background: isActive ? '#1c1c1c' : 'transparent',
                         fontSize: '0.88rem',
                         fontFamily: 'var(--font-mono)',
                         transition: 'background 0.2s, color 0.2s',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.color = '#ffffff';
-                        e.currentTarget.style.background = '#111111';
+                        e.currentTarget.style.color = '#ededed';
+                        e.currentTarget.style.background = '#191919';
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.color = isActive ? '#ffffff' : '#9a9a9a';
-                        e.currentTarget.style.background = isActive ? '#141414' : 'transparent';
+                        e.currentTarget.style.color = isActive ? '#ededed' : '#9a9a9a';
+                        e.currentTarget.style.background = isActive ? '#1c1c1c' : 'transparent';
                       }}
                     >
                       <span>{label}</span>
-                      {isActive && <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffffff' }} />}
+                      {isActive && <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ededed' }} />}
                     </a>
                   );
                 })}
-                <div style={{ paddingTop: '8px', marginTop: '6px', borderTop: '1px solid #161616' }}>
+                <div style={{ paddingTop: '8px', marginTop: '6px', borderTop: '1px solid #1e1e1e' }}>
                   <a
                     href={data.github}
                     target="_blank"
@@ -216,10 +216,10 @@ export default function Navbar() {
           display: none;
         }
         .mobile-menu-btn {
-          background: #090909;
-          border: 1px solid #222222;
+          background: #121212;
+          border: 1px solid #2b2b2b;
           border-radius: 6px;
-          color: #f5f5f5;
+          color: #ededed;
           cursor: pointer;
           padding: 8px;
           display: inline-flex;
@@ -228,8 +228,8 @@ export default function Navbar() {
           transition: border-color 0.2s, background 0.2s;
         }
         .mobile-menu-btn:hover {
-          border-color: #444444;
-          background: #141414;
+          border-color: #4a4a4a;
+          background: #1c1c1c;
         }
 
         @media (max-width: 768px) {

@@ -9,8 +9,8 @@ export default function Footer() {
       role="contentinfo"
       aria-label="Site Footer"
       style={{
-        borderTop: '1px solid #161616',
-        background: '#000000',
+        borderTop: '1px solid #1e1e1e',
+        background: '#0b0b0b',
         padding: 'clamp(36px, 6vw, 56px) 0 clamp(24px, 4vw, 36px)',
         position: 'relative',
         zIndex: 1,
@@ -39,11 +39,11 @@ export default function Footer() {
           flexWrap: 'wrap',
           gap: '16px',
           paddingTop: '20px',
-          borderTop: '1px solid #141414',
+          borderTop: '1px solid #1c1c1c',
         }}>
           <span style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.68rem',
+            fontSize: '0.72rem',
             color: '#808080',
             letterSpacing: '0.06em',
           }}>
