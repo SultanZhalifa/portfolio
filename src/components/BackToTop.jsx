@@ -31,9 +31,9 @@ export default function BackToTop() {
         right: 'max(20px, env(safe-area-inset-right, 20px))',
         width: '42px',
         height: '42px',
-        border: '1px solid #282828',
+        border: '1px solid #303030',
         borderRadius: '10px',
-        background: 'rgba(12, 12, 12, 0.85)',
+        background: 'rgba(20, 20, 20, 0.85)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         color: '#aaaaaa',
@@ -50,13 +50,13 @@ export default function BackToTop() {
       }}
       onMouseEnter={e => {
         e.currentTarget.style.borderColor = '#555555';
-        e.currentTarget.style.color = '#ffffff';
-        e.currentTarget.style.background = '#181818';
+        e.currentTarget.style.color = '#ededed';
+        e.currentTarget.style.background = '#212121';
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.borderColor = '#282828';
+        e.currentTarget.style.borderColor = '#303030';
         e.currentTarget.style.color = '#aaaaaa';
-        e.currentTarget.style.background = 'rgba(12, 12, 12, 0.85)';
+        e.currentTarget.style.background = 'rgba(20, 20, 20, 0.85)';
       }}
     >
       <FiArrowUp size={16} />
