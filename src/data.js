@@ -73,7 +73,7 @@ export const data = {
       featured: true,
       title: "PestGuard AI",
       subtitle: "Real-Time Warehouse Pest Detection",
-      role: "AI & Backend Developer",
+      role: "Sole developer (AI-assisted)",
       period: "Apr — Jun 2026",
       context: "AI Open Innovation Challenge 2026 — PT Kawan Lama Group",
       summary:
@@ -130,6 +130,7 @@ export const data = {
       featured: true,
       title: "SaringSini",
       subtitle: "Hoax Checker for Family Group Chats",
+      role: "Sole developer (AI-assisted)",
       period: "May — Jul 2026",
       context: "Competition Entry — #JuaraVibeCoding 2026",
       summary:
@@ -199,7 +200,7 @@ export const data = {
       featured: true,
       title: "Naik Kelas",
       subtitle: "Credit Scoring for Small Merchants",
-      role: "Full-Stack Developer",
+      role: "Sole developer (AI-assisted)",
       period: "Jun 2026",
       context: "Hackathon — AstraPay 2026",
       summary:
