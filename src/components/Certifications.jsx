@@ -13,9 +13,9 @@ export default function Certifications() {
       className="section"
       ref={ref}
       style={{
-        borderTop: '1px solid #181818',
-        borderBottom: '1px solid #181818',
-        background: '#040404',
+        borderTop: '1px solid #212121',
+        borderBottom: '1px solid #212121',
+        background: '#0d0d0d',
         zIndex: 1,
         position: 'relative',
       }}
@@ -35,7 +35,7 @@ export default function Certifications() {
         </motion.div>
 
         {/* Credentials Table / List */}
-        <div style={{ borderTop: '1px solid #181818' }}>
+        <div style={{ borderTop: '1px solid #212121' }}>
           {data.certifications.map((cert, i) => (
             <motion.div
               key={i}
@@ -50,7 +50,7 @@ export default function Certifications() {
                   fontFamily: 'var(--font-display)',
                   fontSize: '0.94rem',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: '#ededed',
                   letterSpacing: '-0.01em',
                   marginBottom: '4px',
                 }}>
@@ -58,7 +58,7 @@ export default function Certifications() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.64rem',
+                  fontSize: '0.72rem',
                   color: '#808080',
                   letterSpacing: '0.06em',
                 }}>
@@ -83,7 +83,7 @@ export default function Certifications() {
           align-items: flex-start;
           gap: clamp(24px, 4vw, 40px);
           padding: clamp(18px, 2.5vw, 26px) 0;
-          border-bottom: 1px solid #141414;
+          border-bottom: 1px solid #1c1c1c;
           transition: background 0.2s ease;
         }
         .cert-row:hover {
@@ -109,9 +109,9 @@ export default function Certifications() {
           color: #b0b0b0;
           line-height: 1.4;
           padding: 5px 10px;
-          border: 1px solid #1e1e1e;
+          border: 1px solid #272727;
           border-radius: 6px;
-          background: #080808;
+          background: #111111;
         }
         @media (max-width: 680px) {
           .cert-row {

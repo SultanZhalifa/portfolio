@@ -1,25 +1,5 @@
-import { useInView, useReducedMotion } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { data } from '../data';
-
-function useCountUp(target, inView, reduced, duration = 1400) {
-  const isNum = typeof target === 'number';
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView || !isNum || reduced) return;
-    let rafId;
-    const startTime = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      setCount(Math.floor(progress * target));
-      if (progress < 1) rafId = requestAnimationFrame(tick);
-    };
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, [inView, target, duration, isNum, reduced]);
-  return count;
-}
 
 // Computed from the data so they can't drift from the project and certificate lists.
 const stats = [
@@ -29,30 +9,27 @@ const stats = [
   { value: data.certifications.reduce((n, c) => n + c.items.length, 0), label: 'Certifications' },
 ];
 
-function StatItem({ value, label, inView, reduced }) {
-  const counted = useCountUp(value, inView, reduced);
+// Plain numbers: they're facts to read, not something to watch count up.
+function StatItem({ value, label }) {
   const isNum = typeof value === 'number';
-  const shown = !isNum ? value : reduced ? value : inView ? counted : 0;
   return (
     <div className="hero-stat-cell">
-      <span className="sr-only">{value} {label}</span>
       <div
         translate="no"
-        aria-hidden="true"
         style={{
           fontFamily: 'Space Grotesk',
           fontSize: isNum ? 'clamp(1.75rem, 3.2vw, 2.5rem)' : 'clamp(1.35rem, 2.6vw, 2rem)',
           fontWeight: 800,
-          color: '#ffffff',
+          color: '#ededed',
           letterSpacing: '-0.035em',
           lineHeight: isNum ? 1 : 1.25,
         }}
       >
-        {shown}
+        {value}
       </div>
-      <div aria-hidden="true" style={{
+      <div style={{
         fontFamily: 'JetBrains Mono',
-        fontSize: '0.66rem',
+        fontSize: '0.72rem',
         color: '#888888',
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
@@ -65,10 +42,6 @@ function StatItem({ value, label, inView, reduced }) {
 }
 
 export default function Hero() {
-  const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, amount: 0.1 });
-  const reducedMotion = useReducedMotion();
-
   return (
     <section
       id="hero"
@@ -83,21 +56,6 @@ export default function Hero() {
         zIndex: 1,
       }}
     >
-      {/* Background Subtle Glow */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '15%',
-          right: '-8%',
-          width: 'clamp(320px, 45vw, 650px)',
-          height: 'clamp(320px, 45vw, 650px)',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 65%)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-        }}
-      />
-
       {/* Main Container */}
       <div className="container hero-container" style={{ position: 'relative', zIndex: 1, paddingTop: 'clamp(84px, 12vh, 130px)', paddingBottom: 'clamp(32px, 5vh, 56px)' }}>
         <div className="hero-main-grid">
@@ -142,12 +100,11 @@ export default function Hero() {
                 marginBottom: 'clamp(18px, 3vw, 28px)',
               }}
             >
-              <span style={{ display: 'block', color: '#ffffff' }}>Sultan</span>
-              <span style={{ display: 'block', color: '#ffffff' }}>Zhalifunnas</span>
+              <span style={{ display: 'block', color: '#ededed' }}>Sultan</span>
+              <span style={{ display: 'block', color: '#ededed' }}>Zhalifunnas</span>
               <span style={{
                 display: 'block',
-                color: 'transparent',
-                WebkitTextStroke: '1.5px #606060',
+                color: '#8a8a8a',
               }}>
                 Musyaffa
               </span>
@@ -157,23 +114,23 @@ export default function Hero() {
             <div className="hero-role-row hero-rise" style={{ '--d': '0.12s', '--rise': '14px' }}>
               <div className="hero-role-badge">
                 <div style={{
-                  fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
+                  fontSize: '0.72rem', fontFamily: 'JetBrains Mono',
                   color: '#808080', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   Role
                 </div>
-                <div style={{ fontSize: '0.92rem', color: '#ffffff', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.92rem', color: '#ededed', fontWeight: 600 }}>
                   {data.subtitle}
                 </div>
               </div>
               <div className="hero-role-desc">
                 <div style={{
-                  fontSize: '0.66rem', fontFamily: 'JetBrains Mono',
+                  fontSize: '0.72rem', fontFamily: 'JetBrains Mono',
                   color: '#808080', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px',
                 }}>
                   About
                 </div>
-                <p style={{ color: '#9a9a9a', fontSize: 'clamp(0.85rem, 1.2vw, 0.92rem)', lineHeight: 1.75 }}>
+                <p style={{ color: '#9a9a9a', fontSize: 'clamp(0.95rem, 1.2vw, 1rem)', lineHeight: 1.75 }}>
                   {data.summary}
                 </p>
               </div>
@@ -237,7 +194,6 @@ export default function Hero() {
                   loading="eager"
                 />
               </picture>
-              <div className="hero-photo-overlay" />
             </div>
           </div>
         </div>
@@ -245,11 +201,10 @@ export default function Hero() {
 
       {/* Stats Counter Strip */}
       <div
-        ref={statsRef}
         style={{
-          borderTop: '1px solid #181818',
-          borderBottom: '1px solid #181818',
-          background: '#040404',
+          borderTop: '1px solid #212121',
+          borderBottom: '1px solid #212121',
+          background: '#0d0d0d',
           position: 'relative',
           zIndex: 1,
         }}
@@ -257,13 +212,7 @@ export default function Hero() {
         <div className="container">
           <div className="hero-stats-grid">
             {stats.map(({ value, label }) => (
-              <StatItem
-                key={label}
-                value={value}
-                label={label}
-                inView={statsInView}
-                reduced={reducedMotion}
-              />
+              <StatItem key={label} value={value} label={label} />
             ))}
           </div>
         </div>
@@ -308,8 +257,8 @@ export default function Hero() {
           font-size: 0.72rem;
           font-family: var(--font-mono);
           font-weight: 500;
-          background: #090909;
-          border: 1px solid #202020;
+          background: #121212;
+          border: 1px solid #292929;
           color: #a0a0a0;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -319,10 +268,8 @@ export default function Hero() {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: #ffffff;
+          background: #ededed;
           display: inline-block;
-          box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-          animation: pulse-dot 2.4s ease-in-out infinite;
         }
 
         .hero-mobile-avatar-wrap {
@@ -332,7 +279,7 @@ export default function Hero() {
           width: 54px;
           height: 54px;
           border-radius: 12px;
-          border: 1px solid #282828;
+          border: 1px solid #303030;
           object-fit: cover;
           object-position: center 20%;
           display: block;
@@ -352,10 +299,10 @@ export default function Hero() {
           position: relative;
           width: 100%;
           aspect-ratio: 5 / 7;
-          border: 1px solid #202020;
+          border: 1px solid #292929;
           border-radius: 16px;
           overflow: hidden;
-          background: #080808;
+          background: #111111;
           box-shadow: 0 20px 50px -20px rgba(0,0,0,0.9);
         }
         .hero-photo-img {
@@ -371,13 +318,6 @@ export default function Hero() {
           filter: grayscale(0%) contrast(1);
           transform: scale(1.03);
         }
-        .hero-photo-overlay {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
-        }
-
         .hero-role-row {
           display: flex;
           align-items: flex-start;
@@ -397,7 +337,7 @@ export default function Hero() {
         .hero-social-divider {
           width: 1px;
           height: 28px;
-          background: #202020;
+          background: #292929;
           margin: 0 4px;
         }
         .hero-social-group {
@@ -413,7 +353,7 @@ export default function Hero() {
         }
         .hero-stat-cell {
           padding: clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 32px);
-          border-right: 1px solid #151515;
+          border-right: 1px solid #1d1d1d;
           text-align: left;
         }
         .hero-stats-grid .hero-stat-cell:last-child {
@@ -439,7 +379,7 @@ export default function Hero() {
           }
           .hero-stats-grid .hero-stat-cell:nth-child(1),
           .hero-stats-grid .hero-stat-cell:nth-child(2) {
-            border-bottom: 1px solid #151515;
+            border-bottom: 1px solid #1d1d1d;
           }
         }
 

@@ -118,8 +118,8 @@ export default function Contact() {
       className="section"
       ref={ref}
       style={{
-        borderTop: '1px solid #181818',
-        background: '#020202',
+        borderTop: '1px solid #212121',
+        background: '#0c0c0c',
         zIndex: 1,
         position: 'relative',
       }}
@@ -152,12 +152,12 @@ export default function Contact() {
               target="_blank"
               rel="noreferrer"
               className="contact-item contact-item-link"
-              style={{ borderColor: '#222222', background: '#090909' }}
+              style={{ borderColor: '#2b2b2b', background: '#121212' }}
             >
               <div className="contact-icon-box"><FiFileText size={14} /></div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
-                <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: 600 }}>Download Sultan_CV.pdf</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
+                <div style={{ fontSize: '0.85rem', color: '#ededed', fontWeight: 600 }}>Download Sultan_CV.pdf</div>
               </div>
             </a>
 
@@ -176,7 +176,7 @@ export default function Contact() {
                     >
                       <div className="contact-icon-box"><Icon size={14} /></div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                         <div style={{ fontSize: '0.84rem', color: '#b0b0b0', overflowWrap: 'break-word' }}>{value}</div>
                       </div>
                     </a>
@@ -186,10 +186,10 @@ export default function Contact() {
                         title={`Copy ${label} to clipboard`}
                         aria-label={`Copy ${label} to clipboard`}
                         className="contact-copy-btn"
-                        style={{ color: copied === label ? '#ffffff' : '#a0a0a0' }}
+                        style={{ color: copied === label ? '#ededed' : '#a0a0a0' }}
                       >
                         {copied === label ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', color: '#ffffff' }}>
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#ededed' }}>
                             <FiCheck size={13} />
                           </span>
                         ) : (
@@ -202,7 +202,7 @@ export default function Contact() {
                   <div className="contact-item">
                     <div className="contact-icon-box"><Icon size={14} /></div>
                     <div>
-                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
                       <div style={{ fontSize: '0.84rem', color: '#888888' }}>{value}</div>
                     </div>
                   </div>
@@ -223,14 +223,14 @@ export default function Contact() {
                 <div style={{
                   width: '48px',
                   height: '48px',
-                  border: '1px solid #333333',
+                  border: '1px solid #3a3a3a',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   margin: '0 auto 20px',
-                  color: '#ffffff',
-                  background: '#111111',
+                  color: '#ededed',
+                  background: '#191919',
                 }}>
                   <FiCheck size={22} />
                 </div>
@@ -239,7 +239,7 @@ export default function Contact() {
                   fontSize: '1.2rem',
                   fontWeight: 700,
                   marginBottom: '8px',
-                  color: '#ffffff',
+                  color: '#ededed',
                 }}>
                   Message sent
                 </h3>
@@ -264,7 +264,7 @@ export default function Contact() {
                   <label htmlFor="contact-name" style={{
                     display: 'block',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.66rem',
+                    fontSize: '0.72rem',
                     color: '#808080',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -289,7 +289,7 @@ export default function Contact() {
                   <label htmlFor="contact-email" style={{
                     display: 'block',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.66rem',
+                    fontSize: '0.72rem',
                     color: '#808080',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -314,7 +314,7 @@ export default function Contact() {
                   <label htmlFor="contact-message" style={{
                     display: 'block',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.66rem',
+                    fontSize: '0.72rem',
                     color: '#808080',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -390,9 +390,9 @@ export default function Contact() {
           align-items: center;
           gap: 14px;
           padding: 14px 16px;
-          border: 1px solid #181818;
+          border: 1px solid #212121;
           border-radius: 10px;
-          background: #060606;
+          background: #0f0f0f;
           transition: border-color 0.2s, background 0.2s, transform 0.2s;
         }
         .contact-item-link {
@@ -400,8 +400,8 @@ export default function Contact() {
           cursor: pointer;
         }
         .contact-item-link:hover {
-          border-color: #303030;
-          background: #0d0d0d;
+          border-color: #383838;
+          background: #161616;
           transform: translateY(-1px);
         }
         .contact-icon-box {
@@ -410,19 +410,19 @@ export default function Contact() {
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid #202020;
+          border: 1px solid #292929;
           border-radius: 8px;
           color: #888888;
           flex-shrink: 0;
-          background: #090909;
+          background: #121212;
         }
         .contact-copy-btn {
           position: absolute;
           top: 50%;
           right: 12px;
           transform: translateY(-50%);
-          background: #111111;
-          border: 1px solid #222222;
+          background: #191919;
+          border: 1px solid #2b2b2b;
           border-radius: 6px;
           cursor: pointer;
           padding: 7px;
@@ -432,8 +432,8 @@ export default function Contact() {
           transition: all 0.2s;
         }
         .contact-copy-btn:hover {
-          border-color: #444444;
-          background: #181818;
+          border-color: #4a4a4a;
+          background: #212121;
         }
 
         @media (max-width: 480px) {

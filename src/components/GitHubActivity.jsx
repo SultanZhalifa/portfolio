@@ -174,7 +174,7 @@ export default function GitHubActivity() {
           flex-wrap: wrap;
           gap: 10px 16px;
           padding-bottom: 12px;
-          border-bottom: 1px solid #141414;
+          border-bottom: 1px solid #1c1c1c;
         }
         .gh-plain-link {
           display: inline-flex;
@@ -188,7 +188,7 @@ export default function GitHubActivity() {
           transition: color 0.2s;
           white-space: nowrap;
         }
-        .gh-plain-link:hover { color: #ffffff; }
+        .gh-plain-link:hover { color: #ededed; }
         .gh-summary-text {
           font-family: var(--font-mono);
           font-size: 0.72rem;
@@ -205,7 +205,7 @@ export default function GitHubActivity() {
           justify-content: space-between;
           gap: 16px;
           padding: 10px 0;
-          border-bottom: 1px solid #141414;
+          border-bottom: 1px solid #1c1c1c;
           text-decoration: none;
           transition: opacity 0.2s;
         }
@@ -226,7 +226,7 @@ export default function GitHubActivity() {
           gap: 12px;
           flex-shrink: 0;
           font-family: var(--font-mono);
-          font-size: 0.66rem;
+          font-size: 0.72rem;
           color: #888888;
         }
 
