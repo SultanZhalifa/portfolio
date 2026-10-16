@@ -208,16 +208,55 @@ export const data = {
       tech: ["Next.js", "TypeScript", "Vitest", "QRIS"],
       github: "https://github.com/SultanZhalifa/naik-kelas",
       demo: null,
+      // Case study sourced from the naik-kelas repo: README, PITCH.md, lib/engine.ts, lib/state.ts,
+      // lib/personas.ts, lib/astrapay.ts, lib/store.ts, app/api/*, tests/ and scripts/.
       caseStudy: {
-        problem: "Small merchants who ride motorbikes are invisible to traditional credit scoring, even with steady QRIS income.",
-        approach: [
-          "Turns QRIS transaction history into AstraScore, a deterministic score that shows how each factor contributes.",
-          "Modal Jalan micro working capital with 20% of each QRIS sale auto-deducted for repayment, plus a tier system (higher score, bigger limit, lower fee through AstraPoints).",
-          "An audit view where merchants can check every calculation.",
+        problem:
+          "Small merchants who depend on a motorbike (street vendors, couriers, small shops, workshops) usually have no payslip, no collateral and no credit score, so a bank has nothing to score them with. They do leave a record, though: daily QRIS sales and motorbike installments paid on time. Naik Kelas turns that record into a score and a small loan that pays itself back from sales.",
+        team: "Team Andalusia",
+        flow: [
+          "A merchant picks one of five demo profiles (a street vendor, a small shop, a courier, a workshop and a newcomer) and agrees to share transaction data.",
+          "The score engine reads 90 days of transactions and scores five factors: on-time FIF installments (35%), QRIS sales volume and consistency (30%), how often they transact (15%), account age and verification level (10%), and sales growth over three months (10%). The result is a score from 300 to 850.",
+          "The score sets a tier (Belum Memenuhi, Pemula, Tumbuh, Mapan or Juara) and a loan limit: the tier's cap or half of the monthly QRIS sales, whichever is lower. A panel shows how many points each factor added.",
+          "The merchant takes a Modal Jalan loan up to that limit, with a fee set by the tier. Only one loan can be active at a time.",
+          "Each QRIS sale pays back 20% of itself until the loan is cleared, so repayment follows sales instead of a fixed due date. The last cut never goes past what is still owed.",
+          "When the loan is cleared, the score is recalculated from the latest transactions, with a bonus of up to 40 points for on-time repayment, so the tier and limit can go up. The merchant also earns AstraPoints (1 per Rp1,000 borrowed), and 250 points take 0.5% off the next loan's fee.",
+        ],
+        decisions: [
+          {
+            title: "A score you can check by hand",
+            text: "The engine is a pure function with fixed weights, not a trained model. The screen shows how many points each factor added, the what-if projection runs on the same engine, and an audit view lays out raw data, weights and contributions so the math can be redone with a calculator.",
+          },
+          {
+            title: "Tie the limit to cash flow, not only the score",
+            text: "Tier caps run from Rp500,000 to Rp5,000,000, and the limit can never be more than half of the monthly QRIS sales. A high score alone can't push a loan past what the shop's sales can pay back.",
+          },
+          {
+            title: "Don't let one odd day move the score",
+            text: "Consistency uses the standard deviation of daily sales. Daily sales are capped at three times the average before that calculation, so a single outlier day, including a payment injected during the demo, doesn't distort it.",
+          },
+          {
+            title: "Put the payment API behind an interface",
+            text: "The app talks to a PaymentProvider interface with two versions: a local mock and an AstraPay Sandbox adapter. An environment variable picks one, and if the Sandbox call fails or takes more than 5 seconds, the mock answers instead. Endpoint paths can be changed through environment variables because the real API details were only given with the organizers' credentials.",
+          },
+          {
+            title: "Generate demo data from a seeded generator",
+            text: "Each profile's 90 days of transactions come from a seeded random generator, so every run gives the same score. That makes the numbers testable, and the score is calculated from the transactions every time instead of being hardcoded.",
+          },
         ],
         result: [
-          "41 tests: 20 unit tests (score engine and 5-persona tier checks) and 21 edge-case tests (API and headless UI flows).",
-          "Built for the AstraPay Hackathon 2026 (Tim Andalusia).",
+          "The whole loop works: score, loan, automatic repayment, a higher tier, points, and a second loan with a lower fee.",
+          "The five profiles cover the range, from a shop that reaches the top tier to a newcomer with three months of history whose score is too low for a loan. For that profile, the what-if tool shows what would raise it.",
+          "20 unit tests with Vitest (score formula, tier boundaries, limit rule, each profile's tier, repayment and reward logic), plus an API script with 21 checks and a 9-step browser run that saves a screenshot at every screen.",
+          "Built for the AstraPay Hackathon 2026 by Team Andalusia, with a pitch outline and prepared answers for likely questions from the judges.",
+        ],
+        limits: [
+          "No real data. Transactions come from a seeded generator, and each profile was set up to land in a chosen tier. The tests check that it does, so they show the code is consistent, not that the score predicts who repays.",
+          "Fees, limits and the 20% rate are illustrative. They haven't been calibrated with a lender.",
+          "A repaid loan counts twice: as an on-time installment in the FIF factor and again as the repayment bonus, so the app's own loans raise the score twice. That is fine for a demo, but a real scorer would need to keep the two apart.",
+          "The server trusts the state snapshot the browser sends, which is how the demo survives serverless cold starts. A client could fake its own score or limit, so this is demo-only.",
+          "The AstraPay Sandbox adapter is written, but the repo doesn't show it running against the real Sandbox. The demo runs on the local mock.",
+          "No CI and no public demo link in the repo. The tests run by hand, and the API and browser scripts need a running server.",
         ],
       },
     },
