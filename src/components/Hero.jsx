@@ -283,11 +283,6 @@ export default function Hero() {
           object-fit: cover;
           object-position: center 20%;
           display: block;
-          filter: grayscale(100%);
-          transition: filter 0.3s ease;
-        }
-        .hero-mobile-avatar-img:hover {
-          filter: grayscale(0%);
         }
 
         .hero-photo-col {
@@ -311,12 +306,6 @@ export default function Hero() {
           object-fit: cover;
           object-position: center 20%;
           display: block;
-          filter: grayscale(100%) contrast(1.02);
-          transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
-        }
-        .hero-photo-frame:hover .hero-photo-img {
-          filter: grayscale(0%) contrast(1);
-          transform: scale(1.03);
         }
         .hero-role-row {
           display: flex;
