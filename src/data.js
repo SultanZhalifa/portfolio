@@ -347,6 +347,58 @@ export const data = {
       tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/MiniBookLibrary",
       demo: null,
+      // Case study sourced from the MiniBookLibrary repo: README, app/build.gradle.kts, the data,
+      // domain, ui and util packages, app/src/test and .github/workflows/android.yml.
+      caseStudy: {
+        problem:
+          "A reading list should keep working without a connection, and adding a book shouldn't mean typing everything in. The app began as a class project in Java with raw SQLite, then was rewritten from scratch in Kotlin with MVVM, Room and Material 3.",
+        flow: [
+          "Sign up or sign in. Passwords are stored as a salted SHA-256 hash, and the session is kept in SharedPreferences so the app opens straight to the dashboard.",
+          "Add a book by hand, or type or scan an ISBN. The scanner uses CameraX and ML Kit, and the lookup asks the Google Books API for the title, author, year, category and page count. It only fills fields that are still empty, and gives up after 8 seconds.",
+          "Covers come from the system photo picker, which needs no permission on Android 13 and later. The image is copied into the app's own storage so it survives a reinstall.",
+          "The library list searches as you type, sorts by title, date added or rating, and filters by reading status (want to read, reading, finished). The sort and filter choices are remembered.",
+          "Every screen reads from Room through Flow, so the dashboard, the list and the counters update by themselves when a book changes.",
+          "The library can be exported to PDF or JSON, and a JSON backup can be imported. Importing adds the books instead of replacing the existing ones. A home screen widget shows what is currently being read.",
+        ],
+        decisions: [
+          {
+            title: "Room is the source of truth",
+            text: "Room emits data, a ViewModel turns it into a StateFlow of UI state, and the fragment collects it. Nothing is pushed into the screens; everything shown is derived from the database.",
+          },
+          {
+            title: "Only the repository knows about Room",
+            text: "ViewModels talk to repositories, and only the repositories know about the database. If the books ever came from a remote API, no ViewModel would need to change.",
+          },
+          {
+            title: "A small hand-written service locator instead of Hilt",
+            text: "Hilt would have worked, but it felt heavy for a single module, and a small container can be read in half a minute.",
+          },
+          {
+            title: "Parse the lookup result separately from the network call",
+            text: "The Google Books parser is its own class, so it can be tested on the JVM with JSON fixtures and no network. The lookup itself uses HttpURLConnection and org.json, which are already on the platform, so it adds no libraries.",
+          },
+          {
+            title: "Never overwrite what the user typed",
+            text: "The ISBN lookup fills a field only if it is blank, and a unit test checks that existing input is left alone.",
+          },
+          {
+            title: "Say how far the password hashing goes",
+            text: "The hasher uses a random salt per user with SHA-256, and the code's own comment explains why: bcrypt or Argon2 would add a dependency, and this is an offline app where the realistic threat is a leaked database file. The same comment says real production code should use a memory-hard function.",
+          },
+        ],
+        result: [
+          "51 unit tests with JUnit 4, MockK, Turbine and the coroutines test library. They cover the ISBN parser, both repositories, enum storage, the password hasher and three ViewModels (sign-in, add or edit a book, and the book list).",
+          "GitHub Actions runs the unit tests and builds a debug APK on every push and pull request, and keeps the APK for 14 days.",
+          "Works on Android 5.0 and later and targets Android 14.",
+          "Three reading states, page progress, a 1 to 5 rating, a dashboard with the average rating and a status breakdown, a three-slide onboarding and a light, dark or system theme.",
+        ],
+        limits: [
+          "The 51 tests are JVM unit tests. There are no instrumented tests, so the screens, the camera scanner and the widget aren't tested automatically.",
+          "Passwords use a single round of salted SHA-256, which the code itself says is not suited for production. The account exists only on the device, so it guards the local library and not an online account.",
+          "Books are kept in an unencrypted Room database, and there is no cloud sync. Moving a library to another phone means exporting and importing JSON.",
+          "The ISBN lookup depends on the public Google Books API, and finds nothing when there is no connection or no match.",
+        ],
+      },
     },
     {
       id: 4,
@@ -362,6 +414,62 @@ export const data = {
       tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
       demo: null,
+      // Case study sourced from the srmaudit-octave-allegro repo: README, docs/ARCHITECTURE.md,
+      // docs/adr, schema.sql, src/services/engines/*, src/data/*, src/services/storage/*, tests/ and
+      // .github/workflows/ci.yml.
+      caseStudy: {
+        problem:
+          "A security risk assessment is a chain of linked steps: what the organisation is, which assets matter, what could go wrong with them, and what to check afterwards. SRMAudit puts that chain into one tool, built around the asset-first approach of OCTAVE Allegro, so each step feeds the next and the work ends in a report.",
+        flow: [
+          "Sign in. If Supabase keys are set, accounts and data live in Supabase. If not, the app runs in a local mode with accounts and data kept in the browser (IndexedDB). The features are the same in both modes.",
+          "Describe the organisation: its sector, size and main system type. An exposure score from 1 to 10 is worked out from those three inputs.",
+          "List the assets and rate each one High, Medium or Low for confidentiality, integrity and availability. The weights 3, 2 and 1 are added up to a criticality from 3 to 9: 8 and up is Critical, 6 and up High, 4 and up Medium.",
+          "For each asset, pick vulnerabilities from a catalogue of 19 entries in 8 categories (injection, broken authentication, sensitive data exposure and so on). Each pick becomes a risk scored as likelihood times impact: 16 and up is Critical, 10 and up High, 5 and up Medium.",
+          "An audit checklist is generated with one item per unique vulnerability, each tied to ISO/IEC 27001:2022 Annex A and NIST CSF 2.0 controls, plus five baseline controls. Each item is marked compliant, partially, non-compliant, pending or not applicable. Evidence files are uploaded on their own page.",
+          "The compliance score is the compliant items plus half of the partial ones, divided by the items that apply, as a percentage. Pending and not applicable items are left out. 85 and up is Compliant and 60 and up is Needs Improvement.",
+          "Findings come from risks scored 10 or more and from every non-compliant control, and the assessment can be exported as a PDF report. An assistant answers questions with the user's own Gemini or OpenRouter key, or from a built-in knowledge base when there is no key.",
+        ],
+        decisions: [
+          {
+            title: "Two storage backends behind one interface",
+            text: "The app talks to a storage interface with two versions: Supabase (real sign-in, a per-user table and file storage) and a local one on IndexedDB. The config picks one at start-up, and the Supabase code is loaded lazily so local-only builds don't carry it. The written decision notes that the original Supabase account had been lost, so the app couldn't assume a working cloud.",
+          },
+          {
+            title: "Keep the maths in pure functions",
+            text: "The risk, compliance, exposure and findings engines are plain functions with no network and no page access. That is where the calculations are, and where most of the unit tests are.",
+          },
+          {
+            title: "Escape everything by default",
+            text: "Pages are built with an html template tag that escapes every interpolated value. Trusted markup has to opt in with raw(). Clicks and inputs go through event delegation (data-action) instead of inline onclick handlers.",
+          },
+          {
+            title: "One-way layers",
+            text: "Code is split into core, data, services, features and app, and a layer may only import from the ones before it. Each page is a self-contained feature, and features never import each other.",
+          },
+          {
+            title: "Rows that belong to one user",
+            text: "All audit data sits in one table keyed by user id and a name, with a row level security policy that only lets a user read and write their own rows. The evidence bucket has matching policies on a folder named after the user id.",
+          },
+          {
+            title: "Quality gates on every push",
+            text: "Strict TypeScript, ESLint with zero warnings allowed, a Prettier check, the tests and the build all run in CI on every push and pull request. The build works with empty Supabase variables, which is how local mode is built.",
+          },
+        ],
+        result: [
+          "Fourteen pages: dashboard, users, organisation, assets, threats, risks, audit checklist, evidence, compliance, findings, an assistant, the report, settings and docs.",
+          "43 unit tests in 8 files (counted from the files, not run): the four engines, HTML escaping, the local storage adapter on a fake IndexedDB, role-based page access and the assistant's knowledge-base search.",
+          "Each vulnerability category is mapped to real ISO/IEC 27001:2022 Annex A and NIST CSF 2.0 control identifiers.",
+          "Three architecture decision records and an architecture document in the repo.",
+        ],
+        limits: [
+          "Likelihood and impact are default values stored with each catalogue entry. They aren't assessed for each organisation, so the risk scores are a starting point, not a real assessment.",
+          "Risks are picked from a fixed catalogue of 19 web application vulnerabilities instead of being built from free-form threat scenarios, so it follows OCTAVE Allegro's asset-first idea, not the full method.",
+          "Roles only change what the interface shows. The database separates users by sign-in, not by role, and has no role column.",
+          "Each account has its own private workspace, so one assessment can't be shared between several accounts. The Users page is a list inside one workspace.",
+          "Evidence files go into a public Storage bucket and are linked by public URL. The paths include the user's id and a timestamp, which are hard to guess, but anyone who has a link can open the file.",
+          "In local mode, passwords are stored in the browser as plain SHA-256 hashes without a salt.",
+        ],
+      },
     },
     {
       id: 13,
