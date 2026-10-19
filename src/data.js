@@ -126,6 +126,77 @@ export const data = {
       },
     },
     {
+      id: 14,
+      featured: true,
+      title: "Sultan Arcade",
+      subtitle: "Mini Games with Weekly Leaderboards",
+      role: "Sole developer (AI-assisted)",
+      period: "Oct 2026 – Present",
+      context: "Personal project, link in my Instagram bio",
+      summary:
+        "Ten browser mini games: five score games with weekly leaderboards and a daily challenge, plus chess, a stickman fighter, soccer, a samurai duel and 8-ball that can be played online with the server as referee.",
+      result: "Live, installable as a PWA, with other players' scores on the weekly leaderboard.",
+      tech: ["JavaScript", "Canvas", "Cloudflare Workers", "Supabase", "PWA", "Durable Objects", "WebSocket", "PostgreSQL"],
+      github: null, // repo is private
+      image: "/previews/sultan-arcade.webp",
+      demo: "https://sultan-arcade.pages.dev",
+      // Case study sourced from the sultan-arcade repo: README, supabase/setup.sql, server/worker.js,
+      // server/shared.js, server/realtime-room.js, server/wrangler.toml, keepalive/worker.js,
+      // scripts/check-precache.mjs, public/_headers, public/sw.js and the commit history (Oct 2026).
+      caseStudy: {
+        problem:
+          "The games sit behind a link in an Instagram bio, so they have to open at once, work on a phone with nothing to install, and give people a reason to come back. Leaderboards reset every Monday, so everyone starts from zero each week.",
+        flow: [
+          "Five score games (stacking blocks, a piano-tiles style game, a gravity flipper, a track runner and a mosquito swatter) run on a canvas in the browser. Sound is made with Web Audio, so there are no sound files.",
+          "When a round ends, the score goes to the database through a function call. The function checks the game, the score range and who owns the name before it saves anything.",
+          "Names are claimed per phone: the first phone to use a name keeps it, proven by a random token that only exists on that phone. The database stores a hash of the token.",
+          "Each day one of the five games is the daily challenge. The date seeds the level, so everyone gets the same one, and the database decides which game counts for that day.",
+          "Chess, the stickman fighter, soccer, the samurai duel and 8-ball can be played against a bot, online, or (all but the samurai duel) on one phone. In the real-time games the server runs the match at 60 simulation steps a second and sends snapshots 30 times a second, and phones only send their inputs. Chess moves and 8-ball shots are run on the server too.",
+          "The site can be installed and works offline for the score games and for chess against a bot or on one phone. Scores and online play need a connection.",
+        ],
+        decisions: [
+          {
+            title: "One simulation for the phone and the server",
+            text: "The physics and rules of the stickman fighter, soccer, the samurai duel and 8-ball live in files that both the browser and the server import. The 8-ball simulation only uses addition, subtraction, multiplication, division and square roots, so it gives the same result in Chrome, in Safari and on the server.",
+          },
+          {
+            title: "The server is the referee",
+            text: "In online matches a phone sends its inputs as one number, capped per connection, and the server works out health, hits, the ball and goals. That can't be faked from dev tools. Chess moves are checked for legality, turn and seat on the server, and a room only accepts connections from the site's own origin.",
+          },
+          {
+            title: "The database is only reachable through functions",
+            text: "The tables have row level security on, and direct access is removed from the public roles. Visitors can only call a short list of functions that check every input, and the helper functions sit in a schema that isn't exposed to the internet.",
+          },
+          {
+            title: "Limit by IP without storing IPs",
+            text: "Score submissions are limited to 60 per 10 minutes and new names to 10 per hour for each IP. Only a hash of the IP is stored, and those records are deleted after a day.",
+          },
+          {
+            title: "Refuse to deploy a broken offline cache",
+            text: "The offline version loads from a precache list. A small script compares that list with the files in the public folder and fails the deploy if a file is missing or if the list names a file that doesn't exist.",
+          },
+          {
+            title: "Keep the free database awake",
+            text: "Supabase's free plan pauses a project after 7 days without activity, so a small Cloudflare Worker on a daily schedule calls the database once a day.",
+          },
+        ],
+        result: [
+          "Ten games from one link: five score games, and five that can be played against a bot, online or, for most of them, on one phone.",
+          "Live at sultan-arcade.pages.dev, with other players' scores on the weekly leaderboard.",
+          "Weekly and all-time leaderboards, a daily challenge, score cards sized for Instagram stories, and a link that challenges a friend to beat a score.",
+          "The repository's 19 commits run from 17 to 19 October 2026.",
+        ],
+        limits: [
+          "Scores come from the player's phone, so someone technical can still submit a fake score under their own name. The database caps the score per game and limits submissions, but it can't replay the game.",
+          "There are no automated tests. The simulations are deterministic, so they would be easy to test, but nothing does it yet.",
+          "Name ownership is only checked for the leaderboard. In chess and the real-time games anyone can use any name.",
+          "Online matches draw the server's picture without prediction on the phone, so a weak connection shows up as a short delay or the opponent jumping.",
+          "Moderation is manual: removing a score or freeing a name means running SQL in the Supabase dashboard.",
+          "It runs on free plans (Supabase and Cloudflare), and the source repository is private.",
+        ],
+      },
+    },
+    {
       id: 10,
       featured: true,
       title: "SaringSini",
