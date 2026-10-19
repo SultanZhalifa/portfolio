@@ -523,14 +523,6 @@ export default function Projects() {
           object-fit: cover;
           object-position: top;
           display: block;
-          filter: grayscale(100%) contrast(1.02);
-          transition: filter 0.5s var(--ease-out), transform 0.6s var(--ease-out);
-        }
-        .featured-card:hover .project-preview-img,
-        .project-preview-frame:hover .project-preview-img,
-        .project-preview-frame:focus-visible .project-preview-img {
-          filter: grayscale(0%) contrast(1);
-          transform: scale(1.02);
         }
         .project-preview-frame:focus-visible { outline: 2px solid #ededed; outline-offset: -2px; }
 
