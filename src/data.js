@@ -479,7 +479,7 @@ export const data = {
       context: "Freelance service — Cikarang",
       summary:
         "One-page sites for small businesses that still take orders by chat. Customers see the prices and pick items or a time slot, and the page opens WhatsApp with one complete order message, total included. No app to install.",
-      result: "4 working demo pages: a food stall, a motorbike workshop, a laundry, and a boarding house. The business names are made up, but every order button works.",
+      result: "5 working demo pages: a noodle shop, a food stall, a motorbike workshop, a laundry, and a boarding house, plus a free selling-price calculator. The business names are made up, but every order button works.",
       tech: ["HTML", "CSS", "JavaScript", "WhatsApp click-to-chat", "Cloudflare Pages"],
       github: null,
       demo: "https://websultan.pages.dev/",
