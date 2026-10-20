@@ -416,7 +416,7 @@ export const data = {
       demo: null,
       // Case study sourced from the srmaudit-octave-allegro repo: README, docs/ARCHITECTURE.md,
       // docs/adr, schema.sql, src/services/engines/*, src/data/*, src/services/storage/*, tests/ and
-      // .github/workflows/ci.yml.
+      // .github/workflows/ci.yml, and the changes merged to the repo in October 2026.
       caseStudy: {
         problem:
           "A security risk assessment is a chain of linked steps: what the organisation is, which assets matter, what could go wrong with them, and what to check afterwards. SRMAudit puts that chain into one tool, built around the asset-first approach of OCTAVE Allegro, so each step feeds the next and the work ends in a report.",
@@ -424,7 +424,7 @@ export const data = {
           "Sign in. If Supabase keys are set, accounts and data live in Supabase. If not, the app runs in a local mode with accounts and data kept in the browser (IndexedDB). The features are the same in both modes.",
           "Describe the organisation: its sector, size and main system type. An exposure score from 1 to 10 is worked out from those three inputs.",
           "List the assets and rate each one High, Medium or Low for confidentiality, integrity and availability. The weights 3, 2 and 1 are added up to a criticality from 3 to 9: 8 and up is Critical, 6 and up High, 4 and up Medium.",
-          "For each asset, pick vulnerabilities from a catalogue of 19 entries in 8 categories (injection, broken authentication, sensitive data exposure and so on). Each pick becomes a risk scored as likelihood times impact: 16 and up is Critical, 10 and up High, 5 and up Medium.",
+          "For each asset, pick vulnerabilities from a catalogue of 19 entries in 8 categories (injection, broken authentication, sensitive data exposure and so on). Each pick becomes a risk scored as likelihood times impact, each from 1 to 5: 16 and up is Critical, 10 and up High, 5 and up Medium. Both numbers start from a default stored with the vulnerability, and the user can change them for each risk. The ratings are kept when the assessment is run again.",
           "An audit checklist is generated with one item per unique vulnerability, each tied to ISO/IEC 27001:2022 Annex A and NIST CSF 2.0 controls, plus five baseline controls. Each item is marked compliant, partially, non-compliant, pending or not applicable. Evidence files are uploaded on their own page.",
           "The compliance score is the compliant items plus half of the partial ones, divided by the items that apply, as a percentage. Pending and not applicable items are left out. 85 and up is Compliant and 60 and up is Needs Improvement.",
           "Findings come from risks scored 10 or more and from every non-compliant control, and the assessment can be exported as a PDF report. An assistant answers questions with the user's own Gemini or OpenRouter key, or from a built-in knowledge base when there is no key.",
@@ -447,8 +447,12 @@ export const data = {
             text: "Code is split into core, data, services, features and app, and a layer may only import from the ones before it. Each page is a self-contained feature, and features never import each other.",
           },
           {
+            title: "Upgrade old password hashes when the user signs in",
+            text: "Accounts in local mode first stored a plain SHA-256 of the password. New accounts now use PBKDF2-SHA256 with a random salt and 600,000 iterations, saved with the account. An old account still signs in, and its record is rewritten with a salted hash on that sign-in, because that is the only moment the password is available.",
+          },
+          {
             title: "Rows that belong to one user",
-            text: "All audit data sits in one table keyed by user id and a name, with a row level security policy that only lets a user read and write their own rows. The evidence bucket has matching policies on a folder named after the user id.",
+            text: "All audit data sits in one table keyed by user id and a name, with a row level security policy that only lets a user read and write their own rows. The evidence bucket is private, with matching policies on a folder named after the user id, and files are opened through signed links that expire after an hour. Only the file's path is saved, never a link.",
           },
           {
             title: "Quality gates on every push",
@@ -457,17 +461,18 @@ export const data = {
         ],
         result: [
           "Fourteen pages: dashboard, users, organisation, assets, threats, risks, audit checklist, evidence, compliance, findings, an assistant, the report, settings and docs.",
-          "43 unit tests in 8 files (counted from the files, not run): the four engines, HTML escaping, the local storage adapter on a fake IndexedDB, role-based page access and the assistant's knowledge-base search.",
+          "79 unit tests in 12 files, run on Node 20 and Node 26: the four engines, rating a risk, HTML escaping, the local storage adapter (including salted passwords and upgrading an old hash) on a fake IndexedDB, the Supabase adapter against a fake client, role-based page access and the assistant.",
           "Each vulnerability category is mapped to real ISO/IEC 27001:2022 Annex A and NIST CSF 2.0 control identifiers.",
+          "A later pass fixed what the first version got wrong: a public evidence bucket, unsalted password hashes, the Gemini key sent in a URL, an outdated setup guide, and development dependencies with known vulnerabilities. npm audit now reports none.",
           "Three architecture decision records and an architecture document in the repo.",
         ],
         limits: [
-          "Likelihood and impact are default values stored with each catalogue entry. They aren't assessed for each organisation, so the risk scores are a starting point, not a real assessment.",
+          "Likelihood and impact start from a default for each catalogue entry. They can be changed per risk, but nothing helps the user choose: the Step 1 measurement criteria are saved as notes and don't change any score.",
           "Risks are picked from a fixed catalogue of 19 web application vulnerabilities instead of being built from free-form threat scenarios, so it follows OCTAVE Allegro's asset-first idea, not the full method.",
           "Roles only change what the interface shows. The database separates users by sign-in, not by role, and has no role column.",
           "Each account has its own private workspace, so one assessment can't be shared between several accounts. The Users page is a list inside one workspace.",
-          "Evidence files go into a public Storage bucket and are linked by public URL. The paths include the user's id and a timestamp, which are hard to guess, but anyone who has a link can open the file.",
-          "In local mode, passwords are stored in the browser as plain SHA-256 hashes without a salt.",
+          "In local mode the data in the browser is not encrypted, so the account is only a convenience lock for that browser.",
+          "Cloud mode, including the private bucket and the signed links, has only been tested against a fake Supabase client, not against a real project.",
         ],
       },
     },
