@@ -281,7 +281,7 @@ export default function CaseStudyPage({ project }) {
           margin: clamp(32px, 5vw, 56px) 0 0; border: 1px solid #252525;
           border-radius: 12px; overflow: hidden; background: #131313;
         }
-        .cs-figure img { display: block; width: 100%; height: auto; }
+        .cs-figure img { display: block; width: 100%; height: auto; filter: brightness(0.9); }
 
         .cs-layout { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: clamp(40px, 6vw, 72px); }
         .cs-toc { display: none; }
