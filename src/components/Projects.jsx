@@ -523,6 +523,8 @@ export default function Projects() {
           object-fit: cover;
           object-position: top;
           display: block;
+          /* Many screenshots are almost white and glare on a dark page; 10% darker is enough to calm them. */
+          filter: brightness(0.9);
         }
         .project-preview-frame:focus-visible { outline: 2px solid #ededed; outline-offset: -2px; }
 
