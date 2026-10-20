@@ -146,20 +146,27 @@ export default function Contact() {
             transition={{ duration: 0.45 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
           >
-            {/* CV Download / View Card */}
-            <a
-              href="/Sultan_CV.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="contact-item contact-item-link"
-              style={{ borderColor: '#2b2b2b', background: '#121212' }}
-            >
-              <div className="contact-icon-box"><FiFileText size={14} /></div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</div>
-                <div style={{ fontSize: '0.85rem', color: '#ededed', fontWeight: 600 }}>Download Sultan_CV.pdf</div>
-              </div>
-            </a>
+            {/* CV downloads: English and Indonesian */}
+            {[
+              { href: '/Sultan_CV.pdf', label: 'Curriculum Vitae · EN', text: 'Download CV (English)', lang: 'en' },
+              { href: '/Sultan_CV_ID.pdf', label: 'Curriculum Vitae · ID', text: 'Unduh CV (Bahasa Indonesia)', lang: 'id' },
+            ].map(({ href, label, text, lang }) => (
+              <a
+                key={href}
+                href={href}
+                hrefLang={lang}
+                target="_blank"
+                rel="noreferrer"
+                className="contact-item contact-item-link"
+                style={{ borderColor: '#2b2b2b', background: '#121212' }}
+              >
+                <div className="contact-icon-box"><FiFileText size={14} /></div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#808080', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>{label}</div>
+                  <div lang={lang} style={{ fontSize: '0.85rem', color: '#ededed', fontWeight: 600 }}>{text}</div>
+                </div>
+              </a>
+            ))}
 
             {/* Contacts list */}
             {contacts.map(({ Icon, label, value, href, copy }) => (
