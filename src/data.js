@@ -405,7 +405,7 @@ export const data = {
       featured: true,
       title: "SRMAudit",
       subtitle: "OCTAVE Allegro Risk Assessment Tool",
-      role: "Full-Stack Developer",
+      role: "Sole developer (AI-assisted)",
       period: "Jun 2026 — Present",
       context: "Security Risk Management mini project",
       summary:
