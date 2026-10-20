@@ -39,7 +39,7 @@ Project fields worth knowing:
 - Preview images are `public/og/<slug>.jpg` (1200×630). They are not made during the build: after adding a case study or changing a title, subtitle or screenshot, run `npm run og-images` (uses the local Chrome; set `CHROME_PATH` if it isn't in the default macOS location) and commit the images. A case study without one falls back to `og-image.png`.
 - Screenshots live in `public/previews/<github-repo-name>.webp` (1000×625). Use `image` for a custom path, or `screenshot: false` if there's no real screenshot yet. A featured card without one can show `highlight: { value, label }` instead.
 
-The resume is `public/Sultan_CV.pdf`; replace the file to update the download.
+The resume is `public/Sultan_CV.pdf` (English) and `public/Sultan_CV_ID.pdf` (Indonesian); replace the files to update the downloads. Both are linked from the Contact section, and the Hero button opens the English one.
 
 ## Contact form setup
 
