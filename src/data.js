@@ -461,13 +461,13 @@ export const data = {
         ],
         result: [
           "Fourteen pages: dashboard, users, organisation, assets, threats, risks, audit checklist, evidence, compliance, findings, an assistant, the report, settings and docs.",
-          "79 unit tests in 12 files, run on Node 20 and Node 26: the four engines, rating a risk, HTML escaping, the local storage adapter (including salted passwords and upgrading an old hash) on a fake IndexedDB, the Supabase adapter against a fake client, role-based page access and the assistant.",
+          "83 unit tests in 12 files, run on Node 20 and Node 26: the four engines, rating a risk, HTML escaping, the local storage adapter (including salted passwords and upgrading an old hash) on a fake IndexedDB, the Supabase adapter against a fake client, role-based page access and the assistant.",
           "Each vulnerability category is mapped to real ISO/IEC 27001:2022 Annex A and NIST CSF 2.0 control identifiers.",
           "A later pass fixed what the first version got wrong: a public evidence bucket, unsalted password hashes, the Gemini key sent in a URL, an outdated setup guide, and development dependencies with known vulnerabilities. npm audit now reports none.",
           "Three architecture decision records and an architecture document in the repo.",
         ],
         limits: [
-          "Likelihood and impact start from a default for each catalogue entry. They can be changed per risk, but nothing helps the user choose: the Step 1 measurement criteria are saved as notes and don't change any score.",
+          "Likelihood and impact start from a default for each catalogue entry. They can be changed per risk, and the notes the user wrote in Step 1 about what low, medium and high impact mean are shown above the register. But nothing suggests a rating and those notes change no score.",
           "Risks are picked from a fixed catalogue of 19 web application vulnerabilities instead of being built from free-form threat scenarios, so it follows OCTAVE Allegro's asset-first idea, not the full method.",
           "Roles only change what the interface shows. The database separates users by sign-in, not by role, and has no role column.",
           "Each account has its own private workspace, so one assessment can't be shared between several accounts. The Users page is a list inside one workspace.",
