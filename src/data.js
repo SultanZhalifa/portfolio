@@ -7,7 +7,7 @@ export const data = {
   subtitle: "Software Engineer Intern · Full-Stack & AI Developer",
   availability: "Open to part-time & remote roles",
   summary:
-    "Informatics student (Cyber Security concentration) and Software Engineer Intern at Kementerian PANRB. I mostly build web, mobile, and AI projects on my own, from planning to deployment. Open to part-time or remote roles.",
+    "Informatics student (Cyber Security concentration) and Software Engineer Intern at Kementerian PANRB. I mostly build web, mobile, and AI projects on my own, from planning to deployment.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
@@ -131,7 +131,7 @@ export const data = {
       title: "Sultan Arcade",
       subtitle: "Mini Games with Weekly Leaderboards",
       role: "Sole developer (AI-assisted)",
-      period: "Oct 2026 – Present",
+      period: "Oct 2026 — Present",
       context: "Personal project, link in my Instagram bio",
       summary:
         "Ten browser mini games: five score games with weekly leaderboards and a daily challenge, plus chess, a stickman fighter, soccer, a samurai duel and 8-ball that can be played online with the server as referee.",
@@ -206,7 +206,7 @@ export const data = {
       context: "Competition Entry — #JuaraVibeCoding 2026",
       summary:
         "PWA that checks text, screenshots, and links for hoaxes with Gemini, then drafts polite replies in 4 regional languages (Javanese, Sundanese, Minangkabau, Batak) for family group chats.",
-      result: "Rate limiting (6 requests/min), CSP headers, and a non-root Docker image set up for Google Cloud Run.",
+      result: "About 120 unit and integration tests plus 80 browser tests in CI. Open source (MIT), with one outside contribution merged.",
       tech: ["Node.js", "Express", "Gemini AI", "PWA", "Docker", "Google Cloud Run"],
       github: "https://github.com/SultanZhalifa/SaringSini",
       demo: null,
@@ -276,7 +276,7 @@ export const data = {
       context: "Hackathon — AstraPay 2026",
       summary:
         "Explainable credit-scoring prototype that turns QRIS transaction history into a score (AstraScore) and tiered micro-loans for small merchants, repaid automatically from sales.",
-      result: "41 unit and edge-case tests (20 unit, 21 edge-case) across 5 test personas.",
+      result: "41 tests (20 unit, 21 edge cases), run against 5 test personas.",
       tech: ["Next.js", "TypeScript", "Vitest", "QRIS"],
       github: "https://github.com/SultanZhalifa/naik-kelas",
       demo: null,
@@ -342,7 +342,7 @@ export const data = {
       context: "Android app",
       summary:
         "Offline-first book management app with reading progress, ISBN auto-fill from the Google Books API, and PDF/JSON export.",
-      result: "51 unit tests (JUnit 4, MockK, Turbine) run on GitHub Actions on every push.",
+      result: "Works without a connection; only the ISBN lookup needs internet. Tested with JUnit 4, MockK and Turbine.",
       screenshot: false,
       highlight: { value: "51", label: "unit tests on every push" },
       tech: ["Kotlin", "MVVM", "Room", "Coroutines", "Flow", "JUnit 4", "MockK", "Turbine", "GitHub Actions CI"],
@@ -411,7 +411,7 @@ export const data = {
       context: "Security Risk Management mini project",
       summary:
         "Web platform for running OCTAVE Allegro risk assessments step by step. Works in cloud mode (Supabase auth with row-level security) or fully offline (IndexedDB).",
-      result: "CI runs typecheck, lint, tests, and build.",
+      result: "83 unit tests. CI runs typecheck, lint, tests and build on every push.",
       tech: ["TypeScript", "Vite", "Supabase", "IndexedDB", "Vitest", "ESLint", "GitHub Actions CI"],
       github: "https://github.com/SultanZhalifa/srmaudit-octave-allegro",
       demo: null,
@@ -660,7 +660,7 @@ export const data = {
     },
     {
       company: "Freelance",
-      role: "Freelance Software Developer, independent projects (web, mobile, AI)",
+      role: "Software Developer (web, mobile, AI)",
       period: "Jan 2025 — Present",
       location: "Remote",
       points: [
