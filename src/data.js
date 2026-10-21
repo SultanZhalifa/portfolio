@@ -337,6 +337,7 @@ export const data = {
       featured: true,
       title: "MiniBookLibrary",
       subtitle: "Offline-First Android Book App",
+      role: "Sole developer (AI-assisted)",
       period: "Dec 2025 — Present",
       context: "Android app",
       summary:
