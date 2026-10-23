@@ -33,7 +33,7 @@ export const data = {
   skills: [
     {
       category: "Programming",
-      items: ["TypeScript", "JavaScript", "Python", "Kotlin", "Dart", "Java", "SQL", "C", "Haskell"],
+      items: ["TypeScript", "JavaScript", "Python", "Kotlin", "Dart", "Java", "SQL"],
     },
     {
       category: "Web & Mobile",
