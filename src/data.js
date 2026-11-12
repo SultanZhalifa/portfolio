@@ -7,14 +7,17 @@ export const data = {
   subtitle: "Software Engineer Intern · Full-Stack & AI Developer",
   availability: "Open to part-time & remote roles",
   summary:
-    "Informatics student (Cyber Security concentration) and Software Engineer Intern at Kementerian PANRB. I mostly build web, mobile, and AI projects on my own, from planning to deployment.",
+    "I build web, mobile, and AI apps from planning to deployment, mostly on my own. Recent work: a warehouse pest detector selected in Kawan Lama Group's AI challenge, an open-source hoax checker with about 200 automated tests, and ten browser games, five of them playable online.",
   email: "sultanzhalifunnasmusyaffa@gmail.com",
   github: "https://github.com/SultanZhalifa",
   linkedin: "https://linkedin.com/in/sultanzhalifunnasmusyaffa",
 
-  now: [
-    "Software Engineer Intern at Kementerian PANRB, Government Digital Transformation (Jul 2026 — Jan 2027, expected)",
-    "Open to part-time and remote roles now. Full-time after I graduate (Dec 2027).",
+  // The strip under the hero: what a recruiter checks first.
+  glance: [
+    { label: "Now", value: "Software Engineer Intern", detail: "Kementerian PANRB, Jul 2026 to Jan 2027" },
+    { label: "Education", value: "Informatics, Cyber Security", detail: "President University, graduating Dec 2027" },
+    { label: "Main stack", value: "TypeScript, React, Next.js", detail: "Also Node.js, Python and Kotlin" },
+    { label: "Available", value: "Part-time or remote", detail: "Full-time after Dec 2027" },
   ],
 
   education: [
@@ -46,16 +49,16 @@ export const data = {
       category: "AI & Database",
       items: [
         "Gemini API", "Claude API", "Vercel AI SDK", "YOLO11", "OpenCV", "RAG",
-        "PostgreSQL", "MySQL", "MongoDB", "SQLite", "Prisma", "Supabase",
+        "PostgreSQL", "SQLite", "Prisma", "Supabase",
       ],
     },
     {
       category: "Tools & Testing",
-      items: ["Git", "GitHub Actions", "Docker", "Linux", "Vitest", "Playwright", "JUnit", "MockK"],
+      items: ["Git", "GitHub Actions", "Docker", "Cloudflare Workers", "Linux", "Vitest", "Playwright", "JUnit", "MockK"],
     },
     {
       category: "Security",
-      items: ["Vulnerability assessment", "Network security", "Risk assessment (OCTAVE Allegro)"],
+      items: ["Vulnerability assessment", "Network security", "Risk assessment (OCTAVE Allegro)", "Authentication", "RBAC"],
     },
   ],
 
@@ -63,7 +66,7 @@ export const data = {
 
   // Order matters. `featured: true` projects show as cards with a screenshot,
   // the rest go in the compact list below them. `ai: true` means the app calls
-  // an AI model or API; the hero stat and the "AI & Vision" filter both read it.
+  // an AI model or API; the "AI & Vision" filter reads it.
   // `image` overrides the default /previews/<github-repo-name>.webp screenshot;
   // `screenshot: false` hides it (no real screenshot yet), and `highlight`
   // shows a key number in its place on featured cards.

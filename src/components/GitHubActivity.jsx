@@ -33,12 +33,8 @@ function timeAgo(iso) {
 }
 
 async function fetchGitHub() {
-  const [userRes, reposRes] = await Promise.all([
-    fetch(`https://api.github.com/users/${GH_USER}`),
-    fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=pushed`),
-  ]);
-  if (!userRes.ok || !reposRes.ok) throw new Error('GitHub API error');
-  const user = await userRes.json();
+  const reposRes = await fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=pushed`);
+  if (!reposRes.ok) throw new Error('GitHub API error');
   const repos = await reposRes.json();
   if (!Array.isArray(repos)) throw new Error('Unexpected repos payload');
 
@@ -48,7 +44,6 @@ async function fetchGitHub() {
     const name = r.name.toLowerCase();
     return !r.fork && name !== GH_USER.toLowerCase() && !EXCLUDED_REPOS.has(name);
   });
-  const totalStars = owned.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
   const recent = owned
     .slice()
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
@@ -61,12 +56,7 @@ async function fetchGitHub() {
       pushed_at: r.pushed_at,
     }));
 
-  return {
-    repos: owned.length,
-    followers: user.followers || 0,
-    totalStars,
-    recent,
-  };
+  return { recent };
 }
 
 function readFreshCache() {
@@ -117,10 +107,7 @@ export default function GitHubActivity() {
     );
   }
 
-  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
-  const summary = stats
-    ? `${plural(stats.repos, 'repo')} · ${plural(stats.totalStars, 'star')} · ${plural(stats.followers, 'follower')}`
-    : 'Loading…';
+  const summary = stats ? 'Recently updated' : 'Loading…';
 
   return (
     <motion.div

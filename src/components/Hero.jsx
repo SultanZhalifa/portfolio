@@ -1,41 +1,32 @@
 import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiFileText } from 'react-icons/fi';
 import { data } from '../data';
 
-// Computed from the data so they can't drift from the project and certificate lists.
-const stats = [
-  { value: 'Dec 2027', label: 'Graduation (expected)' },
-  { value: data.projects.length, label: 'Projects Built' },
-  { value: data.projects.filter(p => p.ai).length, label: 'AI-Integrated Apps' },
-  { value: data.certifications.reduce((n, c) => n + c.items.length, 0), label: 'Certifications' },
-];
-
-// Plain numbers: they're facts to read, not something to watch count up.
-function StatItem({ value, label }) {
-  const isNum = typeof value === 'number';
+// Short facts under the hero, from data.glance.
+function GlanceItem({ label, value, detail }) {
   return (
     <div className="hero-stat-cell">
-      <div
-        translate="no"
-        style={{
-          fontFamily: 'Space Grotesk',
-          fontSize: isNum ? 'clamp(1.75rem, 3.2vw, 2.5rem)' : 'clamp(1.35rem, 2.6vw, 2rem)',
-          fontWeight: 800,
-          color: '#ededed',
-          letterSpacing: '-0.035em',
-          lineHeight: isNum ? 1 : 1.25,
-        }}
-      >
-        {value}
-      </div>
       <div style={{
         fontFamily: 'JetBrains Mono',
         fontSize: '0.72rem',
         color: '#888888',
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
-        marginTop: '8px',
+        marginBottom: '8px',
       }}>
         {label}
+      </div>
+      <div style={{
+        fontFamily: 'Space Grotesk',
+        fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
+        fontWeight: 700,
+        color: '#ededed',
+        letterSpacing: '-0.015em',
+        lineHeight: 1.3,
+      }}>
+        {value}
+      </div>
+      <div style={{ fontSize: '0.875rem', color: '#a0a0a0', lineHeight: 1.5, marginTop: '4px' }}>
+        {detail}
       </div>
     </div>
   );
@@ -199,7 +190,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Stats Counter Strip */}
+      {/* At-a-glance strip */}
       <div
         style={{
           borderTop: '1px solid #212121',
@@ -211,8 +202,8 @@ export default function Hero() {
       >
         <div className="container">
           <div className="hero-stats-grid">
-            {stats.map(({ value, label }) => (
-              <StatItem key={label} value={value} label={label} />
+            {data.glance.map((item) => (
+              <GlanceItem key={item.label} {...item} />
             ))}
           </div>
         </div>
