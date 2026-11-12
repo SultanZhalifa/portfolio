@@ -3,7 +3,6 @@ import { MotionConfig } from 'framer-motion';
 import './index.css';
 import Navbar         from './components/Navbar';
 import Hero           from './components/Hero';
-import Now            from './components/Now';
 import Skills         from './components/Skills';
 import Projects       from './components/Projects';
 import Experience     from './components/Experience';
@@ -52,7 +51,6 @@ export default function App() {
         {/* Stays mounted behind a case study so filters, search and scroll position survive the round trip. */}
         <div hidden={Boolean(project)}>
           <Hero />
-          <Now />
           <Projects />
           <Experience />
           <Skills />
