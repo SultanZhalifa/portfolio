@@ -491,7 +491,7 @@ export const data = {
       result: "5 working demo pages: a noodle shop, a food stall, a motorbike workshop, a laundry, and a boarding house, plus a free selling-price calculator. The business names are made up, but every order button works.",
       tech: ["HTML", "CSS", "JavaScript", "WhatsApp click-to-chat", "Cloudflare Pages"],
       github: null,
-      demo: "https://websultan.pages.dev/",
+      demo: "https://websultan.pages.dev/umkm/#contoh",
       image: "/previews/umkm-wa-order.webp",
     },
     {
@@ -670,8 +670,12 @@ export const data = {
         "Build websites (React, Next.js), mobile apps (Flutter, Kotlin), and small AI tools for clients from my campus and school.",
         "Handle each project from figuring out what the client needs to deployment and fixes after launch.",
         "Since Oct 2026, offering landing pages to small businesses around Cikarang (food stalls, motorbike workshops, laundries, boarding houses). Customers pick items or a time slot, and the page sends a ready-to-read order to the owner's WhatsApp.",
+        "Since Nov 2026, taking freelance work through my own services site: websites, web apps, mobile apps, AI features, and basic web security checks.",
       ],
-      links: [{ label: "Demo pages", href: "https://websultan.pages.dev/" }],
+      links: [
+        { label: "Services site", href: "https://websultan.pages.dev/en/" },
+        { label: "Demo pages", href: "https://websultan.pages.dev/umkm/#contoh" },
+      ],
     },
   ],
 
